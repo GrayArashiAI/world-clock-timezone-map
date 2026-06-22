@@ -40,10 +40,10 @@ As coordenadas usam o formato `latitude,longitude`. Use valores negativos para s
 
 #### Informar todos os dados
 
-Usando Mumbai como exemplo, informe o fuso horário, o nome e as coordenadas:
+Usando Bombaim como exemplo, informe o fuso horário, o nome e as coordenadas:
 
 ```json
-{"timeZone":"Asia/Kolkata","name":"Mumbai","lat":19.076,"lon":72.8777}
+{"timeZone":"Asia/Kolkata","name":"Bombaim","lat":19.076,"lon":72.8777}
 ```
 
 #### Informar apenas o fuso horário
@@ -74,7 +74,7 @@ Separe os objetos de cidade com vírgulas:
 {"timeZone": "Asia/Dubai"},
 {
 	"timeZone": "Asia/Kolkata",
-	"name": "Mumbai",
+	"name": "Bombaim",
 	"lat": 18.981050,
 	"lon": 72.826784
 },

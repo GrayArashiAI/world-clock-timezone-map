@@ -74,7 +74,7 @@
 {"timeZone": "Asia/Dubai"},
 {
 	"timeZone": "Asia/Kolkata",
-	"name": "Mumbai",
+	"name": "Мумбаи",
 	"lat": 18.981050,
 	"lon": 72.826784
 },
