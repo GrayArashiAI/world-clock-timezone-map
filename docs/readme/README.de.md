@@ -2,7 +2,7 @@
 
 # World Clock Timezone Map Wallpaper
 
-Eine offline nutzbare Weltzeituhr für Wallpaper Engine, die Ortszeiten, Tag und Nacht sowie den aktuellen Sonnen-Terminator auf einer Mercator-Weltkarte darstellt.
+Eine Weltzeituhr für Wallpaper Engine, die Ortszeiten, Tag und Nacht sowie den aktuellen Sonnen-Terminator auf einer Mercator-Weltkarte darstellt.
 
 ![Demo von World Clock Timezone Map Wallpaper](../../assets/world-map-timezone-map-preview.gif)
 
@@ -12,13 +12,15 @@ Eine offline nutzbare Weltzeituhr für Wallpaper Engine, die Ortszeiten, Tag und
 - IANA-Zeitzonen und Sommerzeit
 - Eigene, voreingestellte und per JSON definierte Städte
 - Atlantik- und Pazifik-zentrierte Kartenansicht
-- Neun Oberflächensprachen und vollständiger Offline-Betrieb
+- Neun Oberflächensprachen
 
 ## Installation
 
 [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3747734053)
 
 ## Verwendung
+
+Manuell hinzugefügte Zeitzonen müssen in der [Städteliste von IANA tzdb 2026b](https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab) enthalten sein. Dieses Projekt verwendet die IANA-Version 2026b.
 
 ### Eigene Stadt einstellen
 

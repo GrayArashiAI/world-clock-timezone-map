@@ -12,6 +12,7 @@ import {
 import {
   basename,
   dirname,
+  isAbsolute,
   join,
   relative,
   resolve,
@@ -40,6 +41,20 @@ async function pathExists(path) {
     }
     throw error;
   }
+}
+
+function comparisonPath(path) {
+  return process.platform === "win32" ? path.toLowerCase() : path;
+}
+
+function containsPath(parentPath, childPath) {
+  const relation = relative(parentPath, childPath);
+  return Boolean(
+    relation
+    && relation !== ".."
+    && !relation.startsWith(`..${sep}`)
+    && !isAbsolute(relation)
+  );
 }
 
 async function readProject(path, label, allowMissing = false) {
@@ -200,8 +215,16 @@ async function replacePublishDirectory({ publishRoot, stageRoot }) {
 export async function syncPublish({ sourceRoot, publishRoot }) {
   const resolvedSourceRoot = resolve(sourceRoot);
   const resolvedPublishRoot = resolve(publishRoot);
-  if (resolvedSourceRoot.toLowerCase() === resolvedPublishRoot.toLowerCase()) {
+  const comparedSourceRoot = comparisonPath(resolvedSourceRoot);
+  const comparedPublishRoot = comparisonPath(resolvedPublishRoot);
+  if (comparedSourceRoot === comparedPublishRoot) {
     throw new Error("Development and publish directories must be different");
+  }
+  if (
+    containsPath(comparedSourceRoot, comparedPublishRoot)
+    || containsPath(comparedPublishRoot, comparedSourceRoot)
+  ) {
+    throw new Error("Development and publish directories must not overlap");
   }
 
   const sourceProjectResult = await readProject(

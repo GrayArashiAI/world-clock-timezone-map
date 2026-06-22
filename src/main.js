@@ -5,6 +5,10 @@
   const canvas = document.getElementById("mapCanvas");
   const labelLayer = document.getElementById("labelLayer");
   const ctx = canvas.getContext("2d", { alpha: true });
+  const staticCanvas = document.createElement("canvas");
+  const staticCtx = staticCanvas.getContext("2d", { alpha: true });
+  const terminatorCanvas = document.createElement("canvas");
+  const terminatorCtx = terminatorCanvas.getContext("2d", { alpha: true });
 
   const settings = {
     currentCityName: "",
@@ -22,6 +26,7 @@
 
   const runtime = {
     cities: [],
+    cityViews: [],
     language: "en",
     locale: "en-US",
     dpr: 1,
@@ -30,13 +35,24 @@
     mapRect: { x: 0, y: 0, width: 0, height: 0 },
     lastCustomWarning: "",
     lastCurrentWarning: "",
-    animationFrame: 0
+    terminatorGridKey: "",
+    terminatorGrid: null,
+    animationFrame: 0,
+    clockTimer: 0,
+    terminatorTimer: 0,
+    staticLayerDirty: true,
+    terminatorLayerDirty: true,
+    cityLayerDirty: true,
+    sceneDirty: true
   };
 
   window.wallpaperPropertyListener = {
     applyUserProperties(properties) {
       applyWallpaperProperties(properties || {});
       rebuildCities();
+      invalidateAllLayers();
+      scheduleClock();
+      scheduleTerminator();
       scheduleRender();
     }
   };
@@ -91,19 +107,21 @@
   }
 
   function rebuildCities() {
+    const localTimeZone = core.detectLocalTimeZone();
     const parsed = core.parseCustomCities(settings.customCities);
     const current = core.resolveCurrentCity({
       name: settings.currentCityName,
       coords: settings.currentCityCoords,
       timeZone: settings.currentCityTimeZone,
-      localTimeZone: core.detectLocalTimeZone()
+      localTimeZone
     });
     runtime.cities = core.resolveSelectedCities({
       currentCity: current.city,
       slots: settings.slots,
       customCities: parsed.cities,
-      localTimeZone: core.detectLocalTimeZone()
+      localTimeZone
     });
+    runtime.cityLayerDirty = true;
 
     if (current.errors.length) {
       const warningKey = JSON.stringify(current.errors);
@@ -122,7 +140,22 @@
         // カスタム都市の問題は壁紙上に出さず、開発者コンソールだけに記録します。
         console.warn("カスタム都市設定の一部を無視しました。", parsed.errors);
       }
+    } else {
+      runtime.lastCustomWarning = "";
     }
+  }
+
+  function invalidateAllLayers() {
+    runtime.staticLayerDirty = true;
+    runtime.terminatorLayerDirty = true;
+    runtime.cityLayerDirty = true;
+    runtime.sceneDirty = true;
+  }
+
+  function configureCanvas(targetCanvas, targetContext, pixelWidth, pixelHeight, scaleX, scaleY) {
+    targetCanvas.width = pixelWidth;
+    targetCanvas.height = pixelHeight;
+    targetContext.setTransform(scaleX, 0, 0, scaleY, 0, 0);
   }
 
   function resizeCanvas() {
@@ -130,23 +163,25 @@
     const width = Math.max(1, Math.floor(document.documentElement.clientWidth));
     const height = Math.max(1, Math.floor(document.documentElement.clientHeight));
     if (runtime.width === width && runtime.height === height && runtime.dpr === dpr) {
-      return;
+      return false;
     }
 
     const backingWidth = core.canvasBackingSize(width, dpr);
     const backingHeight = core.canvasBackingSize(height, dpr);
+    const scaleX = backingWidth.pixels / width;
+    const scaleY = backingHeight.pixels / height;
     runtime.width = width;
     runtime.height = height;
     runtime.dpr = dpr;
-    canvas.width = backingWidth.pixels;
-    canvas.height = backingHeight.pixels;
+    runtime.mapRect = core.coverMercatorRect(width, height);
+
+    configureCanvas(canvas, ctx, backingWidth.pixels, backingHeight.pixels, scaleX, scaleY);
+    configureCanvas(staticCanvas, staticCtx, backingWidth.pixels, backingHeight.pixels, scaleX, scaleY);
+    configureCanvas(terminatorCanvas, terminatorCtx, backingWidth.pixels, backingHeight.pixels, scaleX, scaleY);
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
-    ctx.setTransform(backingWidth.pixels / width, 0, 0, backingHeight.pixels / height, 0, 0);
-  }
-
-  function computeMapRect() {
-    runtime.mapRect = core.coverMercatorRect(runtime.width, runtime.height);
+    invalidateAllLayers();
+    return true;
   }
 
   function scheduleRender() {
@@ -159,22 +194,96 @@
     });
   }
 
-  function render() {
-    resizeCanvas();
-    computeMapRect();
-
-    const now = new Date();
-    ctx.clearRect(0, 0, runtime.width, runtime.height);
-    drawBackdrop();
-    drawMapFrame();
-    drawLand();
-    if (settings.showTerminator) {
-      drawTerminator(now);
+  function scheduleClock() {
+    if (runtime.clockTimer) {
+      clearTimeout(runtime.clockTimer);
+      runtime.clockTimer = 0;
     }
-    renderCityLayer(now);
+    if (document.hidden) {
+      return;
+    }
+
+    const delay = core.nextClockDelay(Date.now(), settings.showSeconds);
+    runtime.clockTimer = setTimeout(() => {
+      runtime.clockTimer = 0;
+      scheduleRender();
+      scheduleClock();
+    }, delay);
   }
 
-  function drawBackdrop() {
+  function scheduleTerminator() {
+    if (runtime.terminatorTimer) {
+      clearTimeout(runtime.terminatorTimer);
+      runtime.terminatorTimer = 0;
+    }
+    if (document.hidden || !settings.showTerminator) {
+      return;
+    }
+
+    const delay = core.nextTerminatorDelay(Date.now());
+    runtime.terminatorTimer = setTimeout(() => {
+      runtime.terminatorTimer = 0;
+      runtime.terminatorLayerDirty = true;
+      scheduleRender();
+      scheduleTerminator();
+    }, delay);
+  }
+
+  function handleVisibilityChange() {
+    if (document.hidden) {
+      if (runtime.clockTimer) {
+        clearTimeout(runtime.clockTimer);
+        runtime.clockTimer = 0;
+      }
+      if (runtime.terminatorTimer) {
+        clearTimeout(runtime.terminatorTimer);
+        runtime.terminatorTimer = 0;
+      }
+      return;
+    }
+
+    runtime.terminatorLayerDirty = true;
+    scheduleRender();
+    scheduleClock();
+    scheduleTerminator();
+  }
+
+  function render() {
+    resizeCanvas();
+    const now = new Date();
+    const sun = core.solarPosition(now);
+
+    if (runtime.staticLayerDirty) {
+      drawStaticLayer();
+      runtime.staticLayerDirty = false;
+      runtime.sceneDirty = true;
+    }
+    if (runtime.terminatorLayerDirty) {
+      drawTerminatorLayer(sun);
+      runtime.terminatorLayerDirty = false;
+      runtime.sceneDirty = true;
+    }
+    if (runtime.sceneDirty) {
+      composeScene();
+      runtime.sceneDirty = false;
+    }
+
+    if (runtime.cityLayerDirty) {
+      rebuildCityLayer(now, sun);
+      runtime.cityLayerDirty = false;
+    } else {
+      updateCityLayer(now, sun);
+    }
+  }
+
+  function drawStaticLayer() {
+    staticCtx.clearRect(0, 0, runtime.width, runtime.height);
+    drawBackdrop(staticCtx);
+    drawMapFrame(staticCtx);
+    drawLand(staticCtx);
+  }
+
+  function drawBackdrop(ctx) {
     const gradient = ctx.createLinearGradient(0, 0, 0, runtime.height);
     gradient.addColorStop(0, "#05080d");
     gradient.addColorStop(0.56, "#07111c");
@@ -183,7 +292,7 @@
     ctx.fillRect(0, 0, runtime.width, runtime.height);
   }
 
-  function drawMapFrame() {
+  function drawMapFrame(ctx) {
     const rect = core.viewportFillRect(runtime.width, runtime.height);
     ctx.save();
     ctx.fillStyle = "rgba(7, 16, 27, 0.58)";
@@ -217,7 +326,7 @@
     }
   }
 
-  function drawLand() {
+  function drawLand(ctx) {
     if (!mapData || !Array.isArray(mapData.features)) {
       return;
     }
@@ -261,36 +370,87 @@
     ctx.restore();
   }
 
-  function drawTerminator(date) {
-    const rect = runtime.mapRect;
-    const cellSize = core.terminatorCellSize(runtime.width, runtime.height);
+  function getTerminatorGrid(cellSize) {
+    const key = [
+      runtime.width,
+      runtime.height,
+      runtime.mapRect.x,
+      runtime.mapRect.y,
+      runtime.mapRect.width,
+      runtime.mapRect.height,
+      settings.layout,
+      cellSize
+    ].join(":");
+    if (runtime.terminatorGridKey !== key) {
+      runtime.terminatorGridKey = key;
+      runtime.terminatorGrid = core.terminatorGridCoordinates({
+        width: runtime.width,
+        height: runtime.height,
+        rect: runtime.mapRect,
+        layout: settings.layout,
+        cellSize
+      });
+    }
+    return runtime.terminatorGrid;
+  }
 
-    ctx.save();
-    ctx.imageSmoothingEnabled = false;
-    for (let y = 0; y < runtime.height; y += cellSize) {
-      for (let x = 0; x < runtime.width; x += cellSize) {
-        const geo = core.unprojectMercator({
-          x: x + cellSize / 2 - rect.x,
-          y: y + cellSize / 2 - rect.y,
-          width: rect.width,
-          layout: settings.layout
-        });
-        const cosine = core.solarCosine(geo.lat, geo.lon, date);
+  function drawTerminatorLayer(sun) {
+    terminatorCtx.clearRect(0, 0, runtime.width, runtime.height);
+    if (!settings.showTerminator) {
+      return;
+    }
+
+    const cellSize = core.terminatorCellSize(runtime.width, runtime.height);
+    const grid = getTerminatorGrid(cellSize);
+
+    terminatorCtx.save();
+    terminatorCtx.imageSmoothingEnabled = false;
+    for (const row of grid.rows) {
+      for (const column of grid.columns) {
+        const cosine = core.solarCosineFromPosition(row.lat, column.lon, sun);
         if (cosine >= 0.1) {
           continue;
         }
 
         if (cosine < 0) {
           const alpha = cosine < -0.16 ? 0.44 : core.clamp(0.2 + Math.abs(cosine) / 0.16 * 0.24, 0.2, 0.44);
-          ctx.fillStyle = `rgba(0, 3, 10, ${alpha})`;
+          terminatorCtx.fillStyle = `rgba(0, 3, 10, ${alpha})`;
         } else {
           const alpha = core.clamp((0.1 - cosine) / 0.1 * 0.11, 0.02, 0.11);
-          ctx.fillStyle = `rgba(251, 191, 102, ${alpha})`;
+          terminatorCtx.fillStyle = `rgba(251, 191, 102, ${alpha})`;
         }
-        ctx.fillRect(x, y, cellSize, cellSize);
+        terminatorCtx.fillRect(column.x, row.y, cellSize, cellSize);
       }
     }
-    ctx.restore();
+    terminatorCtx.restore();
+  }
+
+  function composeScene() {
+    ctx.clearRect(0, 0, runtime.width, runtime.height);
+    ctx.drawImage(
+      staticCanvas,
+      0,
+      0,
+      staticCanvas.width,
+      staticCanvas.height,
+      0,
+      0,
+      runtime.width,
+      runtime.height
+    );
+    if (settings.showTerminator) {
+      ctx.drawImage(
+        terminatorCanvas,
+        0,
+        0,
+        terminatorCanvas.width,
+        terminatorCanvas.height,
+        0,
+        0,
+        runtime.width,
+        runtime.height
+      );
+    }
   }
 
   function markerAvoidanceBox(point) {
@@ -303,11 +463,13 @@
     };
   }
 
-  function renderCityLayer(date) {
-    labelLayer.innerHTML = "";
+  function rebuildCityLayer(date, sun) {
+    const fragment = document.createDocumentFragment();
     const takenBoxes = [];
-    let renderedLabels = 0;
     const visibleCities = [];
+    const metrics = core.labelMetrics(settings.labelSize, runtime.width, runtime.height);
+    let renderedLabels = 0;
+    runtime.cityViews = [];
 
     runtime.cities.forEach((city) => {
       if (city.lat < core.MERCATOR_SOUTH_LIMIT || city.lat > core.MERCATOR_NORTH_LIMIT) {
@@ -323,9 +485,6 @@
     const markerBoxes = visibleCities.map((entry) => markerAvoidanceBox(entry.point));
 
     visibleCities.forEach(({ city, point }) => {
-      const daylight = core.isDaylightAt({ lat: city.lat, lon: city.lon, date });
-      const time = core.formatZonedTime(date, city.timeZone, settings.hourFormat === "24", settings.showSeconds, runtime.locale);
-      const metrics = core.labelMetrics(settings.labelSize, runtime.width, runtime.height);
       const placement = renderedLabels < 80 ? core.chooseLabelPlacement({
         screenX: point.x,
         screenY: point.y,
@@ -335,18 +494,56 @@
         takenBoxes,
         blockedBoxes: markerBoxes
       }) : null;
+      const marker = createCityMarker(point);
+      const view = {
+        city,
+        marker,
+        label: null,
+        icon: null,
+        time: null
+      };
 
-      labelLayer.appendChild(createCityMarker(point, daylight, city));
+      fragment.appendChild(marker);
       if (placement) {
+        const labelView = createCityLabel(city, placement);
+        view.label = labelView.label;
+        view.icon = labelView.icon;
+        view.time = labelView.time;
+        fragment.appendChild(labelView.label);
         renderedLabels += 1;
-        labelLayer.appendChild(createCityLabel(city, time, daylight, placement));
       }
+      updateCityView(view, date, sun);
+      runtime.cityViews.push(view);
     });
+
+    labelLayer.replaceChildren(fragment);
   }
 
-  function createCityLabel(city, timeText, daylight, placement) {
+  function updateCityLayer(date, sun) {
+    runtime.cityViews.forEach((view) => updateCityView(view, date, sun));
+  }
+
+  function updateCityView(view, date, sun) {
+    const daylight = core.solarCosineFromPosition(view.city.lat, view.city.lon, sun) > 0;
+    view.marker.className = `city-marker ${daylight ? "is-day" : "is-night"}${view.city.current ? " is-current" : ""}`;
+
+    if (!view.label) {
+      return;
+    }
+    view.label.className = `city-label ${daylight ? "is-day" : "is-night"} ${view.label.dataset.placement}`;
+    view.icon.textContent = daylight ? "☀" : "☾";
+    view.time.textContent = core.formatZonedTime(
+      date,
+      view.city.timeZone,
+      settings.hourFormat === "24",
+      settings.showSeconds,
+      runtime.locale
+    );
+  }
+
+  function createCityLabel(city, placement) {
     const label = document.createElement("div");
-    label.className = `city-label ${daylight ? "is-day" : "is-night"} place-${placement.placement}`;
+    label.dataset.placement = `place-${placement.placement}`;
     label.style.left = `${placement.x}px`;
     label.style.top = `${placement.y}px`;
 
@@ -356,20 +553,17 @@
     name.textContent = core.getCityName(city, runtime.language);
     const icon = document.createElement("span");
     icon.className = "city-icon";
-    icon.textContent = daylight ? "☀" : "☾";
     cityName.append(name, icon);
 
     const time = document.createElement("div");
     time.className = "city-time";
-    time.textContent = timeText;
 
     label.append(cityName, time);
-    return label;
+    return { label, icon, time };
   }
 
-  function createCityMarker(point, daylight, city) {
+  function createCityMarker(point) {
     const marker = document.createElement("div");
-    marker.className = `city-marker ${daylight ? "is-day" : "is-night"}${city.current ? " is-current" : ""}`;
     marker.style.left = `${point.x}px`;
     marker.style.top = `${point.y}px`;
     return marker;
@@ -381,7 +575,9 @@
     document.documentElement.dataset.labelSize = settings.labelSize;
     rebuildCities();
     window.addEventListener("resize", scheduleRender, { passive: true });
-    setInterval(scheduleRender, 1000);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    scheduleClock();
+    scheduleTerminator();
     scheduleRender();
   }
 

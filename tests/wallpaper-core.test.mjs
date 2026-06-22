@@ -13,15 +13,21 @@ const {
   labelMetrics,
   isDaylightAt,
   localeForLanguage,
+  nextClockDelay,
+  nextTerminatorDelay,
   parseIso6709Coordinate,
   parseCustomCities,
   projectMercator,
   resolveCurrentCity,
   resolveSelectedCities,
   resolveRuntimeLanguage,
+  solarCosine,
+  solarCosineFromPosition,
+  solarPosition,
   timeZoneCoordinates,
   shouldBreakLandSegment,
   terminatorCellSize,
+  terminatorGridCoordinates,
   unprojectMercator,
   viewportFillRect
 } = require("../src/wallpaper-core.js");
@@ -164,6 +170,20 @@ test("resolveSelectedCities keeps distinct cities that share one timezone", () =
   assert.deepEqual(result.map((city) => city.id), ["current", "custom-toronto-1", "london"]);
 });
 
+test("resolveSelectedCities keeps nearby but distinct cities in the same timezone", () => {
+  const customYokohama = parseCustomCities(
+    '{"timeZone":"Asia/Tokyo","name":"Yokohama","lat":35.4437,"lon":139.638}'
+  ).cities[0];
+  const result = resolveSelectedCities({
+    currentCity: { name: "Home", coords: "48.8566,2.3522", timeZone: "Europe/Paris" },
+    customCities: [customYokohama],
+    slots: ["tokyo"],
+    localTimeZone: "Europe/Paris"
+  });
+
+  assert.deepEqual(result.map((city) => city.id), ["current", "custom-yokohama-1", "tokyo"]);
+});
+
 test("resolveCurrentCity maps automatic fields to the detected local timezone", () => {
   const result = resolveCurrentCity({
     name: "",
@@ -248,6 +268,21 @@ test("resolveCurrentCity rejects incomplete coordinates before using timezone co
     assert.equal(Math.abs(result.city.lat - 35.65) < 0.2, true);
     assert.equal(Math.abs(result.city.lon - 139.74) < 0.2, true);
   }
+});
+
+test("resolveCurrentCity does not trust out-of-range coordinates from a resolved city object", () => {
+  const result = resolveCurrentCity({
+    current: true,
+    lat: 95,
+    lon: 200,
+    timeZone: "Asia/Tokyo",
+    localTimeZone: "Europe/London"
+  });
+
+  assert.equal(result.city.current, true);
+  assert.equal(result.city.timeZone, "Asia/Tokyo");
+  assert.equal(Math.abs(result.city.lat - 35.65) < 0.2, true);
+  assert.equal(Math.abs(result.city.lon - 139.74) < 0.2, true);
 });
 
 test("parseIso6709Coordinate handles zone1970 coordinates", () => {
@@ -438,6 +473,31 @@ test("terminatorCellSize returns square screen pixels", () => {
   assert.equal(mobile > 1, true);
 });
 
+test("terminatorGridCoordinates precomputes one latitude per row and one longitude per column", () => {
+  const rect = coverMercatorRect(100, 80);
+  const grid = terminatorGridCoordinates({
+    width: 100,
+    height: 80,
+    rect,
+    layout: "pacific",
+    cellSize: 10
+  });
+
+  assert.equal(grid.columns.length, 10);
+  assert.equal(grid.rows.length, 8);
+  assert.deepEqual(grid.columns.map((entry) => entry.x), [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]);
+  assert.deepEqual(grid.rows.map((entry) => entry.y), [0, 10, 20, 30, 40, 50, 60, 70]);
+
+  const firstCell = unprojectMercator({
+    x: 5 - rect.x,
+    y: 5 - rect.y,
+    width: rect.width,
+    layout: "pacific"
+  });
+  assert.equal(Math.abs(grid.columns[0].lon - firstCell.lon) < 1e-12, true);
+  assert.equal(Math.abs(grid.rows[0].lat - firstCell.lat) < 1e-12, true);
+});
+
 test("shouldBreakLandSegment skips artificial antimeridian cut edges", () => {
   const antimeridian = shouldBreakLandSegment({
     previous: { lon: 180, lat: 68.963722, x: 1120 },
@@ -555,6 +615,41 @@ test("isDaylightAt identifies approximate equinox noon and midnight at Greenwich
 
   assert.equal(isDaylightAt({ lat: 0, lon: 0, date: noon }), true);
   assert.equal(isDaylightAt({ lat: 0, lon: 0, date: midnight }), false);
+});
+
+test("solarCosineFromPosition reuses one solar position without changing results", () => {
+  const date = new Date("2026-06-20T12:34:56.789Z");
+  const sun = solarPosition(date);
+
+  assert.deepEqual(Object.keys(sun).sort(), ["lat", "lon"]);
+  for (const [lat, lon] of [[0, 0], [35.6762, 139.6503], [-33.8688, 151.2093]]) {
+    assert.equal(
+      Math.abs(solarCosineFromPosition(lat, lon, sun) - solarCosine(lat, lon, date)) < 1e-12,
+      true
+    );
+  }
+});
+
+test("solarCosineFromPosition rejects a missing solar position", () => {
+  for (const sun of [undefined, null, false]) {
+    assert.throws(
+      () => solarCosineFromPosition(0, 0, sun),
+      /Solar position is required/
+    );
+  }
+});
+
+test("nextClockDelay aligns updates to the next second or minute boundary", () => {
+  assert.equal(nextClockDelay(1234, true), 766);
+  assert.equal(nextClockDelay(2000, true), 1000);
+  assert.equal(nextClockDelay(1234, false), 58766);
+  assert.equal(nextClockDelay(60000, false), 60000);
+});
+
+test("nextTerminatorDelay aligns updates to five-second boundaries", () => {
+  assert.equal(nextTerminatorDelay(1234), 3766);
+  assert.equal(nextTerminatorDelay(5000), 5000);
+  assert.equal(nextTerminatorDelay(9999), 1);
 });
 
 test("formatZonedTime uses IANA timezone rules through Intl", () => {

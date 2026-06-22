@@ -10,6 +10,7 @@
   const MERCATOR_SOUTH_LIMIT = -60;
   const UNPROJECT_LAT_LIMIT = 85;
   const DAY_MS = 86400000;
+  const SAME_CITY_DISTANCE_KM = 15;
   const canonicalTimeZoneCache = new Map();
   const zonedTimeFormatterCache = new Map();
 
@@ -231,6 +232,38 @@
     return exact || target;
   }
 
+  function terminatorGridCoordinates(options) {
+    const config = options || {};
+    const width = Math.max(1, Math.round(Number(config.width) || 1));
+    const height = Math.max(1, Math.round(Number(config.height) || 1));
+    const cellSize = Math.max(1, Math.floor(Number(config.cellSize) || 1));
+    const rect = config.rect || coverMercatorRect(width, height);
+    const layout = config.layout === "pacific" ? "pacific" : "atlantic";
+    const columns = [];
+    const rows = [];
+
+    for (let x = 0; x < width; x += cellSize) {
+      const geo = unprojectMercator({
+        x: x + cellSize / 2 - rect.x,
+        y: cellSize / 2 - rect.y,
+        width: rect.width,
+        layout
+      });
+      columns.push({ x, lon: geo.lon });
+    }
+    for (let y = 0; y < height; y += cellSize) {
+      const geo = unprojectMercator({
+        x: cellSize / 2 - rect.x,
+        y: y + cellSize / 2 - rect.y,
+        width: rect.width,
+        layout
+      });
+      rows.push({ y, lat: geo.lat });
+    }
+
+    return { columns, rows };
+  }
+
   function shouldBreakLandSegment(options) {
     const previous = options && options.previous;
     const current = options && options.current;
@@ -340,6 +373,15 @@
     return Number.isFinite(parsed) ? parsed : null;
   }
 
+  function isValidCoordinatePair(lat, lon) {
+    return Number.isFinite(lat)
+      && Number.isFinite(lon)
+      && lat >= -90
+      && lat <= 90
+      && lon >= -180
+      && lon <= 180;
+  }
+
   function parseCurrentCoordinates(input) {
     const text = typeof input === "string" ? input.trim() : "";
     if (!text) {
@@ -362,14 +404,20 @@
 
   function resolveCurrentCity(options) {
     const raw = options || {};
-    if (raw.current === true && Number.isFinite(Number(raw.lat)) && Number.isFinite(Number(raw.lon)) && isValidTimeZone(raw.timeZone)) {
+    const resolvedLat = parseCoordinateValue(raw.lat);
+    const resolvedLon = parseCoordinateValue(raw.lon);
+    if (
+      raw.current === true
+      && isValidCoordinatePair(resolvedLat, resolvedLon)
+      && isValidTimeZone(raw.timeZone)
+    ) {
       return {
         city: {
           ...raw,
           id: "current",
           current: true,
-          lat: Number(raw.lat),
-          lon: Number(raw.lon),
+          lat: resolvedLat,
+          lon: resolvedLon,
           manualCoordinates: Boolean(raw.manualCoordinates)
         },
         errors: []
@@ -450,7 +498,7 @@
 
   function isSameCity(first, second) {
     return isSameTimeZone(first && first.timeZone, second && second.timeZone) &&
-      cityDistanceKm(first, second) <= 50;
+      cityDistanceKm(first, second) <= SAME_CITY_DISTANCE_KM;
   }
 
   function slugify(value) {
@@ -473,8 +521,7 @@
     const suppliedCoordinates = raw.lat !== undefined || raw.lon !== undefined;
     const lat = parseCoordinateValue(raw.lat);
     const lon = parseCoordinateValue(raw.lon);
-    const validCoordinates = Number.isFinite(lat) && Number.isFinite(lon) &&
-      lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
+    const validCoordinates = isValidCoordinatePair(lat, lon);
     const generatedCoordinates = timeZoneCity || timeZoneCoordinates(requestedTimeZone);
     if (!validCoordinates && !generatedCoordinates) {
       return { city: null, errors: ["missing-timezone-coordinate"] };
@@ -691,6 +738,17 @@
     }).join("");
   }
 
+  function nextClockDelay(nowMs, showSeconds) {
+    const interval = showSeconds ? 1000 : 60000;
+    const timestamp = Math.max(0, Number(nowMs) || 0);
+    return interval - timestamp % interval;
+  }
+
+  function nextTerminatorDelay(nowMs) {
+    const timestamp = Math.max(0, Number(nowMs) || 0);
+    return 5000 - timestamp % 5000;
+  }
+
   function dayOfYear(date) {
     const start = Date.UTC(date.getUTCFullYear(), 0, 0);
     return Math.floor((date.getTime() - start) / DAY_MS);
@@ -704,12 +762,26 @@
     return { lat: declination, lon: longitude };
   }
 
+  function solarCosineFromPosition(lat, lon, sun) {
+    if (!sun || typeof sun !== "object") {
+      throw new TypeError("Solar position is required.");
+    }
+    const sunLat = Number(sun.lat);
+    const sunLon = Number(sun.lon);
+    if (!Number.isFinite(sunLat) || !Number.isFinite(sunLon)) {
+      throw new TypeError("Solar position is required.");
+    }
+    const latRad = (Number(lat) || 0) * DEG_TO_RAD;
+    const sunLatRad = sunLat * DEG_TO_RAD;
+    const hourAngle = normalizeLongitude(
+      (Number(lon) || 0) - sunLon
+    ) * DEG_TO_RAD;
+    return Math.sin(latRad) * Math.sin(sunLatRad) +
+      Math.cos(latRad) * Math.cos(sunLatRad) * Math.cos(hourAngle);
+  }
+
   function solarCosine(lat, lon, date) {
-    const sun = solarPosition(date);
-    const latRad = lat * DEG_TO_RAD;
-    const sunLatRad = sun.lat * DEG_TO_RAD;
-    const hourAngle = normalizeLongitude(lon - sun.lon) * DEG_TO_RAD;
-    return Math.sin(latRad) * Math.sin(sunLatRad) + Math.cos(latRad) * Math.cos(sunLatRad) * Math.cos(hourAngle);
+    return solarCosineFromPosition(lat, lon, solarPosition(date));
   }
 
   function isDaylightAt(options) {
@@ -731,6 +803,8 @@
     isValidTimeZone,
     labelMetrics,
     localeForLanguage,
+    nextClockDelay,
+    nextTerminatorDelay,
     parseIso6709Coordinate,
     parseCustomCities,
     projectMercator,
@@ -738,8 +812,11 @@
     resolveRuntimeLanguage,
     resolveSelectedCities,
     solarCosine,
+    solarCosineFromPosition,
+    solarPosition,
     shouldBreakLandSegment,
     terminatorCellSize,
+    terminatorGridCoordinates,
     timeZoneCoordinates,
     unprojectMercator,
     viewportFillRect

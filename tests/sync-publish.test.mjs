@@ -147,6 +147,37 @@ test("syncPublish rejects identical development and publish paths", async (t) =>
   );
 });
 
+test("syncPublish rejects a publish directory that contains the development directory", async (t) => {
+  const root = await createFixtureRoot(t);
+  const sourceRoot = join(root, "source");
+  await createSource(sourceRoot);
+  await writeFile(join(root, "project.json"), "{}\n");
+  await writeFile(join(root, "sentinel.txt"), "keep me\n");
+
+  await assert.rejects(
+    syncPublish({ sourceRoot, publishRoot: root }),
+    /Development and publish directories must not overlap/
+  );
+
+  assert.equal(await readFile(join(root, "sentinel.txt"), "utf8"), "keep me\n");
+  assert.equal((await stat(join(sourceRoot, "src", "main.js"))).isFile(), true);
+});
+
+test("syncPublish rejects a publish directory inside the development directory", async (t) => {
+  const root = await createFixtureRoot(t);
+  const sourceRoot = join(root, "source");
+  const publishRoot = join(sourceRoot, "publish");
+  await createSource(sourceRoot);
+
+  await assert.rejects(
+    syncPublish({ sourceRoot, publishRoot }),
+    /Development and publish directories must not overlap/
+  );
+
+  assert.equal((await stat(join(sourceRoot, "src", "main.js"))).isFile(), true);
+  await assert.rejects(stat(publishRoot), { code: "ENOENT" });
+});
+
 test("syncPublish updates files while another process uses the publish root", async (t) => {
   const root = await createFixtureRoot(t);
   const sourceRoot = join(root, "source");

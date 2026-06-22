@@ -2,7 +2,7 @@
 
 # World Clock Timezone Map Wallpaper
 
-一款為 Wallpaper Engine 製作的離線世界時鐘動態桌布，在麥卡托世界地圖上即時顯示城市時間、晝夜狀態與晨昏線。
+一款為 Wallpaper Engine 製作的世界時鐘動態桌布，在麥卡托世界地圖上即時顯示城市時間、晝夜狀態與晨昏線。
 
 ![World Clock Timezone Map Wallpaper 示範](../../assets/world-map-timezone-map-preview.gif)
 
@@ -12,13 +12,15 @@
 - 支援 IANA 時區與日光節約時間
 - 目前城市、預設城市與 JSON 自訂城市
 - 大西洋、太平洋兩種地圖配置
-- 9 種介面語言，完全離線執行
+- 9 種介面語言
 
 ## 安裝
 
 [Steam 工作坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3747734053)
 
 ## 使用方法
+
+手動新增的時區必須存在於 [IANA tzdb 2026b 城市列表](https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab)中。本專案使用的 IANA 版本為 2026b。
 
 ### 設定我的城市
 

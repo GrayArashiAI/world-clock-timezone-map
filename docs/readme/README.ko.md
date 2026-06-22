@@ -2,7 +2,7 @@
 
 # World Clock Timezone Map Wallpaper
 
-메르카토르 세계 지도에서 도시별 현지 시각, 낮과 밤, 실시간 주야 경계선을 표시하는 Wallpaper Engine용 오프라인 세계 시계 배경화면입니다.
+메르카토르 세계 지도에서 도시별 현지 시각, 낮과 밤, 실시간 주야 경계선을 표시하는 Wallpaper Engine용 세계 시계 배경화면입니다.
 
 ![World Clock Timezone Map Wallpaper 데모](../../assets/world-map-timezone-map-preview.gif)
 
@@ -12,13 +12,15 @@
 - IANA 시간대 및 일광 절약 시간 지원
 - 현재 도시, 기본 도시, JSON 사용자 지정 도시
 - 대서양 중심 및 태평양 중심 지도
-- 9개 인터페이스 언어와 완전한 오프라인 실행
+- 9개 인터페이스 언어
 
 ## 설치
 
 [Steam 창작마당](https://steamcommunity.com/sharedfiles/filedetails/?id=3747734053)
 
 ## 사용 방법
+
+수동으로 추가하는 시간대는 [IANA tzdb 2026b 도시 목록](https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab)에 있어야 합니다. 이 프로젝트에서 사용하는 IANA 버전은 2026b입니다.
 
 ### 내 도시 설정
 

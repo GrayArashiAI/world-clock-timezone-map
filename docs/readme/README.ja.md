@@ -2,7 +2,7 @@
 
 # World Clock Timezone Map Wallpaper
 
-メルカトル世界地図上に都市の現地時刻、昼夜、リアルタイムの昼夜境界線を表示する、Wallpaper Engine 向けのオフライン世界時計壁紙です。
+メルカトル世界地図上に都市の現地時刻、昼夜、リアルタイムの昼夜境界線を表示する、Wallpaper Engine 向けの世界時計壁紙です。
 
 ![World Clock Timezone Map Wallpaper デモ](../../assets/world-map-timezone-map-preview.gif)
 
@@ -12,13 +12,15 @@
 - IANA タイムゾーンと夏時間に対応
 - 現在地、プリセット、JSON カスタム都市
 - 大西洋中心と太平洋中心の地図レイアウト
-- 9 言語対応、完全オフライン動作
+- 9 言語対応
 
 ## インストール
 
 [Steam ワークショップ](https://steamcommunity.com/sharedfiles/filedetails/?id=3747734053)
 
 ## 使用方法
+
+手動で追加するタイムゾーンは、[IANA tzdb 2026b の都市一覧](https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab)に含まれている必要があります。本プロジェクトで使用している IANA のバージョンは 2026b です。
 
 ### 現在地の都市を設定
 

@@ -214,6 +214,44 @@ test("viewport sizing uses layout dimensions without vw or undersized canvas pix
   assert.equal(stylesSource.includes("100vh"), false);
 });
 
+test("runtime separates static map and terminator rendering into offscreen caches", () => {
+  assert.match(mainSource, /const staticCanvas\s*=\s*document\.createElement\("canvas"\)/);
+  assert.match(mainSource, /const terminatorCanvas\s*=\s*document\.createElement\("canvas"\)/);
+  assert.match(mainSource, /staticLayerDirty/);
+  assert.match(mainSource, /terminatorLayerDirty/);
+  assert.match(mainSource, /ctx\.drawImage\(\s*staticCanvas/);
+  assert.match(mainSource, /ctx\.drawImage\(\s*terminatorCanvas/);
+});
+
+test("runtime aligns clock updates without a perpetual interval", () => {
+  assert.equal(mainSource.includes("setInterval"), false);
+  assert.match(mainSource, /setTimeout\(/);
+  assert.match(mainSource, /core\.nextClockDelay\(/);
+  assert.match(mainSource, /core\.nextTerminatorDelay\(/);
+  assert.match(mainSource, /terminatorTimer/);
+  assert.equal(mainSource.includes("lastTerminatorMinute"), false);
+  assert.match(mainSource, /visibilitychange/);
+});
+
+test("runtime reuses city nodes and one solar position per terminator redraw", () => {
+  assert.equal(mainSource.includes("labelLayer.innerHTML"), false);
+  assert.equal(mainSource.includes("core.isDaylightAt"), false);
+  assert.match(mainSource, /function updateCityLayer\(/);
+  assert.match(mainSource, /core\.solarPosition\(/);
+  assert.match(mainSource, /core\.solarCosineFromPosition\(/);
+  assert.equal((mainSource.match(/core\.solarPosition\(/g) || []).length, 1);
+  assert.match(mainSource, /core\.terminatorGridCoordinates\(/);
+});
+
+test("terminator grid cache key includes the complete map rectangle", () => {
+  const keyMatch = mainSource.match(/function getTerminatorGrid[\s\S]*?const key = \[([\s\S]*?)\]\.join/);
+
+  assert.notEqual(keyMatch, null);
+  for (const field of ["x", "y", "width", "height"]) {
+    assert.match(keyMatch[1], new RegExp(`runtime\\.mapRect\\.${field}`));
+  }
+});
+
 test("land outlines use the requested 1.5 pixel stroke", () => {
   assert.match(mainSource, /ctx\.lineWidth\s*=\s*1\.5\s*;/);
 });

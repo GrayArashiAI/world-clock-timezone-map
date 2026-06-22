@@ -2,7 +2,7 @@
 
 # World Clock Timezone Map Wallpaper
 
-An offline Wallpaper Engine world clock that displays local city times, day-night states, and the live solar terminator on a Mercator world map.
+A Wallpaper Engine world clock that displays local city times, day-night states, and the live solar terminator on a Mercator world map.
 
 ![World Clock Timezone Map Wallpaper demo](../../assets/world-map-timezone-map-preview.gif)
 
@@ -12,13 +12,15 @@ An offline Wallpaper Engine world clock that displays local city times, day-nigh
 - IANA time zones and daylight-saving time
 - Current, preset, and JSON-defined cities
 - Atlantic-centered and Pacific-centered layouts
-- Nine interface languages and fully offline operation
+- Nine interface languages
 
 ## Installation
 
 [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3747734053)
 
 ## Usage
+
+Manually added time zones must appear in the [IANA tzdb 2026b city list](https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab). This project uses IANA version 2026b.
 
 ### Set Your City
 

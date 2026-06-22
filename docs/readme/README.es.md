@@ -2,7 +2,7 @@
 
 # World Clock Timezone Map Wallpaper
 
-Un reloj mundial sin conexión para Wallpaper Engine que muestra la hora local, el estado de día o noche y el terminador solar en tiempo real sobre un mapa Mercator.
+Un reloj mundial para Wallpaper Engine que muestra la hora local, el estado de día o noche y el terminador solar en tiempo real sobre un mapa Mercator.
 
 ![Demostración de World Clock Timezone Map Wallpaper](../../assets/world-map-timezone-map-preview.gif)
 
@@ -12,13 +12,15 @@ Un reloj mundial sin conexión para Wallpaper Engine que muestra la hora local, 
 - Zonas horarias IANA y horario de verano
 - Ciudad actual, ciudades predefinidas y ciudades JSON
 - Mapas centrados en el Atlántico o el Pacífico
-- Nueve idiomas y funcionamiento totalmente sin conexión
+- Nueve idiomas de interfaz
 
 ## Instalación
 
 [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3747734053)
 
 ## Uso
+
+Las zonas horarias añadidas manualmente deben aparecer en la [lista de ciudades de IANA tzdb 2026b](https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab). Este proyecto utiliza la versión 2026b de IANA.
 
 ### Configurar mi ciudad
 
