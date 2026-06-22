@@ -20,7 +20,7 @@ Un reloj mundial para Wallpaper Engine que muestra la hora local, el estado de d
 
 ## Uso
 
-Las zonas horarias añadidas manualmente deben aparecer en la [lista de ciudades de IANA tzdb 2026b](https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab). Este proyecto utiliza la versión 2026b de IANA.
+Las zonas horarias añadidas manualmente deben aparecer en la [lista de ciudades de IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab). Este proyecto utiliza la versión 2026b de IANA.
 
 ### Configurar mi ciudad
 

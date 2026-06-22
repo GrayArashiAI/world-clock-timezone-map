@@ -154,9 +154,13 @@ async function stagePublishFiles({
   }
 }
 
-async function replacePublishDirectory({ publishRoot, stageRoot }) {
+async function replacePublishDirectory({
+  publishRoot,
+  stageRoot,
+  renameOperation = rename
+}) {
   if (!await pathExists(publishRoot)) {
-    await rename(stageRoot, publishRoot);
+    await renameOperation(stageRoot, publishRoot);
     return;
   }
 
@@ -167,12 +171,12 @@ async function replacePublishDirectory({ publishRoot, stageRoot }) {
 
   try {
     for (const entry of await readdir(publishRoot)) {
-      await rename(join(publishRoot, entry), join(backupRoot, entry));
+      await renameOperation(join(publishRoot, entry), join(backupRoot, entry));
       existingEntries.push(entry);
     }
 
     for (const entry of await readdir(stageRoot)) {
-      await rename(join(stageRoot, entry), join(publishRoot, entry));
+      await renameOperation(join(stageRoot, entry), join(publishRoot, entry));
       stagedEntries.push(entry);
     }
   } catch (error) {
@@ -180,26 +184,27 @@ async function replacePublishDirectory({ publishRoot, stageRoot }) {
 
     for (const entry of [...stagedEntries].reverse()) {
       try {
-        await rename(join(publishRoot, entry), join(stageRoot, entry));
+        await renameOperation(join(publishRoot, entry), join(stageRoot, entry));
       } catch (rollbackError) {
         rollbackErrors.push(rollbackError);
       }
     }
     for (const entry of [...existingEntries].reverse()) {
       try {
-        await rename(join(backupRoot, entry), join(publishRoot, entry));
+        await renameOperation(join(backupRoot, entry), join(publishRoot, entry));
       } catch (rollbackError) {
         rollbackErrors.push(rollbackError);
       }
     }
 
-    await rm(backupRoot, { force: true, recursive: true });
     if (rollbackErrors.length) {
+      // 復元できなかった旧ファイルを失わないよう、バックアップをそのまま残します。
       throw new AggregateError(
         [error, ...rollbackErrors],
-        "Publish directory replacement and rollback failed"
+        `Publish directory replacement and rollback failed; backup preserved at ${backupRoot}`
       );
     }
+    await rm(backupRoot, { force: true, recursive: true });
     throw error;
   }
 
@@ -212,7 +217,7 @@ async function replacePublishDirectory({ publishRoot, stageRoot }) {
   });
 }
 
-export async function syncPublish({ sourceRoot, publishRoot }) {
+export async function syncPublish({ sourceRoot, publishRoot, operations = {} }) {
   const resolvedSourceRoot = resolve(sourceRoot);
   const resolvedPublishRoot = resolve(publishRoot);
   const comparedSourceRoot = comparisonPath(resolvedSourceRoot);
@@ -255,7 +260,8 @@ export async function syncPublish({ sourceRoot, publishRoot }) {
     });
     await replacePublishDirectory({
       publishRoot: resolvedPublishRoot,
-      stageRoot
+      stageRoot,
+      renameOperation: operations.rename || rename
     });
   } catch (error) {
     if (await pathExists(stageRoot)) {

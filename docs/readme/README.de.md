@@ -20,7 +20,7 @@ Eine Weltzeituhr für Wallpaper Engine, die Ortszeiten, Tag und Nacht sowie den 
 
 ## Verwendung
 
-Manuell hinzugefügte Zeitzonen müssen in der [Städteliste von IANA tzdb 2026b](https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab) enthalten sein. Dieses Projekt verwendet die IANA-Version 2026b.
+Manuell hinzugefügte Zeitzonen müssen in der [Städteliste von IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab) enthalten sein. Dieses Projekt verwendet die IANA-Version 2026b.
 
 ### Eigene Stadt einstellen
 

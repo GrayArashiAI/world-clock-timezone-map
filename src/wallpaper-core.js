@@ -762,7 +762,7 @@
     return { lat: declination, lon: longitude };
   }
 
-  function solarCosineFromPosition(lat, lon, sun) {
+  function requireSolarPosition(sun) {
     if (!sun || typeof sun !== "object") {
       throw new TypeError("Solar position is required.");
     }
@@ -771,13 +771,45 @@
     if (!Number.isFinite(sunLat) || !Number.isFinite(sunLon)) {
       throw new TypeError("Solar position is required.");
     }
+    return { lat: sunLat, lon: sunLon };
+  }
+
+  function solarCosineFromPosition(lat, lon, sun) {
+    const position = requireSolarPosition(sun);
     const latRad = (Number(lat) || 0) * DEG_TO_RAD;
-    const sunLatRad = sunLat * DEG_TO_RAD;
+    const sunLatRad = position.lat * DEG_TO_RAD;
     const hourAngle = normalizeLongitude(
-      (Number(lon) || 0) - sunLon
+      (Number(lon) || 0) - position.lon
     ) * DEG_TO_RAD;
     return Math.sin(latRad) * Math.sin(sunLatRad) +
       Math.cos(latRad) * Math.cos(sunLatRad) * Math.cos(hourAngle);
+  }
+
+  function terminatorSolarFactors(grid, sun) {
+    const position = requireSolarPosition(sun);
+    const rows = Array.isArray(grid && grid.rows) ? grid.rows : [];
+    const columns = Array.isArray(grid && grid.columns) ? grid.columns : [];
+    const sunLatRad = position.lat * DEG_TO_RAD;
+    const sunSinLat = Math.sin(sunLatRad);
+    const sunCosLat = Math.cos(sunLatRad);
+
+    // 緯度と経度ごとの三角関数を一度だけ計算し、各セルでは乗算と加算だけを行います。
+    return {
+      rows: rows.map((row) => {
+        const latRad = (Number(row.lat) || 0) * DEG_TO_RAD;
+        return {
+          y: row.y,
+          constant: Math.sin(latRad) * sunSinLat,
+          amplitude: Math.cos(latRad) * sunCosLat
+        };
+      }),
+      columns: columns.map((column) => ({
+        x: column.x,
+        hourCosine: Math.cos(
+          normalizeLongitude((Number(column.lon) || 0) - position.lon) * DEG_TO_RAD
+        )
+      }))
+    };
   }
 
   function solarCosine(lat, lon, date) {
@@ -817,6 +849,7 @@
     shouldBreakLandSegment,
     terminatorCellSize,
     terminatorGridCoordinates,
+    terminatorSolarFactors,
     timeZoneCoordinates,
     unprojectMercator,
     viewportFillRect

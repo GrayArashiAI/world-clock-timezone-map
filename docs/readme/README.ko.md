@@ -20,7 +20,7 @@
 
 ## 사용 방법
 
-수동으로 추가하는 시간대는 [IANA tzdb 2026b 도시 목록](https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab)에 있어야 합니다. 이 프로젝트에서 사용하는 IANA 버전은 2026b입니다.
+수동으로 추가하는 시간대는 [IANA 도시 목록](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)에 있어야 합니다. 이 프로젝트에서 사용하는 IANA 버전은 2026b입니다.
 
 ### 내 도시 설정
 

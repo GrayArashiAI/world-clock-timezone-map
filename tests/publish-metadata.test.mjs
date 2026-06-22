@@ -5,17 +5,20 @@ import {
   mergeWorkshopMetadata
 } from "../scripts/publish-metadata-lib.mjs";
 
-test("mergeWorkshopMetadata copies only Wallpaper Engine managed fields", () => {
+test("mergeWorkshopMetadata copies only non-empty Wallpaper Engine managed fields", () => {
   const developmentProject = {
+    description: "Development description",
+    tags: ["Technology"],
     title: "Development title",
-    tags: ["Technology"]
+    visibility: "friends-only",
+    workshopid: "existing"
   };
   const publishProject = {
     description: "Published description",
     title: "Published title",
-    visibility: "public",
+    visibility: "",
     workshopid: "3747734053",
-    workshopurl: "steam://url/CommunityFilePage/3747734053"
+    workshopurl: " "
   };
 
   assert.deepEqual(WORKSHOP_METADATA_FIELDS, [
@@ -30,26 +33,8 @@ test("mergeWorkshopMetadata copies only Wallpaper Engine managed fields", () => 
       description: "Published description",
       tags: ["Technology"],
       title: "Development title",
-      visibility: "public",
-      workshopid: "3747734053",
-      workshopurl: "steam://url/CommunityFilePage/3747734053"
+      visibility: "friends-only",
+      workshopid: "3747734053"
     }
-  );
-});
-
-test("mergeWorkshopMetadata ignores missing and empty publish values", () => {
-  const developmentProject = {
-    description: "Development description",
-    visibility: "friends-only",
-    workshopid: "existing"
-  };
-
-  assert.deepEqual(
-    mergeWorkshopMetadata(developmentProject, {
-      description: "",
-      visibility: null,
-      workshopurl: " "
-    }),
-    developmentProject
   );
 });

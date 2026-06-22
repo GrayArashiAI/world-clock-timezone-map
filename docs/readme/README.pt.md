@@ -20,7 +20,7 @@ Um relógio mundial para o Wallpaper Engine que mostra horários locais, estados
 
 ## Como usar
 
-Os fusos horários adicionados manualmente devem constar na [lista de cidades do IANA tzdb 2026b](https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab). Este projeto usa a versão 2026b do IANA.
+Os fusos horários adicionados manualmente devem constar na [lista de cidades do IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab). Este projeto usa a versão 2026b do IANA.
 
 ### Configurar minha cidade
 

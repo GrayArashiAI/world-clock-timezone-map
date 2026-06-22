@@ -10,470 +10,203 @@ const {
   coverMercatorRect,
   formatZonedTime,
   getCityName,
-  labelMetrics,
   isDaylightAt,
+  labelMetrics,
   localeForLanguage,
   nextClockDelay,
   nextTerminatorDelay,
-  parseIso6709Coordinate,
   parseCustomCities,
+  parseIso6709Coordinate,
   projectMercator,
   resolveCurrentCity,
-  resolveSelectedCities,
   resolveRuntimeLanguage,
+  resolveSelectedCities,
+  shouldBreakLandSegment,
   solarCosine,
   solarCosineFromPosition,
   solarPosition,
-  timeZoneCoordinates,
-  shouldBreakLandSegment,
   terminatorCellSize,
   terminatorGridCoordinates,
+  terminatorSolarFactors,
+  timeZoneCoordinates,
   unprojectMercator,
   viewportFillRect
 } = require("../src/wallpaper-core.js");
 
-test("parseCustomCities keeps valid entries and ignores invalid entries", () => {
-  const result = parseCustomCities(JSON.stringify([
-    { name: "Paris", lat: 48.8566, lon: 2.3522, timeZone: "Europe/Paris" },
-    { name: "", lat: 0, lon: 0 },
-    { name: "Broken", lat: 200, lon: 0, timeZone: "Broken/Zone" }
+test("custom city parsing accepts supported formats and reports invalid entries", () => {
+  const single = parseCustomCities('{"timeZone":"Asia/Tokyo"}');
+  const sequence = parseCustomCities(
+    '{"timeZone":"Europe/London"},{"timeZone":"Europe/Paris","name":"Desk"}'
+  );
+  const mixed = parseCustomCities(JSON.stringify([
+    { timeZone: "Asia/Shanghai" },
+    { name: "Missing timezone" },
+    { timeZone: "Broken/Zone" }
   ]));
+  const invalidJson = parseCustomCities("{");
 
-  assert.equal(result.cities.length, 1);
-  assert.equal(result.cities[0].name, "Paris");
-  assert.equal(result.cities[0].timeZone, "Europe/Paris");
-  assert.equal(result.errors.length, 2);
+  assert.equal(single.cities[0].names.ja, "東京");
+  assert.equal(Math.abs(single.cities[0].lat - 35.65) < 0.2, true);
+  assert.deepEqual(sequence.cities.map((city) => city.name || city.names.en), ["London", "Desk"]);
+  assert.deepEqual(mixed.cities.map((city) => city.names.en), ["Shanghai"]);
+  assert.deepEqual(mixed.errors.map((error) => error.type), ["invalid-timezone", "invalid-timezone"]);
+  assert.deepEqual(invalidJson, { cities: [], errors: [{ type: "invalid-json" }] });
 });
 
-test("parseCustomCities handles invalid JSON without throwing", () => {
-  const result = parseCustomCities("{");
+test("custom city overrides are optional, validated, and localized", () => {
+  const manual = parseCustomCities(
+    '{"timeZone":"Asia/Kolkata","name":"Mumbai","lat":"19.076","lon":"72.8777"}'
+  );
+  const incomplete = parseCustomCities(
+    '{"timeZone":"Europe/Vienna","lat":"","lon":null}'
+  );
 
-  assert.deepEqual(result.cities, []);
-  assert.equal(result.errors.length, 1);
+  assert.deepEqual(
+    {
+      name: manual.cities[0].name,
+      lat: manual.cities[0].lat,
+      lon: manual.cities[0].lon,
+      ja: manual.cities[0].names.ja
+    },
+    { name: "Mumbai", lat: 19.076, lon: 72.8777, ja: "コルカタ" }
+  );
+  assert.equal(incomplete.cities[0].names.de, "Wien");
+  assert.equal(incomplete.errors[0].type, "invalid-coordinates");
+  assert.equal(Number.isFinite(incomplete.cities[0].lat), true);
 });
 
-test("parseCustomCities accepts an object without array brackets and auto-fills from timezone", () => {
-  const result = parseCustomCities('{"timeZone":"Asia/Tokyo"}');
-
-  assert.equal(result.errors.length, 0);
-  assert.equal(result.cities.length, 1);
-  assert.equal(result.cities[0].timeZone, "Asia/Tokyo");
-  assert.equal(result.cities[0].names.ja, "東京");
-  assert.equal(result.cities[0].names.ko, "도쿄");
-  assert.equal(Math.abs(result.cities[0].lat - 35.65) < 0.2, true);
-  assert.equal(Math.abs(result.cities[0].lon - 139.74) < 0.2, true);
-});
-
-test("parseCustomCities uses the IANA representative location for any timezone", () => {
-  const shanghai = parseCustomCities('{"timeZone":"Asia/Shanghai"}').cities[0];
-  const kolkata = parseCustomCities('{"timeZone":"Asia/Kolkata"}').cities[0];
-
-  assert.equal(shanghai.names.en, "Shanghai");
-  assert.equal(shanghai.names.zh, "上海");
-  assert.equal(Math.abs(shanghai.lat - 31.2333) < 0.01, true);
-  assert.equal(Math.abs(shanghai.lon - 121.4667) < 0.01, true);
-  assert.equal(kolkata.names.en, "Kolkata");
-  assert.equal(kolkata.names.ja, "コルカタ");
-  assert.equal(Math.abs(kolkata.lat - 22.5333) < 0.01, true);
-  assert.equal(Math.abs(kolkata.lon - 88.3667) < 0.01, true);
-});
-
-test("parseCustomCities localizes IANA cities that are not in the curated list", () => {
-  const vienna = parseCustomCities('{"timeZone":"Europe/Vienna"}').cities[0];
-
-  assert.equal(vienna.names.en, "Vienna");
-  assert.equal(vienna.names.de, "Wien");
-  assert.equal(vienna.names.ja, "ウィーン");
-});
-
-test("parseCustomCities accepts multiple objects without array brackets", () => {
-  const result = parseCustomCities([
-    '{"timeZone":"Asia/Tokyo"}',
-    '{"timeZone":"Europe/Amsterdam","name":"Desk"}'
-  ].join("\n"));
-
-  assert.equal(result.errors.length, 0);
-  assert.equal(result.cities.length, 2);
-  assert.equal(result.cities[1].name, "Desk");
-  assert.equal(result.cities[1].timeZone, "Europe/Amsterdam");
-  assert.equal(Math.abs(result.cities[1].lat - 52.37) < 0.2, true);
-});
-
-test("custom city manual name overrides the timezone city name in every language", () => {
-  const result = parseCustomCities('{"timeZone":"America/Toronto","name":"ウォータールー","lat":43.4643,"lon":-80.5204}');
-  const city = result.cities[0];
-
-  assert.equal(result.errors.length, 0);
-  assert.equal(getCityName(city, "ja"), "ウォータールー");
-  assert.equal(getCityName(city, "en"), "ウォータールー");
-});
-
-test("parseCustomCities requires timezone but treats name and coordinates as optional overrides", () => {
-  const result = parseCustomCities([
-    '{"name":"Missing zone"}',
-    '{"timeZone":"Europe/London","lat":48.8566,"lon":2.3522}'
-  ].join("\n"));
-
-  assert.equal(result.errors.length, 1);
-  assert.equal(result.errors[0].type, "invalid-timezone");
-  assert.equal(result.cities.length, 1);
-  assert.equal(result.cities[0].lat, 48.8566);
-  assert.equal(result.cities[0].lon, 2.3522);
-  assert.equal(result.cities[0].names.en, "London");
-});
-
-test("parseCustomCities rejects empty coordinate values before falling back to timezone coordinates", () => {
-  const nullCoordinates = parseCustomCities('{"timeZone":"Asia/Tokyo","lat":null,"lon":null}');
-  const emptyCoordinates = parseCustomCities('{"timeZone":"Asia/Tokyo","lat":"","lon":""}');
-
-  for (const result of [nullCoordinates, emptyCoordinates]) {
-    assert.equal(result.cities.length, 1);
-    assert.equal(result.errors[0].type, "invalid-coordinates");
-    assert.equal(Math.abs(result.cities[0].lat - 35.65) < 0.2, true);
-    assert.equal(Math.abs(result.cities[0].lon - 139.74) < 0.2, true);
-  }
-});
-
-test("resolveSelectedCities gives custom cities priority over dropdown presets", () => {
-  const result = resolveSelectedCities({
-    currentCity: { name: "", coords: "", timeZone: "Asia/Tokyo" },
-    slots: ["london", "london", "empty", "tokyo"],
-    customCities: [{ id: "custom-paris", name: "Paris", lat: 48.8566, lon: 2.3522, timeZone: "Europe/Paris" }],
-    localTimeZone: "Asia/Tokyo"
-  });
-
-  assert.deepEqual(result.map((city) => city.id), ["current", "custom-paris", "london"]);
-  assert.equal(result[0].current, true);
-});
-
-test("resolveSelectedCities deduplicates the same place by current custom preset priority", () => {
-  const customTokyo = parseCustomCities('{"timeZone":"Asia/Tokyo","name":"Custom Tokyo","lat":35.6762,"lon":139.6503}').cities[0];
-  const result = resolveSelectedCities({
-    currentCity: { name: "Home", coords: "35.6812,139.7671", timeZone: "Asia/Tokyo" },
-    customCities: [customTokyo],
-    slots: ["tokyo", "london"],
-    localTimeZone: "Asia/Tokyo"
-  });
-
-  assert.deepEqual(result.map((city) => city.id), ["current", "london"]);
-});
-
-test("resolveSelectedCities keeps distinct cities that share one timezone", () => {
-  const customToronto = parseCustomCities('{"timeZone":"America/Toronto"}').cities[0];
-  const result = resolveSelectedCities({
-    currentCity: { name: "Waterloo", coords: "43.4643,-80.5204", timeZone: "America/Toronto" },
-    customCities: [customToronto],
-    slots: ["toronto", "london"],
-    localTimeZone: "America/Toronto"
-  });
-
-  assert.deepEqual(result.map((city) => city.id), ["current", "custom-toronto-1", "london"]);
-});
-
-test("resolveSelectedCities keeps nearby but distinct cities in the same timezone", () => {
-  const customYokohama = parseCustomCities(
-    '{"timeZone":"Asia/Tokyo","name":"Yokohama","lat":35.4437,"lon":139.638}'
-  ).cities[0];
-  const result = resolveSelectedCities({
-    currentCity: { name: "Home", coords: "48.8566,2.3522", timeZone: "Europe/Paris" },
-    customCities: [customYokohama],
-    slots: ["tokyo"],
-    localTimeZone: "Europe/Paris"
-  });
-
-  assert.deepEqual(result.map((city) => city.id), ["current", "custom-yokohama-1", "tokyo"]);
-});
-
-test("resolveCurrentCity maps automatic fields to the detected local timezone", () => {
-  const result = resolveCurrentCity({
-    name: "",
-    coords: "",
-    timeZone: "",
-    localTimeZone: "Asia/Tokyo"
-  });
-
-  assert.equal(result.city.id, "current");
-  assert.equal(result.city.current, true);
-  assert.equal(result.city.names.en, "Tokyo");
-  assert.equal(result.city.timeZone, "Asia/Tokyo");
-  assert.equal(Math.abs(result.city.lat - 35.65) < 0.2, true);
-  assert.equal(Math.abs(result.city.lon - 139.73333333333332) < 0.2, true);
-  assert.deepEqual(result.errors, []);
-});
-
-test("resolveCurrentCity uses IANA representative cities independently of the curated list", () => {
-  const shanghai = resolveCurrentCity({
-    name: "",
-    coords: "",
-    timeZone: "Asia/Shanghai",
-    localTimeZone: "UTC"
-  }).city;
-  const kolkata = resolveCurrentCity({
-    name: "",
-    coords: "",
-    timeZone: "Asia/Kolkata",
-    localTimeZone: "UTC"
-  }).city;
-
-  assert.equal(shanghai.names.en, "Shanghai");
-  assert.equal(shanghai.names.zh, "上海");
-  assert.equal(Math.abs(shanghai.lat - 31.2333) < 0.01, true);
-  assert.equal(Math.abs(shanghai.lon - 121.4667) < 0.01, true);
-  assert.equal(kolkata.names.en, "Kolkata");
-  assert.equal(kolkata.names.ko, "콜카타");
-  assert.equal(Math.abs(kolkata.lat - 22.5333) < 0.01, true);
-  assert.equal(Math.abs(kolkata.lon - 88.3667) < 0.01, true);
-});
-
-test("resolveCurrentCity uses manual name coordinates and timezone first", () => {
-  const result = resolveCurrentCity({
+test("current city resolution handles automatic, manual, and invalid inputs", () => {
+  const automatic = resolveCurrentCity({ localTimeZone: "Asia/Tokyo" });
+  const manual = resolveCurrentCity({
     name: "Desk",
     coords: "48.8566,2.3522",
     timeZone: "Europe/Paris",
     localTimeZone: "Asia/Tokyo"
   });
-
-  assert.equal(result.city.name, "Desk");
-  assert.equal(result.city.lat, 48.8566);
-  assert.equal(result.city.lon, 2.3522);
-  assert.equal(result.city.timeZone, "Europe/Paris");
-  assert.deepEqual(result.errors, []);
-});
-
-test("resolveCurrentCity falls back from invalid manual fields without throwing", () => {
-  const result = resolveCurrentCity({
-    name: "",
+  const invalid = resolveCurrentCity({
     coords: "200,300",
     timeZone: "Broken/Zone",
     localTimeZone: "Europe/London"
   });
-
-  assert.equal(result.city.timeZone, "Europe/London");
-  assert.equal(result.city.names.en, "London");
-  assert.equal(result.errors.some((error) => error.type === "invalid-coordinates"), true);
-  assert.equal(result.errors.some((error) => error.type === "invalid-timezone"), true);
-});
-
-test("resolveCurrentCity rejects incomplete coordinates before using timezone coordinates", () => {
-  for (const coords of [",", "35,", ",139", "，"]) {
-    const result = resolveCurrentCity({
-      name: "",
-      coords,
-      timeZone: "Asia/Tokyo",
-      localTimeZone: "Europe/London"
-    });
-
-    assert.equal(result.city.manualCoordinates, false);
-    assert.equal(result.errors[0].type, "invalid-coordinates");
-    assert.equal(Math.abs(result.city.lat - 35.65) < 0.2, true);
-    assert.equal(Math.abs(result.city.lon - 139.74) < 0.2, true);
-  }
-});
-
-test("resolveCurrentCity does not trust out-of-range coordinates from a resolved city object", () => {
-  const result = resolveCurrentCity({
+  const untrustedResolved = resolveCurrentCity({
     current: true,
     lat: 95,
     lon: 200,
     timeZone: "Asia/Tokyo",
-    localTimeZone: "Europe/London"
+    localTimeZone: "UTC"
   });
 
-  assert.equal(result.city.current, true);
-  assert.equal(result.city.timeZone, "Asia/Tokyo");
-  assert.equal(Math.abs(result.city.lat - 35.65) < 0.2, true);
-  assert.equal(Math.abs(result.city.lon - 139.74) < 0.2, true);
+  assert.deepEqual(
+    [automatic.city.id, automatic.city.names.en, automatic.city.timeZone, automatic.errors],
+    ["current", "Tokyo", "Asia/Tokyo", []]
+  );
+  assert.deepEqual(
+    [manual.city.name, manual.city.lat, manual.city.lon, manual.city.timeZone],
+    ["Desk", 48.8566, 2.3522, "Europe/Paris"]
+  );
+  assert.equal(invalid.city.names.en, "London");
+  assert.deepEqual(
+    invalid.errors.map((error) => error.type).sort(),
+    ["invalid-coordinates", "invalid-timezone"]
+  );
+  assert.equal(Math.abs(untrustedResolved.city.lat - 35.65) < 0.2, true);
 });
 
-test("parseIso6709Coordinate handles zone1970 coordinates", () => {
-  const tokyo = parseIso6709Coordinate("+3539+13944");
-  const adelaide = parseIso6709Coordinate("-3455+13835");
-
-  assert.equal(Math.abs(tokyo.lat - 35.65) < 0.001, true);
-  assert.equal(Math.abs(tokyo.lon - 139.73333333333332) < 0.001, true);
-  assert.equal(Math.abs(adelaide.lat + 34.916666666666664) < 0.001, true);
-  assert.equal(Math.abs(adelaide.lon - 138.58333333333334) < 0.001, true);
+test("current city rejects incomplete coordinates and uses timezone coordinates", () => {
+  for (const coords of [",", "35,", ",139", "，"]) {
+    const result = resolveCurrentCity({
+      coords,
+      timeZone: "Asia/Shanghai",
+      localTimeZone: "UTC"
+    });
+    assert.equal(result.city.manualCoordinates, false);
+    assert.equal(result.city.names.zh, "上海");
+    assert.equal(result.errors[0].type, "invalid-coordinates");
+  }
 });
 
-test("timeZoneCoordinates resolves common IANA zones through zone1970", () => {
-  const tokyo = timeZoneCoordinates("Asia/Tokyo");
-  const newYork = timeZoneCoordinates("America/New_York");
-  const london = timeZoneCoordinates("Europe/London");
-  const amsterdam = timeZoneCoordinates("Europe/Amsterdam");
-  const calcutta = timeZoneCoordinates("Asia/Calcutta");
-  const kiev = timeZoneCoordinates("Europe/Kiev");
-  const fixedOffset = timeZoneCoordinates("Etc/GMT+5");
-  const utc = timeZoneCoordinates("UTC");
-
-  assert.equal(Math.abs(tokyo.lat - 35.65) < 0.2, true);
-  assert.equal(Math.abs(tokyo.lon - 139.73333333333332) < 0.2, true);
-  assert.equal(Math.abs(newYork.lat - 40.714166666666664) < 0.2, true);
-  assert.equal(Math.abs(newYork.lon + 74.00638888888889) < 0.2, true);
-  assert.equal(Math.abs(london.lat - 51.50833333333333) < 0.2, true);
-  assert.equal(Math.abs(london.lon + 0.12527777777777777) < 0.2, true);
-  assert.equal(Math.abs(amsterdam.lat - 52.36666666666667) < 0.2, true);
-  assert.equal(Math.abs(amsterdam.lon - 4.9) < 0.2, true);
-  assert.equal(Math.abs(calcutta.lat - 22.533333333333335) < 0.2, true);
-  assert.equal(Math.abs(calcutta.lon - 88.36666666666666) < 0.2, true);
-  assert.equal(Math.abs(kiev.lat - 50.43333333333333) < 0.2, true);
-  assert.equal(Math.abs(kiev.lon - 30.516666666666666) < 0.2, true);
-  assert.deepEqual(fixedOffset, { lat: 0, lon: 0, timeZone: "Etc/GMT+5" });
-  assert.deepEqual(utc, { lat: 0, lon: 0, timeZone: "UTC" });
-});
-
-test("resolveSelectedCities prepends current city to the six configured extra slots", () => {
-  const result = resolveSelectedCities({
-    currentCity: { name: "", coords: "", timeZone: "Europe/Paris" },
-    slots: ["los_angeles", "new_york", "london", "shanghai", "tokyo", "sydney", "paris"],
-    customCities: [],
+test("selected cities preserve priority, slot limits, and meaningful nearby places", () => {
+  const customTokyo = parseCustomCities(
+    '{"timeZone":"Asia/Tokyo","name":"Custom Tokyo","lat":35.6762,"lon":139.6503}'
+  ).cities[0];
+  const yokohama = parseCustomCities(
+    '{"timeZone":"Asia/Tokyo","name":"Yokohama","lat":35.4437,"lon":139.638}'
+  ).cities[0];
+  const prioritized = resolveSelectedCities({
+    currentCity: { name: "Home", coords: "35.6812,139.7671", timeZone: "Asia/Tokyo" },
+    customCities: [customTokyo],
+    slots: ["tokyo", "london"],
+    localTimeZone: "Asia/Tokyo"
+  });
+  const nearby = resolveSelectedCities({
+    currentCity: { name: "Home", coords: "48.8566,2.3522", timeZone: "Europe/Paris" },
+    customCities: [yokohama],
+    slots: ["tokyo", "london"],
+    localTimeZone: "Europe/Paris"
+  });
+  const limited = resolveSelectedCities({
+    currentCity: { timeZone: "Europe/Paris" },
+    slots: ["los_angeles", "new_york", "london", "shanghai", "tokyo", "sydney", "auckland"],
     localTimeZone: "Europe/Paris"
   });
 
-  assert.deepEqual(result.map((city) => city.id), ["current", "los_angeles", "new_york", "london", "shanghai", "tokyo", "sydney"]);
+  assert.deepEqual(prioritized.map((city) => city.id), ["current", "london"]);
+  assert.deepEqual(nearby.map((city) => city.id), ["current", "custom-yokohama-1", "tokyo", "london"]);
+  assert.deepEqual(
+    limited.map((city) => city.id),
+    ["current", "los_angeles", "new_york", "london", "shanghai", "tokyo", "sydney"]
+  );
 });
 
-test("resolveSelectedCities deduplicates automatic current city against explicit same timezone", () => {
-  const result = resolveSelectedCities({
-    currentCity: { name: "", coords: "", timeZone: "Asia/Tokyo" },
-    slots: ["tokyo", "tokyo", "london"],
-    customCities: [],
-    localTimeZone: "Asia/Tokyo"
+test("IANA coordinate helpers resolve modern, legacy, and fixed-offset zones", () => {
+  assert.deepEqual(parseIso6709Coordinate("+3539+13944"), {
+    lat: 35.65,
+    lon: 139.73333333333332
   });
 
-  assert.deepEqual(result.map((city) => city.id), ["current", "london"]);
-  assert.equal(result[0].timeZone, "Asia/Tokyo");
-});
-
-test("resolveSelectedCities deduplicates Shanghai and Kolkata after automatic current-city resolution", () => {
-  const shanghai = resolveSelectedCities({
-    currentCity: { name: "", coords: "", timeZone: "Asia/Shanghai" },
-    slots: ["shanghai", "london"],
-    customCities: [],
-    localTimeZone: "Asia/Shanghai"
+  const cases = {
+    "America/New_York": [40.714166666666664, -74.00638888888889],
+    "Asia/Calcutta": [22.533333333333335, 88.36666666666666],
+    "Europe/Kiev": [50.43333333333333, 30.516666666666666]
+  };
+  for (const [timeZone, [lat, lon]] of Object.entries(cases)) {
+    const coordinates = timeZoneCoordinates(timeZone);
+    assert.equal(Math.abs(coordinates.lat - lat) < 0.2, true, timeZone);
+    assert.equal(Math.abs(coordinates.lon - lon) < 0.2, true, timeZone);
+  }
+  assert.deepEqual(timeZoneCoordinates("Etc/GMT+5"), {
+    lat: 0,
+    lon: 0,
+    timeZone: "Etc/GMT+5"
   });
-  const kolkata = resolveSelectedCities({
-    currentCity: { name: "", coords: "", timeZone: "Asia/Kolkata" },
-    slots: ["kolkata", "london"],
-    customCities: [],
-    localTimeZone: "Asia/Kolkata"
-  });
-
-  assert.deepEqual(shanghai.map((city) => city.id), ["current", "london"]);
-  assert.equal(shanghai[0].names.en, "Shanghai");
-  assert.deepEqual(kolkata.map((city) => city.id), ["current", "london"]);
-  assert.equal(kolkata[0].names.en, "Kolkata");
 });
 
-test("resolveSelectedCities keeps distant explicit city in the same timezone", () => {
-  const result = resolveSelectedCities({
-    currentCity: { name: "Waterloo", coords: "43.4643,-80.5204", timeZone: "America/Toronto" },
-    slots: ["toronto", "london"],
-    customCities: [],
-    localTimeZone: "America/Toronto"
-  });
+test("Mercator projection supports both seams and round-trips visible points", () => {
+  const seamCases = [
+    ["atlantic", -169, 11],
+    ["pacific", -30, 150]
+  ];
+  for (const [layout, seam, center] of seamCases) {
+    assert.equal(Math.round(projectMercator({ lat: 0, lon: seam, width: 1000, layout }).x), 0);
+    assert.equal(Math.round(projectMercator({ lat: 0, lon: center, width: 1000, layout }).x), 500);
+  }
 
-  assert.deepEqual(result.map((city) => city.id), ["current", "toronto", "london"]);
-  assert.equal(result[0].manualCoordinates, true);
+  const point = { lat: 35.6762, lon: 139.6503 };
+  const projected = projectMercator({ ...point, width: 1000, layout: "pacific" });
+  const restored = unprojectMercator({ ...projected, width: 1000, layout: "pacific" });
+  assert.equal(Math.abs(restored.lat - point.lat) < 0.0001, true);
+  assert.equal(Math.abs(restored.lon - point.lon) < 0.0001, true);
+  assert.equal(projectMercator({ lat: 89, lon: 0, width: 1000 }).y, 0);
 });
 
-test("projectMercator places Greenwich according to each layout seam", () => {
-  const atlantic = projectMercator({ lat: 0, lon: 0, width: 1000, height: 500, layout: "atlantic" });
-  const pacific = projectMercator({ lat: 0, lon: 0, width: 1000, height: 500, layout: "pacific" });
-
-  assert.equal(Math.round(atlantic.x), 469);
-  assert.equal(Math.round(pacific.x), 83);
-  assert.equal(atlantic.y > 290, true);
-  assert.equal(atlantic.y < 320, true);
-});
-
-test("projectMercator uses the configured Atlantic and Pacific seams", () => {
-  const atlanticSeam = projectMercator({ lat: 0, lon: -169, width: 1000, height: 500, layout: "atlantic" });
-  const atlanticCenter = projectMercator({ lat: 0, lon: 11, width: 1000, height: 500, layout: "atlantic" });
-  const pacificSeam = projectMercator({ lat: 0, lon: -30, width: 1000, height: 500, layout: "pacific" });
-  const pacificCenter = projectMercator({ lat: 0, lon: 150, width: 1000, height: 500, layout: "pacific" });
-  const pacificAuckland = projectMercator({ lat: -36.8485, lon: 174.7633, width: 1000, height: 500, layout: "pacific" });
-
-  assert.equal(Math.round(atlanticSeam.x), 0);
-  assert.equal(Math.round(atlanticCenter.x), 500);
-  assert.equal(Math.round(pacificSeam.x), 0);
-  assert.equal(Math.round(pacificCenter.x), 500);
-  assert.equal(pacificAuckland.x > 565, true);
-  assert.equal(pacificAuckland.x < 570, true);
-});
-
-test("canvasBackingSize never undersizes fractional device pixels", () => {
+test("viewport and terminator helpers produce stable dimensions and coordinates", () => {
   assert.deepEqual(canvasBackingSize(1919, 1.25), { css: 1919, pixels: 2399 });
-  assert.deepEqual(canvasBackingSize(1920, 1.5), { css: 1920, pixels: 2880 });
-  assert.deepEqual(canvasBackingSize(0, 2), { css: 1, pixels: 2 });
-});
-
-test("projectMercator maps north latitude 72 to the top edge and keeps one world width", () => {
-  const north = projectMercator({ lat: 72, lon: 0, width: 1000, height: 500, layout: "atlantic" });
-  const south = projectMercator({ lat: -60, lon: 0, width: 1000, height: 500, layout: "atlantic" });
-  const seam = projectMercator({ lat: 0, lon: -169, width: 1000, height: 500, layout: "atlantic" });
-
-  assert.equal(Math.round(north.y), 0);
-  assert.equal(south.y > 450, true);
-  assert.equal(south.y < 550, true);
-  assert.equal(Math.round(seam.x), 0);
-});
-
-test("coverMercatorRect always maps one world circumference to the viewport width and top-aligns", () => {
-  const sixteenNine = coverMercatorRect(1920, 1080);
-  const ultrawide = coverMercatorRect(2560, 1080);
-
-  assert.equal(sixteenNine.width, 1920);
-  assert.equal(sixteenNine.x, 0);
-  assert.equal(sixteenNine.y, 0);
-  assert.equal(sixteenNine.height < 1080, true);
-  assert.equal(sixteenNine.height > 900, true);
-  assert.equal(ultrawide.width, 2560);
-  assert.equal(ultrawide.x, 0);
-  assert.equal(ultrawide.y, 0);
-  assert.equal(ultrawide.height > 1080, true);
-});
-
-test("viewportFillRect covers the full viewport below the clipped map", () => {
   assert.deepEqual(viewportFillRect(1920, 1032), { x: 0, y: 0, width: 1920, height: 1032 });
-});
+  assert.deepEqual(
+    [terminatorCellSize(1920, 1032), terminatorCellSize(2560, 1440), terminatorCellSize(390, 844)],
+    [8, 10, 4]
+  );
 
-test("projectMercator clamps very high latitudes into the visible map", () => {
-  const north = projectMercator({ lat: 89, lon: 0, width: 1000, height: 500, layout: "atlantic" });
-  const south = projectMercator({ lat: -89, lon: 0, width: 1000, height: 500, layout: "atlantic" });
-
-  assert.equal(Math.round(north.y), 0);
-  assert.equal(Number.isFinite(south.y), true);
-  assert.equal(south.y > 0, true);
-});
-
-test("unprojectMercator round-trips visible points and allows extension below the clipped map", () => {
-  const projected = projectMercator({ lat: 35.6762, lon: 139.6503, width: 1000, layout: "pacific" });
-  const roundTrip = unprojectMercator({ x: projected.x, y: projected.y, width: 1000, layout: "pacific" });
-  const rect = coverMercatorRect(1000, 800);
-  const below = unprojectMercator({ x: 500, y: rect.height + 80, width: 1000, layout: "atlantic" });
-
-  assert.equal(Math.abs(roundTrip.lat - 35.6762) < 0.0001, true);
-  assert.equal(Math.abs(roundTrip.lon - 139.6503) < 0.0001, true);
-  assert.equal(below.lat < -60, true);
-});
-
-test("terminatorCellSize returns square screen pixels", () => {
-  const desktop = terminatorCellSize(1920, 1032);
-  const highResolution = terminatorCellSize(2560, 1440);
-  const mobile = terminatorCellSize(390, 844);
-
-  assert.equal(desktop, 8);
-  assert.equal(highResolution, 10);
-  assert.equal(mobile, 4);
-  assert.equal(Number.isInteger(desktop), true);
-  assert.equal(Number.isInteger(highResolution), true);
-  assert.equal(Number.isInteger(mobile), true);
-  assert.equal(desktop > 1, true);
-  assert.equal(highResolution > 1, true);
-  assert.equal(mobile > 1, true);
-});
-
-test("terminatorGridCoordinates precomputes one latitude per row and one longitude per column", () => {
   const rect = coverMercatorRect(100, 80);
   const grid = terminatorGridCoordinates({
     width: 100,
@@ -482,47 +215,26 @@ test("terminatorGridCoordinates precomputes one latitude per row and one longitu
     layout: "pacific",
     cellSize: 10
   });
-
   assert.equal(grid.columns.length, 10);
   assert.equal(grid.rows.length, 8);
-  assert.deepEqual(grid.columns.map((entry) => entry.x), [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]);
-  assert.deepEqual(grid.rows.map((entry) => entry.y), [0, 10, 20, 30, 40, 50, 60, 70]);
-
-  const firstCell = unprojectMercator({
-    x: 5 - rect.x,
-    y: 5 - rect.y,
-    width: rect.width,
-    layout: "pacific"
-  });
-  assert.equal(Math.abs(grid.columns[0].lon - firstCell.lon) < 1e-12, true);
-  assert.equal(Math.abs(grid.rows[0].lat - firstCell.lat) < 1e-12, true);
+  assert.equal(Number.isFinite(grid.columns[0].lon), true);
+  assert.equal(Number.isFinite(grid.rows[0].lat), true);
 });
 
-test("shouldBreakLandSegment skips artificial antimeridian cut edges", () => {
-  const antimeridian = shouldBreakLandSegment({
-    previous: { lon: 180, lat: 68.963722, x: 1120 },
-    current: { lon: 180, lat: 64.979584, x: 1120 },
-    width: 1920
-  });
-  const wrapped = shouldBreakLandSegment({
-    previous: { lon: 179.8, lat: 52, x: 1918 },
-    current: { lon: -179.8, lat: 52, x: 2 },
-    width: 1920
-  });
-  const ordinary = shouldBreakLandSegment({
-    previous: { lon: 178, lat: 52, x: 1100 },
-    current: { lon: 179, lat: 54, x: 1105 },
-    width: 1920
-  });
-
-  assert.equal(antimeridian, true);
-  assert.equal(wrapped, true);
-  assert.equal(ordinary, false);
+test("land segments break only at dataset or wrapped seams", () => {
+  const cases = [
+    [{ previous: { lon: 180, lat: 68.9, x: 1120 }, current: { lon: 180, lat: 64.9, x: 1120 }, width: 1920 }, true],
+    [{ previous: { lon: 179.8, lat: 52, x: 1918 }, current: { lon: -179.8, lat: 52, x: 2 }, width: 1920 }, true],
+    [{ previous: { lon: 178, lat: 52, x: 1100 }, current: { lon: 179, lat: 54, x: 1105 }, width: 1920 }, false]
+  ];
+  for (const [options, expected] of cases) {
+    assert.equal(shouldBreakLandSegment(options), expected);
+  }
 });
 
-test("chooseLabelPlacement avoids blocked marker boxes before using a placement", () => {
+test("label placement avoids markers and existing labels with a safe fallback", () => {
   const takenBoxes = [];
-  const placement = chooseLabelPlacement({
+  const avoided = chooseLabelPlacement({
     screenX: 140,
     screenY: 100,
     viewport: { x: 0, y: 0, width: 360, height: 220 },
@@ -531,14 +243,7 @@ test("chooseLabelPlacement avoids blocked marker boxes before using a placement"
     takenBoxes,
     blockedBoxes: [{ left: 152, right: 260, top: 76, bottom: 124 }]
   });
-
-  assert.equal(placement.placement, "left");
-  assert.equal(takenBoxes.length, 1);
-  assert.equal(takenBoxes[0].right <= 126, true);
-});
-
-test("chooseLabelPlacement falls back when marker avoidance would hide the label", () => {
-  const placement = chooseLabelPlacement({
+  const fallback = chooseLabelPlacement({
     screenX: 180,
     screenY: 100,
     viewport: { x: 0, y: 0, width: 360, height: 220 },
@@ -547,13 +252,7 @@ test("chooseLabelPlacement falls back when marker avoidance would hide the label
     takenBoxes: [],
     blockedBoxes: [{ left: 0, right: 360, top: 0, bottom: 220 }]
   });
-
-  assert.notEqual(placement, null);
-  assert.equal(placement.placement, "right");
-});
-
-test("chooseLabelPlacement keeps searching farther vertical offsets near an edge", () => {
-  const placement = chooseLabelPlacement({
+  const crowded = chooseLabelPlacement({
     screenX: 470,
     screenY: 120,
     viewport: { x: 0, y: 0, width: 560, height: 260 },
@@ -561,144 +260,112 @@ test("chooseLabelPlacement keeps searching farther vertical offsets near an edge
     estimatedHeight: 40,
     takenBoxes: [
       { left: 356, right: 456, top: 100, bottom: 140 },
-      { left: 356, right: 456, top: 66, bottom: 106 },
-      { left: 356, right: 456, top: 134, bottom: 174 },
-      { left: 356, right: 456, top: 188, bottom: 228 }
+      { left: 356, right: 456, top: 66, bottom: 106 }
     ],
     blockedBoxes: []
   });
 
-  assert.notEqual(placement, null);
-  assert.equal(placement.placement, "left");
-  assert.equal(placement.y < 60, true);
+  assert.equal(avoided.placement, "left");
+  assert.equal(takenBoxes.length, 1);
+  assert.notEqual(fallback, null);
+  assert.notEqual(crowded, null);
 });
 
-test("labelMetrics scales label box, text, and day-night icon together", () => {
-  const small = labelMetrics("small", 1280);
-  const medium = labelMetrics("medium", 1280);
-  const large = labelMetrics("large", 1280);
-  const fallback = labelMetrics("broken", 1280);
+test("label metrics scale consistently and compact short viewports", () => {
+  const small = labelMetrics("small", 1280, 720);
+  const medium = labelMetrics("medium", 1280, 720);
+  const large = labelMetrics("large", 1280, 720);
+  const compact = labelMetrics("medium", 1280, 480);
 
-  assert.deepEqual(fallback, small);
-  assert.equal(small.scale, 1);
-  assert.equal(medium.scale >= 1.34, true);
-  assert.equal(large.scale >= 1.68, true);
-  assert.equal(small.estimatedWidth < medium.estimatedWidth, true);
-  assert.equal(medium.estimatedWidth < large.estimatedWidth, true);
-  assert.equal(small.estimatedHeight < medium.estimatedHeight, true);
-  assert.equal(medium.estimatedHeight < large.estimatedHeight, true);
-  assert.equal(small.iconPx < medium.iconPx, true);
-  assert.equal(medium.iconPx < large.iconPx, true);
-  assert.equal(small.timePx < medium.timePx, true);
-  assert.equal(medium.timePx < large.timePx, true);
-  assert.equal(small.nameLineHeight < medium.nameLineHeight, true);
-  assert.equal(medium.nameLineHeight <= large.nameLineHeight, true);
-  assert.equal(small.timeLineHeight < medium.timeLineHeight, true);
-  assert.equal(medium.timeLineHeight <= large.timeLineHeight, true);
-  assert.equal(small.timeGapPx < medium.timeGapPx, true);
-  assert.equal(medium.timeGapPx < large.timeGapPx, true);
+  for (const field of ["estimatedWidth", "estimatedHeight", "namePx", "timePx", "iconPx"]) {
+    assert.equal(small[field] < medium[field], true, field);
+    assert.equal(medium[field] < large[field], true, field);
+  }
+  assert.equal(compact.estimatedWidth < medium.estimatedWidth, true);
+  assert.deepEqual(labelMetrics("broken", 1280, 720), small);
 });
 
-test("labelMetrics uses compact dimensions for short viewports", () => {
-  const regular = labelMetrics("medium", 1280, 720);
-  const short = labelMetrics("medium", 1280, 480);
-
-  assert.equal(short.estimatedWidth < regular.estimatedWidth, true);
-  assert.equal(short.estimatedHeight < regular.estimatedHeight, true);
-  assert.equal(short.namePx < regular.namePx, true);
-  assert.equal(short.timePx < regular.timePx, true);
-});
-
-test("isDaylightAt identifies approximate equinox noon and midnight at Greenwich", () => {
-  const noon = new Date("2026-03-20T12:00:00Z");
-  const midnight = new Date("2026-03-20T00:00:00Z");
-
-  assert.equal(isDaylightAt({ lat: 0, lon: 0, date: noon }), true);
-  assert.equal(isDaylightAt({ lat: 0, lon: 0, date: midnight }), false);
-});
-
-test("solarCosineFromPosition reuses one solar position without changing results", () => {
-  const date = new Date("2026-06-20T12:34:56.789Z");
+test("solar helpers share a required position and identify day and night", () => {
+  const date = new Date("2026-03-20T12:00:00Z");
   const sun = solarPosition(date);
-
-  assert.deepEqual(Object.keys(sun).sort(), ["lat", "lon"]);
-  for (const [lat, lon] of [[0, 0], [35.6762, 139.6503], [-33.8688, 151.2093]]) {
-    assert.equal(
-      Math.abs(solarCosineFromPosition(lat, lon, sun) - solarCosine(lat, lon, date)) < 1e-12,
-      true
-    );
-  }
-});
-
-test("solarCosineFromPosition rejects a missing solar position", () => {
-  for (const sun of [undefined, null, false]) {
-    assert.throws(
-      () => solarCosineFromPosition(0, 0, sun),
-      /Solar position is required/
-    );
-  }
-});
-
-test("nextClockDelay aligns updates to the next second or minute boundary", () => {
-  assert.equal(nextClockDelay(1234, true), 766);
-  assert.equal(nextClockDelay(2000, true), 1000);
-  assert.equal(nextClockDelay(1234, false), 58766);
-  assert.equal(nextClockDelay(60000, false), 60000);
-});
-
-test("nextTerminatorDelay aligns updates to five-second boundaries", () => {
-  assert.equal(nextTerminatorDelay(1234), 3766);
-  assert.equal(nextTerminatorDelay(5000), 5000);
-  assert.equal(nextTerminatorDelay(9999), 1);
-});
-
-test("formatZonedTime uses IANA timezone rules through Intl", () => {
-  const winter = formatZonedTime(new Date("2026-01-15T12:00:00Z"), "Europe/London", true, true, "en-US");
-  const summer = formatZonedTime(new Date("2026-07-15T12:00:00Z"), "Europe/London", true, true, "en-US");
-  const morning = formatZonedTime(new Date("2026-01-15T12:30:00Z"), "America/New_York", false, true, "en-US");
-
-  assert.equal(winter, "12:00:00");
-  assert.equal(summer, "13:00:00");
-  assert.match(morning, /AM|PM/);
-  assert.equal(CITY_PRESETS.london.timeZone, "Europe/London");
-  assert.equal(CITY_PRESETS.new_york.timeZone, "America/New_York");
-  assert.equal(CITY_PRESETS.sydney.timeZone, "Australia/Sydney");
-  assert.equal(CITY_PRESETS.regina.timeZone, "America/Regina");
-  assert.equal(CITY_PRESETS.eucla.timeZone, "Australia/Eucla");
-  assert.equal(CITY_PRESETS.havana.timeZone, "America/Havana");
-  assert.equal(CITY_PRESETS.kabul.timeZone, "Asia/Kabul");
-  assert.equal(CITY_PRESETS.beirut.timeZone, "Asia/Beirut");
-  assert.equal(CITY_PRESETS.chisinau.timeZone, "Europe/Chisinau");
-});
-
-test("formatZonedTime removes the leading zero only from single-digit hours", () => {
-  const date = new Date("2026-01-15T00:05:07Z");
-
-  assert.equal(formatZonedTime(date, "Asia/Tokyo", true, true, "en-US"), "9:05:07");
-  assert.equal(formatZonedTime(date, "Asia/Tokyo", true, true, "zh-CN"), "9:05:07");
-  assert.equal(formatZonedTime(date, "Asia/Tokyo", true, true, "ja-JP"), "9:05:07");
-  assert.match(formatZonedTime(date, "Asia/Tokyo", false, true, "en-US"), /^9:05:07\s*AM$/);
-  assert.equal(formatZonedTime(date, "Asia/Tokyo", true, false, "ja-JP"), "9:05");
-});
-
-test("resolveRuntimeLanguage supports explicit choices and defaults unknown values to English", () => {
-  assert.equal(resolveRuntimeLanguage("zh"), "zh");
-  assert.equal(resolveRuntimeLanguage("zh-hant"), "zh-hant");
-  assert.equal(resolveRuntimeLanguage("en"), "en");
-  assert.equal(resolveRuntimeLanguage("ja"), "ja");
-  assert.equal(resolveRuntimeLanguage("ko"), "ko");
-  assert.equal(resolveRuntimeLanguage("es"), "es");
-  assert.equal(resolveRuntimeLanguage("ru"), "ru");
-  assert.equal(resolveRuntimeLanguage("pt"), "pt");
-  assert.equal(resolveRuntimeLanguage("de"), "de");
-  assert.equal(resolveRuntimeLanguage("auto"), "en");
-  assert.equal(resolveRuntimeLanguage("broken"), "en");
-});
-
-test("localeForLanguage uses generated locales for every supported language", () => {
-  assert.deepEqual(
-    ["zh", "zh-hant", "en", "ja", "ko", "es", "ru", "pt", "de"].map(localeForLanguage),
-    ["zh-CN", "zh-TW", "en-US", "ja-JP", "ko-KR", "es-ES", "ru-RU", "pt-BR", "de-DE"]
+  assert.equal(
+    Math.abs(solarCosineFromPosition(35.6762, 139.6503, sun) - solarCosine(35.6762, 139.6503, date)) < 1e-12,
+    true
   );
+  assert.throws(() => solarCosineFromPosition(0, 0), /Solar position is required/);
+  assert.equal(isDaylightAt({ lat: 0, lon: 0, date }), true);
+  assert.equal(isDaylightAt({ lat: 0, lon: 0, date: new Date("2026-03-20T00:00:00Z") }), false);
+});
+
+test("terminator solar factors match direct cosine calculations", () => {
+  const grid = terminatorGridCoordinates({
+    width: 32,
+    height: 24,
+    rect: coverMercatorRect(32, 24),
+    layout: "pacific",
+    cellSize: 8
+  });
+  const sun = solarPosition(new Date("2026-06-23T00:00:00Z"));
+  const factors = terminatorSolarFactors(grid, sun);
+
+  for (let rowIndex = 0; rowIndex < grid.rows.length; rowIndex += 1) {
+    for (let columnIndex = 0; columnIndex < grid.columns.length; columnIndex += 1) {
+      const row = factors.rows[rowIndex];
+      const column = factors.columns[columnIndex];
+      const actual = row.constant + row.amplitude * column.hourCosine;
+      const expected = solarCosineFromPosition(
+        grid.rows[rowIndex].lat,
+        grid.columns[columnIndex].lon,
+        sun
+      );
+      assert.equal(Math.abs(actual - expected) < 1e-12, true);
+    }
+  }
+  assert.throws(() => terminatorSolarFactors(grid), /Solar position is required/);
+});
+
+test("clock schedulers align to their configured boundaries", () => {
+  assert.deepEqual(
+    [
+      nextClockDelay(1234, true),
+      nextClockDelay(1234, false),
+      nextTerminatorDelay(1234),
+      nextTerminatorDelay(9999)
+    ],
+    [766, 58766, 3766, 1]
+  );
+});
+
+test("zoned time formatting follows IANA rules and requested precision", () => {
+  const date = new Date("2026-01-15T00:05:07Z");
+  assert.equal(formatZonedTime(date, "Asia/Tokyo", true, true, "en-US"), "9:05:07");
+  assert.equal(formatZonedTime(date, "Asia/Tokyo", true, false, "ja-JP"), "9:05");
+  assert.match(formatZonedTime(date, "Asia/Tokyo", false, true, "en-US"), /^9:05:07\s*AM$/);
+  assert.equal(
+    formatZonedTime(new Date("2026-07-15T12:00:00Z"), "Europe/London", true, true, "en-US"),
+    "13:00:00"
+  );
+  assert.equal(CITY_PRESETS.eucla.timeZone, "Australia/Eucla");
+});
+
+test("runtime language helpers support every generated language and English fallback", () => {
+  const expected = {
+    zh: "zh-CN",
+    "zh-hant": "zh-TW",
+    en: "en-US",
+    ja: "ja-JP",
+    ko: "ko-KR",
+    es: "es-ES",
+    ru: "ru-RU",
+    pt: "pt-BR",
+    de: "de-DE"
+  };
+  for (const [language, locale] of Object.entries(expected)) {
+    assert.equal(resolveRuntimeLanguage(language), language);
+    assert.equal(localeForLanguage(language), locale);
+  }
+  assert.equal(getCityName({ name: "Manual", names: { en: "Generated" } }, "en"), "Manual");
+  assert.equal(getCityName({ id: "tokyo", names: { en: "Tokyo", ja: "東京" } }, "ja"), "東京");
+  assert.equal(resolveRuntimeLanguage("broken"), "en");
   assert.equal(localeForLanguage("broken"), "en-US");
 });

@@ -20,7 +20,7 @@
 
 [h2]使用方法[/h2]
 
-手動新增的時區必須存在於 [url=https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab]IANA tzdb 2026b 城市列表[/url]中。本專案使用的 IANA 版本為 2026b。
+手動新增的時區必須存在於 [url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]IANA tzdb 2026b 城市列表[/url]中。本專案使用的 IANA 版本為 2026b。
 
 [h3]設定我的城市[/h3]
 

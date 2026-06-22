@@ -20,7 +20,7 @@ A Wallpaper Engine world clock that displays local city times, day-night states,
 
 ## Usage
 
-Manually added time zones must appear in the [IANA tzdb 2026b city list](https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab). This project uses IANA version 2026b.
+Manually added time zones must appear in the [IANA city list](https://data.iana.org/time-zones/tzdb-2026b/zone.tab). This project uses IANA version 2026b.
 
 ### Set Your City
 

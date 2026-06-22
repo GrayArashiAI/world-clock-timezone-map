@@ -402,12 +402,13 @@
 
     const cellSize = core.terminatorCellSize(runtime.width, runtime.height);
     const grid = getTerminatorGrid(cellSize);
+    const solarFactors = core.terminatorSolarFactors(grid, sun);
 
     terminatorCtx.save();
     terminatorCtx.imageSmoothingEnabled = false;
-    for (const row of grid.rows) {
-      for (const column of grid.columns) {
-        const cosine = core.solarCosineFromPosition(row.lat, column.lon, sun);
+    for (const row of solarFactors.rows) {
+      for (const column of solarFactors.columns) {
+        const cosine = row.constant + row.amplitude * column.hourCosine;
         if (cosine >= 0.1) {
           continue;
         }

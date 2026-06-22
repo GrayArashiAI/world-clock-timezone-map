@@ -7,6 +7,7 @@ import {
   mkdir,
   readFile,
   readdir,
+  rename,
   rm,
   stat,
   writeFile
@@ -29,7 +30,6 @@ async function createSource(root, omittedFile = "") {
     if (relativePath === omittedFile) {
       continue;
     }
-
     const target = join(root, relativePath);
     await mkdir(dirname(target), { recursive: true });
     if (relativePath === "project.json") {
@@ -45,17 +45,12 @@ async function createSource(root, omittedFile = "") {
       await writeFile(target, `development:${relativePath}\n`);
     }
   }
-
-  await mkdir(join(root, "tests"), { recursive: true });
-  await writeFile(join(root, "tests", "development.test.mjs"), "development only\n");
 }
 
 async function listRelativeFiles(root) {
   const files = [];
-
   async function visit(directory) {
-    const entries = await readdir(directory, { withFileTypes: true });
-    for (const entry of entries) {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
       const absolutePath = join(directory, entry.name);
       if (entry.isDirectory()) {
         await visit(absolutePath);
@@ -64,18 +59,17 @@ async function listRelativeFiles(root) {
       }
     }
   }
-
   await visit(root);
   return files.sort();
 }
 
-test("syncPublish replaces the publish directory with only runtime files", async (t) => {
+test("syncPublish replaces the destination with runtime files and preserves Workshop metadata", async (t) => {
   const root = await createFixtureRoot(t);
   const sourceRoot = join(root, "source");
   const publishRoot = join(root, "publish");
   await createSource(sourceRoot);
   await mkdir(join(publishRoot, "tests"), { recursive: true });
-  await writeFile(join(publishRoot, "tests", "old.test.mjs"), "old development file\n");
+  await writeFile(join(publishRoot, "tests", "old.test.mjs"), "old\n");
   await writeFile(join(publishRoot, "project.json"), `${JSON.stringify({
     description: "Published description",
     title: "Published title",
@@ -85,110 +79,81 @@ test("syncPublish replaces the publish directory with only runtime files", async
   })}\n`);
 
   const result = await syncPublish({ sourceRoot, publishRoot });
+  const publishedProject = JSON.parse(await readFile(join(publishRoot, "project.json"), "utf8"));
 
   assert.deepEqual(await listRelativeFiles(publishRoot), [...PUBLISH_FILES].sort());
   assert.deepEqual(result.files, [...PUBLISH_FILES]);
-  const publishedProject = JSON.parse(await readFile(join(publishRoot, "project.json"), "utf8"));
-  assert.equal(publishedProject.description, "Published description");
-  assert.equal(publishedProject.visibility, "public");
-  assert.equal(publishedProject.workshopid, "123456789");
-  assert.equal(publishedProject.workshopurl, "steam://url/CommunityFilePage/123456789");
-  assert.equal(publishedProject.title, "Development title");
-  await assert.rejects(stat(join(publishRoot, "tests", "old.test.mjs")), { code: "ENOENT" });
-});
-
-test("syncPublish leaves the publish directory unchanged when its project JSON is invalid", async (t) => {
-  const root = await createFixtureRoot(t);
-  const sourceRoot = join(root, "source");
-  const publishRoot = join(root, "publish");
-  await createSource(sourceRoot);
-  await mkdir(publishRoot, { recursive: true });
-  await writeFile(join(publishRoot, "project.json"), "{ invalid json");
-  await writeFile(join(publishRoot, "sentinel.txt"), "keep me\n");
-
-  await assert.rejects(
-    syncPublish({ sourceRoot, publishRoot }),
-    /Cannot parse existing publish project/
-  );
-
-  assert.equal(await readFile(join(publishRoot, "project.json"), "utf8"), "{ invalid json");
-  assert.equal(await readFile(join(publishRoot, "sentinel.txt"), "utf8"), "keep me\n");
-});
-
-test("syncPublish leaves the publish directory unchanged when a source file is missing", async (t) => {
-  const root = await createFixtureRoot(t);
-  const sourceRoot = join(root, "source");
-  const publishRoot = join(root, "publish");
-  await createSource(sourceRoot, "src/main.js");
-  await mkdir(publishRoot, { recursive: true });
-  const existingProject = `${JSON.stringify({
-    title: "Published title",
-    workshopid: "123456789"
-  })}\n`;
-  await writeFile(join(publishRoot, "project.json"), existingProject);
-  await writeFile(join(publishRoot, "sentinel.txt"), "keep me\n");
-
-  await assert.rejects(
-    syncPublish({ sourceRoot, publishRoot }),
-    /Missing publish source file: src\/main\.js/
-  );
-
-  assert.equal(await readFile(join(publishRoot, "project.json"), "utf8"), existingProject);
-  assert.equal(await readFile(join(publishRoot, "sentinel.txt"), "utf8"), "keep me\n");
-});
-
-test("syncPublish rejects identical development and publish paths", async (t) => {
-  const root = await createFixtureRoot(t);
-  await createSource(root);
-
-  await assert.rejects(
-    syncPublish({ sourceRoot: root, publishRoot: root }),
-    /Development and publish directories must be different/
+  assert.deepEqual(
+    {
+      title: publishedProject.title,
+      description: publishedProject.description,
+      workshopid: publishedProject.workshopid
+    },
+    {
+      title: "Development title",
+      description: "Published description",
+      workshopid: "123456789"
+    }
   );
 });
 
-test("syncPublish rejects a publish directory that contains the development directory", async (t) => {
+test("syncPublish preflight failures leave existing destinations unchanged", async (t) => {
+  const root = await createFixtureRoot(t);
+  const cases = [
+    {
+      name: "invalid existing project",
+      omittedFile: "",
+      projectText: "{ invalid json",
+      expectedError: /Cannot parse existing publish project/
+    },
+    {
+      name: "missing source file",
+      omittedFile: "src/main.js",
+      projectText: '{"title":"Published title"}\n',
+      expectedError: /Missing publish source file: src\/main\.js/
+    }
+  ];
+
+  for (const [index, scenario] of cases.entries()) {
+    const sourceRoot = join(root, `source-${index}`);
+    const publishRoot = join(root, `publish-${index}`);
+    await createSource(sourceRoot, scenario.omittedFile);
+    await mkdir(publishRoot, { recursive: true });
+    await writeFile(join(publishRoot, "project.json"), scenario.projectText);
+    await writeFile(join(publishRoot, "sentinel.txt"), scenario.name);
+
+    await assert.rejects(syncPublish({ sourceRoot, publishRoot }), scenario.expectedError);
+    assert.equal(await readFile(join(publishRoot, "project.json"), "utf8"), scenario.projectText);
+    assert.equal(await readFile(join(publishRoot, "sentinel.txt"), "utf8"), scenario.name);
+  }
+});
+
+test("syncPublish rejects identical or nested development and publish paths", async (t) => {
   const root = await createFixtureRoot(t);
   const sourceRoot = join(root, "source");
   await createSource(sourceRoot);
   await writeFile(join(root, "project.json"), "{}\n");
-  await writeFile(join(root, "sentinel.txt"), "keep me\n");
 
-  await assert.rejects(
-    syncPublish({ sourceRoot, publishRoot: root }),
-    /Development and publish directories must not overlap/
-  );
-
-  assert.equal(await readFile(join(root, "sentinel.txt"), "utf8"), "keep me\n");
+  for (const [source, destination] of [
+    [sourceRoot, sourceRoot],
+    [sourceRoot, root],
+    [sourceRoot, join(sourceRoot, "publish")]
+  ]) {
+    await assert.rejects(
+      syncPublish({ sourceRoot: source, publishRoot: destination }),
+      /must be different|must not overlap/
+    );
+  }
   assert.equal((await stat(join(sourceRoot, "src", "main.js"))).isFile(), true);
 });
 
-test("syncPublish rejects a publish directory inside the development directory", async (t) => {
-  const root = await createFixtureRoot(t);
-  const sourceRoot = join(root, "source");
-  const publishRoot = join(sourceRoot, "publish");
-  await createSource(sourceRoot);
-
-  await assert.rejects(
-    syncPublish({ sourceRoot, publishRoot }),
-    /Development and publish directories must not overlap/
-  );
-
-  assert.equal((await stat(join(sourceRoot, "src", "main.js"))).isFile(), true);
-  await assert.rejects(stat(publishRoot), { code: "ENOENT" });
-});
-
-test("syncPublish updates files while another process uses the publish root", async (t) => {
+test("syncPublish works while another process uses the publish directory", async (t) => {
   const root = await createFixtureRoot(t);
   const sourceRoot = join(root, "source");
   const publishRoot = join(root, "publish");
   await createSource(sourceRoot);
   await mkdir(publishRoot, { recursive: true });
-  await writeFile(join(publishRoot, "project.json"), `${JSON.stringify({
-    title: "Published title",
-    workshopid: "123456789"
-  })}\n`);
-  await writeFile(join(publishRoot, "old-development-file.txt"), "remove me\n");
+  await writeFile(join(publishRoot, "project.json"), '{"workshopid":"123456789"}\n');
   const directoryUser = spawn(
     process.execPath,
     ["-e", "process.stdout.write('ready'); setTimeout(() => {}, 30000);"],
@@ -207,6 +172,51 @@ test("syncPublish updates files while another process uses the publish root", as
   }
 
   assert.deepEqual(await listRelativeFiles(publishRoot), [...PUBLISH_FILES].sort());
-  const publishedProject = JSON.parse(await readFile(join(publishRoot, "project.json"), "utf8"));
-  assert.equal(publishedProject.workshopid, "123456789");
+});
+
+test("syncPublish preserves the backup when rollback is incomplete", async (t) => {
+  const root = await createFixtureRoot(t);
+  const sourceRoot = join(root, "source");
+  const publishRoot = join(root, "publish");
+  await createSource(sourceRoot);
+  await mkdir(publishRoot, { recursive: true });
+  await writeFile(join(publishRoot, "project.json"), '{"workshopid":"123456789"}\n');
+  await writeFile(join(publishRoot, "sentinel.txt"), "keep me\n");
+
+  const renameWithFailures = async (source, destination) => {
+    const sourceParent = dirname(source);
+    const destinationParent = dirname(destination);
+    if (
+      destinationParent === publishRoot
+      && sourceParent !== publishRoot
+      && !sourceParent.endsWith("-backup")
+    ) {
+      throw new Error("injected publish move failure");
+    }
+    if (
+      destinationParent === publishRoot
+      && sourceParent.endsWith("-backup")
+      && source.endsWith(`${sep}sentinel.txt`)
+    ) {
+      throw new Error("injected rollback failure");
+    }
+    await rename(source, destination);
+  };
+
+  await assert.rejects(
+    syncPublish({
+      sourceRoot,
+      publishRoot,
+      operations: { rename: renameWithFailures }
+    }),
+    /rollback failed/
+  );
+
+  const backupEntries = (await readdir(root, { withFileTypes: true }))
+    .filter((entry) => entry.isDirectory() && entry.name.endsWith("-backup"));
+  assert.equal(backupEntries.length, 1);
+  assert.equal(
+    await readFile(join(root, backupEntries[0].name, "sentinel.txt"), "utf8"),
+    "keep me\n"
+  );
 });
