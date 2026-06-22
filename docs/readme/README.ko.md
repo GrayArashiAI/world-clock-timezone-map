@@ -1,10 +1,10 @@
 [简体中文](../../README.md) | [繁體中文](README.zh-Hant.md) | [English](README.en.md) | [日本語](README.ja.md) | 한국어 | [Español](README.es.md) | [Русский](README.ru.md) | [Português](README.pt.md) | [Deutsch](README.de.md)
 
-# World Map Timezone Map Wallpaper
+# World Clock Timezone Map Wallpaper
 
 메르카토르 세계 지도에서 도시별 현지 시각, 낮과 밤, 실시간 주야 경계선을 표시하는 Wallpaper Engine용 오프라인 세계 시계 배경화면입니다.
 
-![World Map Timezone Map Wallpaper 데모](../../assets/world-map-timezone-map-preview.gif)
+![World Clock Timezone Map Wallpaper 데모](../../assets/world-map-timezone-map-preview.gif)
 
 ## 구현 기능
 

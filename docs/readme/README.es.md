@@ -1,10 +1,10 @@
 [简体中文](../../README.md) | [繁體中文](README.zh-Hant.md) | [English](README.en.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | Español | [Русский](README.ru.md) | [Português](README.pt.md) | [Deutsch](README.de.md)
 
-# World Map Timezone Map Wallpaper
+# World Clock Timezone Map Wallpaper
 
 Un reloj mundial sin conexión para Wallpaper Engine que muestra la hora local, el estado de día o noche y el terminador solar en tiempo real sobre un mapa Mercator.
 
-![Demostración de World Map Timezone Map Wallpaper](../../assets/world-map-timezone-map-preview.gif)
+![Demostración de World Clock Timezone Map Wallpaper](../../assets/world-map-timezone-map-preview.gif)
 
 ## Funciones implementadas
 

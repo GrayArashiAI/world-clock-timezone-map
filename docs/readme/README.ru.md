@@ -1,10 +1,10 @@
 [简体中文](../../README.md) | [繁體中文](README.zh-Hant.md) | [English](README.en.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Español](README.es.md) | Русский | [Português](README.pt.md) | [Deutsch](README.de.md)
 
-# World Map Timezone Map Wallpaper
+# World Clock Timezone Map Wallpaper
 
 Офлайн-обои с мировыми часами для Wallpaper Engine, показывающие местное время городов, день и ночь и линию солнечного терминатора на карте мира в проекции Меркатора.
 
-![Демонстрация World Map Timezone Map Wallpaper](../../assets/world-map-timezone-map-preview.gif)
+![Демонстрация World Clock Timezone Map Wallpaper](../../assets/world-map-timezone-map-preview.gif)
 
 ## Реализованные функции
 

@@ -1,10 +1,10 @@
 简体中文 | [繁體中文](docs/readme/README.zh-Hant.md) | [English](docs/readme/README.en.md) | [日本語](docs/readme/README.ja.md) | [한국어](docs/readme/README.ko.md) | [Español](docs/readme/README.es.md) | [Русский](docs/readme/README.ru.md) | [Português](docs/readme/README.pt.md) | [Deutsch](docs/readme/README.de.md)
 
-# World Map Timezone Map Wallpaper
+# World Clock Timezone Map Wallpaper
 
 一款为 Wallpaper Engine 制作的离线世界时钟动态壁纸，在墨卡托世界地图上实时显示城市时间、昼夜状态与晨昏线。
 
-![World Map Timezone Map Wallpaper 演示](assets/world-map-timezone-map-preview.gif)
+![World Clock Timezone Map Wallpaper 演示](assets/world-map-timezone-map-preview.gif)
 
 ## 实现功能
 

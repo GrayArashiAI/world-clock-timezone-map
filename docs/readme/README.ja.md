@@ -1,10 +1,10 @@
 [简体中文](../../README.md) | [繁體中文](README.zh-Hant.md) | [English](README.en.md) | 日本語 | [한국어](README.ko.md) | [Español](README.es.md) | [Русский](README.ru.md) | [Português](README.pt.md) | [Deutsch](README.de.md)
 
-# World Map Timezone Map Wallpaper
+# World Clock Timezone Map Wallpaper
 
 メルカトル世界地図上に都市の現地時刻、昼夜、リアルタイムの昼夜境界線を表示する、Wallpaper Engine 向けのオフライン世界時計壁紙です。
 
-![World Map Timezone Map Wallpaper デモ](../../assets/world-map-timezone-map-preview.gif)
+![World Clock Timezone Map Wallpaper デモ](../../assets/world-map-timezone-map-preview.gif)
 
 ## 実装機能
 
