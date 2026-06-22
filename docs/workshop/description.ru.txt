@@ -1,0 +1,91 @@
+[h1]World Clock Timezone Map Wallpaper[/h1]
+
+Обои с мировыми часами для Wallpaper Engine, показывающие местное время городов, день и ночь и линию солнечного терминатора на карте мира в проекции Меркатора.
+
+[img]https://raw.githubusercontent.com/GrayArashiAI/world-clock-timezone-map/main/assets/world-map-timezone-map-preview.gif[/img]
+
+[h2]Реализованные функции[/h2]
+
+[list]
+[*]Мировые часы и линия дня и ночи в реальном времени
+[*]Часовые пояса IANA и переход на летнее время
+[*]Текущий, предустановленные и пользовательские JSON-города
+[*]Карта с центром по Атлантическому или Тихому океану
+[*]Девять языков интерфейса
+[/list]
+
+[h2]Github[/h2]
+
+[url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
+
+[h2]Использование[/h2]
+
+Добавляемые вручную часовые пояса должны присутствовать в [url=https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab]списке городов IANA tzdb 2026b[/url]. В проекте используется версия IANA 2026b.
+
+[h3]Настройка своего города[/h3]
+
+Для Пекина укажите в настройках обоев Wallpaper Engine:
+
+[list]
+[*][b]Мой часовой пояс[/b]: [b]Asia/Shanghai[/b]
+[*][b]Мой город[/b]: [b]Пекин[/b]
+[*][b]Мои координаты[/b]: [b]39.9042,116.4074[/b]
+[/list]
+
+Формат координат: [b]широта,долгота[/b]. Для южной широты и западной долготы используются отрицательные значения. В IANA нет отдельного часового пояса Пекина, поэтому используется [b]Asia/Shanghai[/b].
+
+[h3]Добавление пользовательских городов[/h3]
+
+Поле «Другие города (JSON)» принимает один или несколько объектов городов. Квадратные скобки массива можно опустить.
+
+[h3]Указать все данные города[/h3]
+
+На примере Мумбаи укажите часовой пояс, название и координаты:
+
+[code]
+{"timeZone":"Asia/Kolkata","name":"Мумбаи","lat":19.076,"lon":72.8777}
+[/code]
+
+[h3]Указать только часовой пояс[/h3]
+
+На примере Дублина укажите только часовой пояс IANA. Название города и координаты будут добавлены автоматически:
+
+[code]
+{"timeZone":"Europe/Dublin"}
+[/code]
+
+[b]timeZone[/b] обязателен; [b]name[/b], [b]lat[/b] и [b]lon[/b] можно опустить.
+
+[h3]Добавить несколько городов[/h3]
+
+Разделяйте объекты городов запятыми:
+
+[code]
+{"timeZone": "Pacific/Honolulu"},
+{"timeZone": "America/Anchorage"},
+{"timeZone": "America/Los_Angeles"},
+{"timeZone": "America/Mexico_City"},
+{"timeZone": "America/New_York"},
+
+{"timeZone": "Europe/London"},
+{"timeZone": "Europe/Paris"},
+{"timeZone": "Europe/Istanbul"},
+{"timeZone": "Europe/Moscow"},
+{"timeZone": "Asia/Dubai"},
+{
+	"timeZone": "Asia/Kolkata",
+	"name": "Мумбаи",
+	"lat": 18.981050,
+	"lon": 72.826784
+},
+{"timeZone": "Asia/Bangkok"},
+{"timeZone": "Asia/Shanghai"},
+
+{"timeZone": "America/Sao_Paulo"},
+{"timeZone": "America/Lima"},
+{"timeZone": "America/Santiago"},
+
+{"timeZone": "Africa/Johannesburg"},
+{"timeZone": "Australia/Sydney"},
+{"timeZone": "Pacific/Auckland"},
+[/code]

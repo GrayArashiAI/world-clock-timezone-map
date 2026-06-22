@@ -1,0 +1,91 @@
+[h1]World Clock Timezone Map Wallpaper[/h1]
+
+메르카토르 세계 지도에서 도시별 현지 시각, 낮과 밤, 실시간 주야 경계선을 표시하는 Wallpaper Engine용 세계 시계 배경화면입니다.
+
+[img]https://raw.githubusercontent.com/GrayArashiAI/world-clock-timezone-map/main/assets/world-map-timezone-map-preview.gif[/img]
+
+[h2]구현 기능[/h2]
+
+[list]
+[*]실시간 세계 시계와 주야 경계선
+[*]IANA 시간대 및 일광 절약 시간 지원
+[*]현재 도시, 기본 도시, JSON 사용자 지정 도시
+[*]대서양 중심 및 태평양 중심 지도
+[*]9개 인터페이스 언어
+[/list]
+
+[h2]Github[/h2]
+
+[url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
+
+[h2]사용 방법[/h2]
+
+수동으로 추가하는 시간대는 [url=https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab]IANA tzdb 2026b 도시 목록[/url]에 있어야 합니다. 이 프로젝트에서 사용하는 IANA 버전은 2026b입니다.
+
+[h3]내 도시 설정[/h3]
+
+베이징을 예로 들어 Wallpaper Engine 배경화면 설정에 다음 값을 입력합니다.
+
+[list]
+[*][b]내 시간대[/b]: [b]Asia/Shanghai[/b]
+[*][b]내 도시[/b]: [b]베이징[/b]
+[*][b]내 좌표[/b]: [b]39.9042,116.4074[/b]
+[/list]
+
+좌표 형식은 [b]위도,경도[/b]입니다. 남위와 서경은 음수를 사용합니다. IANA에는 베이징 전용 시간대가 없으므로 [b]Asia/Shanghai[/b]를 사용합니다.
+
+[h3]사용자 지정 도시 추가[/h3]
+
+“더 많은 도시 (JSON)”에는 하나 이상의 도시 객체를 입력할 수 있습니다. 배열 대괄호는 생략할 수 있습니다.
+
+[h3]모든 도시 정보 지정[/h3]
+
+뭄바이를 예로 들어 시간대, 이름, 좌표를 함께 지정합니다.
+
+[code]
+{"timeZone":"Asia/Kolkata","name":"뭄바이","lat":19.076,"lon":72.8777}
+[/code]
+
+[h3]시간대만 지정[/h3]
+
+더블린을 예로 들어 IANA 시간대만 입력합니다. 도시 이름과 좌표는 자동으로 채워집니다.
+
+[code]
+{"timeZone":"Europe/Dublin"}
+[/code]
+
+[b]timeZone[/b]은 필수이며 [b]name[/b], [b]lat[/b], [b]lon[/b]은 생략할 수 있습니다.
+
+[h3]여러 도시 추가[/h3]
+
+도시 객체를 쉼표로 구분합니다.
+
+[code]
+{"timeZone": "Pacific/Honolulu"},
+{"timeZone": "America/Anchorage"},
+{"timeZone": "America/Los_Angeles"},
+{"timeZone": "America/Mexico_City"},
+{"timeZone": "America/New_York"},
+
+{"timeZone": "Europe/London"},
+{"timeZone": "Europe/Paris"},
+{"timeZone": "Europe/Istanbul"},
+{"timeZone": "Europe/Moscow"},
+{"timeZone": "Asia/Dubai"},
+{
+	"timeZone": "Asia/Kolkata",
+	"name": "뭄바이",
+	"lat": 18.981050,
+	"lon": 72.826784
+},
+{"timeZone": "Asia/Bangkok"},
+{"timeZone": "Asia/Shanghai"},
+
+{"timeZone": "America/Sao_Paulo"},
+{"timeZone": "America/Lima"},
+{"timeZone": "America/Santiago"},
+
+{"timeZone": "Africa/Johannesburg"},
+{"timeZone": "Australia/Sydney"},
+{"timeZone": "Pacific/Auckland"},
+[/code]

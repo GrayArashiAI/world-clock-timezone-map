@@ -1,0 +1,91 @@
+[h1]World Clock Timezone Map Wallpaper[/h1]
+
+Um relógio mundial para o Wallpaper Engine que mostra horários locais, estados de dia e noite e o terminador solar em tempo real sobre um mapa-múndi de Mercator.
+
+[img]https://raw.githubusercontent.com/GrayArashiAI/world-clock-timezone-map/main/assets/world-map-timezone-map-preview.gif[/img]
+
+[h2]Funcionalidades implementadas[/h2]
+
+[list]
+[*]Relógios mundiais e terminador solar em tempo real
+[*]Fusos horários IANA e horário de verão
+[*]Cidade atual, cidades predefinidas e cidades JSON
+[*]Mapas centralizados no Atlântico ou no Pacífico
+[*]Nove idiomas de interface
+[/list]
+
+[h2]Github[/h2]
+
+[url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
+
+[h2]Como usar[/h2]
+
+Os fusos horários adicionados manualmente devem constar na [url=https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab]lista de cidades do IANA tzdb 2026b[/url]. Este projeto usa a versão 2026b do IANA.
+
+[h3]Configurar minha cidade[/h3]
+
+Para Pequim, informe estes valores nas configurações do papel de parede no Wallpaper Engine:
+
+[list]
+[*][b]Meu fuso horário[/b]: [b]Asia/Shanghai[/b]
+[*][b]Minha cidade[/b]: [b]Pequim[/b]
+[*][b]Minhas coordenadas[/b]: [b]39.9042,116.4074[/b]
+[/list]
+
+As coordenadas usam o formato [b]latitude,longitude[/b]. Use valores negativos para sul e oeste. A IANA não possui um fuso horário exclusivo para Pequim, portanto é usado [b]Asia/Shanghai[/b].
+
+[h3]Adicionar cidades personalizadas[/h3]
+
+“Mais cidades (JSON)” aceita um ou mais objetos de cidade. Os colchetes do array podem ser omitidos.
+
+[h3]Informar todos os dados[/h3]
+
+Usando Bombaim como exemplo, informe o fuso horário, o nome e as coordenadas:
+
+[code]
+{"timeZone":"Asia/Kolkata","name":"Bombaim","lat":19.076,"lon":72.8777}
+[/code]
+
+[h3]Informar apenas o fuso horário[/h3]
+
+Usando Dublin como exemplo, informe apenas o fuso horário IANA. O nome e as coordenadas são preenchidos automaticamente:
+
+[code]
+{"timeZone":"Europe/Dublin"}
+[/code]
+
+[b]timeZone[/b] é obrigatório; [b]name[/b], [b]lat[/b] e [b]lon[/b] são opcionais.
+
+[h3]Adicionar várias cidades[/h3]
+
+Separe os objetos de cidade com vírgulas:
+
+[code]
+{"timeZone": "Pacific/Honolulu"},
+{"timeZone": "America/Anchorage"},
+{"timeZone": "America/Los_Angeles"},
+{"timeZone": "America/Mexico_City"},
+{"timeZone": "America/New_York"},
+
+{"timeZone": "Europe/London"},
+{"timeZone": "Europe/Paris"},
+{"timeZone": "Europe/Istanbul"},
+{"timeZone": "Europe/Moscow"},
+{"timeZone": "Asia/Dubai"},
+{
+	"timeZone": "Asia/Kolkata",
+	"name": "Bombaim",
+	"lat": 18.981050,
+	"lon": 72.826784
+},
+{"timeZone": "Asia/Bangkok"},
+{"timeZone": "Asia/Shanghai"},
+
+{"timeZone": "America/Sao_Paulo"},
+{"timeZone": "America/Lima"},
+{"timeZone": "America/Santiago"},
+
+{"timeZone": "Africa/Johannesburg"},
+{"timeZone": "Australia/Sydney"},
+{"timeZone": "Pacific/Auckland"},
+[/code]

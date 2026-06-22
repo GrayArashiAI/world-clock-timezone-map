@@ -1,0 +1,91 @@
+[h1]World Clock Timezone Map Wallpaper[/h1]
+
+A Wallpaper Engine world clock that displays local city times, day-night states, and the live solar terminator on a Mercator world map.
+
+[img]https://raw.githubusercontent.com/GrayArashiAI/world-clock-timezone-map/main/assets/world-map-timezone-map-preview.gif[/img]
+
+[h2]Implemented Features[/h2]
+
+[list]
+[*]Live world clocks and solar terminator
+[*]IANA time zones and daylight-saving time
+[*]Current, preset, and JSON-defined cities
+[*]Atlantic-centered and Pacific-centered layouts
+[*]Nine interface languages
+[/list]
+
+[h2]Github[/h2]
+
+[url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
+
+[h2]Usage[/h2]
+
+Manually added time zones must appear in the [url=https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab]IANA tzdb 2026b city list[/url]. This project uses IANA version 2026b.
+
+[h3]Set Your City[/h3]
+
+For Beijing, enter these values in the Wallpaper Engine settings:
+
+[list]
+[*][b]My time zone[/b]: [b]Asia/Shanghai[/b]
+[*][b]My city[/b]: [b]Beijing[/b]
+[*][b]My coordinates[/b]: [b]39.9042,116.4074[/b]
+[/list]
+
+Coordinates use the [b]latitude,longitude[/b] format. Use negative values for south and west. IANA has no separate Beijing time zone, so Beijing uses [b]Asia/Shanghai[/b].
+
+[h3]Add Custom Cities[/h3]
+
+“More cities (JSON)” accepts one or more city objects. The surrounding array brackets may be omitted.
+
+[h3]Specify All City Data[/h3]
+
+Using Mumbai as an example, specify its time zone, name, and coordinates:
+
+[code]
+{"timeZone":"Asia/Kolkata","name":"Mumbai","lat":19.076,"lon":72.8777}
+[/code]
+
+[h3]Specify Only a Time Zone[/h3]
+
+Using Dublin as an example, provide only its IANA time zone. The city name and coordinates are filled automatically:
+
+[code]
+{"timeZone":"Europe/Dublin"}
+[/code]
+
+[b]timeZone[/b] is required; [b]name[/b], [b]lat[/b], and [b]lon[/b] are optional.
+
+[h3]Add Multiple Cities[/h3]
+
+Separate city objects with commas:
+
+[code]
+{"timeZone": "Pacific/Honolulu"},
+{"timeZone": "America/Anchorage"},
+{"timeZone": "America/Los_Angeles"},
+{"timeZone": "America/Mexico_City"},
+{"timeZone": "America/New_York"},
+
+{"timeZone": "Europe/London"},
+{"timeZone": "Europe/Paris"},
+{"timeZone": "Europe/Istanbul"},
+{"timeZone": "Europe/Moscow"},
+{"timeZone": "Asia/Dubai"},
+{
+	"timeZone": "Asia/Kolkata",
+	"name": "Mumbai",
+	"lat": 18.981050,
+	"lon": 72.826784
+},
+{"timeZone": "Asia/Bangkok"},
+{"timeZone": "Asia/Shanghai"},
+
+{"timeZone": "America/Sao_Paulo"},
+{"timeZone": "America/Lima"},
+{"timeZone": "America/Santiago"},
+
+{"timeZone": "Africa/Johannesburg"},
+{"timeZone": "Australia/Sydney"},
+{"timeZone": "Pacific/Auckland"},
+[/code]

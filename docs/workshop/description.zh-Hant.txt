@@ -1,0 +1,91 @@
+[h1]World Clock Timezone Map Wallpaper[/h1]
+
+一款為 Wallpaper Engine 製作的世界時鐘動態桌布，在麥卡托世界地圖上即時顯示城市時間、晝夜狀態與晨昏線。
+
+[img]https://raw.githubusercontent.com/GrayArashiAI/world-clock-timezone-map/main/assets/world-map-timezone-map-preview.gif[/img]
+
+[h2]實現功能[/h2]
+
+[list]
+[*]即時世界時鐘與晨昏線
+[*]支援 IANA 時區與日光節約時間
+[*]目前城市、預設城市與 JSON 自訂城市
+[*]大西洋、太平洋兩種地圖配置
+[*]9 種介面語言
+[/list]
+
+[h2]Github[/h2]
+
+[url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
+
+[h2]使用方法[/h2]
+
+手動新增的時區必須存在於 [url=https://data.iana.org/time-zones/tzdb-2026b/zone1970.tab]IANA tzdb 2026b 城市列表[/url]中。本專案使用的 IANA 版本為 2026b。
+
+[h3]設定我的城市[/h3]
+
+以北京為例，在 Wallpaper Engine 的桌布設定中填寫：
+
+[list]
+[*][b]我的時區[/b]: [b]Asia/Shanghai[/b]
+[*][b]我的城市[/b]: [b]北京[/b]
+[*][b]我的座標[/b]: [b]39.9042,116.4074[/b]
+[/list]
+
+座標格式為 [b]緯度,經度[/b]。南緯和西經使用負數。IANA 沒有獨立的北京時區，因此北京使用 [b]Asia/Shanghai[/b]。
+
+[h3]新增自訂城市[/h3]
+
+在「更多城市 (JSON)」中可以輸入一個或多個城市物件。專案支援省略陣列方括號。
+
+[h3]完整填寫城市資訊[/h3]
+
+以孟買為例，同時指定時區、名稱和座標：
+
+[code]
+{"timeZone":"Asia/Kolkata","name":"孟買","lat":19.076,"lon":72.8777}
+[/code]
+
+[h3]僅填寫時區[/h3]
+
+以都柏林為例，只填寫 IANA 時區，城市名稱和座標會自動補齊：
+
+[code]
+{"timeZone":"Europe/Dublin"}
+[/code]
+
+[b]timeZone[/b] 必填；[b]name[/b]、[b]lat[/b] 和 [b]lon[/b] 均可省略。
+
+[h3]同時新增多個城市[/h3]
+
+多個城市物件直接以逗號分隔：
+
+[code]
+{"timeZone": "Pacific/Honolulu"},
+{"timeZone": "America/Anchorage"},
+{"timeZone": "America/Los_Angeles"},
+{"timeZone": "America/Mexico_City"},
+{"timeZone": "America/New_York"},
+
+{"timeZone": "Europe/London"},
+{"timeZone": "Europe/Paris"},
+{"timeZone": "Europe/Istanbul"},
+{"timeZone": "Europe/Moscow"},
+{"timeZone": "Asia/Dubai"},
+{
+	"timeZone": "Asia/Kolkata",
+	"name": "孟買",
+	"lat": 18.981050,
+	"lon": 72.826784
+},
+{"timeZone": "Asia/Bangkok"},
+{"timeZone": "Asia/Shanghai"},
+
+{"timeZone": "America/Sao_Paulo"},
+{"timeZone": "America/Lima"},
+{"timeZone": "America/Santiago"},
+
+{"timeZone": "Africa/Johannesburg"},
+{"timeZone": "Australia/Sydney"},
+{"timeZone": "Pacific/Auckland"},
+[/code]
