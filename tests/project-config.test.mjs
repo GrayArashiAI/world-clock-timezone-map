@@ -49,6 +49,22 @@ test("browser defaults and rendering performance contracts stay aligned", () => 
   assert.match(mainSource, /document\.documentElement\.clientWidth/);
 });
 
+test("browser loads the global label planner before the wallpaper runtime", () => {
+  const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+  const styles = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
+  const layoutIndex = html.indexOf("src/label-layout.js");
+  const runtimeIndex = html.indexOf("src/main.js");
+
+  assert.equal(layoutIndex >= 0, true);
+  assert.equal(layoutIndex < runtimeIndex, true);
+  assert.match(html, /<svg[^>]+id="connectorLayer"/);
+  assert.match(mainSource, /getBoundingClientRect\(\)/);
+  assert.match(mainSource, /planLabelLayout\(/);
+  assert.doesNotMatch(mainSource, /renderedLabels\s*<\s*80|chooseLabelPlacement\(/);
+  assert.match(styles, /#connectorLayer/);
+  assert.match(styles, /\.city-connector/);
+});
+
 test("language definitions generate complete runtime and Wallpaper Engine localization", () => {
   const expectedUiKeys = Object.keys(languageDefinitions.en.ui).sort();
   const wallpaperLocales = [];

@@ -1,8 +1,10 @@
 (function initWorldClockWallpaper() {
   const core = window.WorldClockCore;
+  const labelLayout = window.WorldClockLabelLayout;
   const mapData = window.WorldMapData;
 
   const canvas = document.getElementById("mapCanvas");
+  const connectorLayer = document.getElementById("connectorLayer");
   const labelLayer = document.getElementById("labelLayer");
   const ctx = canvas.getContext("2d", { alpha: true });
   const staticCanvas = document.createElement("canvas");
@@ -37,6 +39,8 @@
     lastCurrentWarning: "",
     terminatorGridKey: "",
     terminatorGrid: null,
+    avoidanceFieldKey: "",
+    avoidanceField: null,
     animationFrame: 0,
     clockTimer: 0,
     terminatorTimer: 0,
@@ -180,6 +184,9 @@
     configureCanvas(terminatorCanvas, terminatorCtx, backingWidth.pixels, backingHeight.pixels, scaleX, scaleY);
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
+    connectorLayer.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    connectorLayer.setAttribute("width", String(width));
+    connectorLayer.setAttribute("height", String(height));
     invalidateAllLayers();
     return true;
   }
@@ -315,15 +322,132 @@
   }
 
   function forEachRing(geometry, callback) {
+    forEachPolygon(geometry, (polygon) => polygon.forEach(callback));
+  }
+
+  function forEachPolygon(geometry, callback) {
     if (!geometry) {
       return;
     }
     if (geometry.type === "Polygon") {
-      geometry.coordinates.forEach(callback);
+      callback(geometry.coordinates);
     }
     if (geometry.type === "MultiPolygon") {
-      geometry.coordinates.forEach((polygon) => polygon.forEach(callback));
+      geometry.coordinates.forEach(callback);
     }
+  }
+
+  function appendProjectedPolygonPath(targetContext, polygon, horizontalShift) {
+    polygon.forEach((ring) => {
+      const projected = labelLayout.unwrapProjectedRing(
+        ring.map((coordinate) => projectToScreen(
+          Math.max(core.MERCATOR_SOUTH_LIMIT, Math.min(core.MERCATOR_NORTH_LIMIT, coordinate[1])),
+          coordinate[0]
+        )),
+        runtime.mapRect.width
+      );
+      if (projected.length < 3) {
+        return;
+      }
+      targetContext.moveTo(projected[0].x + horizontalShift, projected[0].y);
+      for (let index = 1; index < projected.length; index += 1) {
+        targetContext.lineTo(projected[index].x + horizontalShift, projected[index].y);
+      }
+      targetContext.closePath();
+    });
+  }
+
+  function drawAvoidancePolygon(targetContext, polygon, mode) {
+    [-runtime.mapRect.width, 0, runtime.mapRect.width].forEach((horizontalShift) => {
+      targetContext.beginPath();
+      appendProjectedPolygonPath(targetContext, polygon, horizontalShift);
+      if (mode === "land") {
+        targetContext.fill("evenodd");
+      } else {
+        targetContext.stroke();
+      }
+    });
+  }
+
+  function alphaMaskFromCanvas(targetContext, columns, rows) {
+    const pixels = targetContext.getImageData(0, 0, columns, rows).data;
+    const mask = new Uint8Array(columns * rows);
+    for (let index = 0; index < mask.length; index += 1) {
+      mask[index] = pixels[index * 4 + 3];
+    }
+    return mask;
+  }
+
+  function createAvoidanceMaskContext(columns, rows, cellSize, mode) {
+    const targetCanvas = document.createElement("canvas");
+    targetCanvas.width = columns;
+    targetCanvas.height = rows;
+    const targetContext = targetCanvas.getContext("2d", {
+      alpha: true,
+      willReadFrequently: true
+    });
+    targetContext.setTransform(1 / cellSize, 0, 0, 1 / cellSize, 0, 0);
+    if (mode === "land") {
+      targetContext.fillStyle = "#fff";
+    } else {
+      targetContext.strokeStyle = "#fff";
+      targetContext.lineWidth = mode === "coast" ? 16 : 4;
+      targetContext.lineJoin = "round";
+      targetContext.lineCap = "round";
+    }
+    return targetContext;
+  }
+
+  function buildMapAvoidanceField() {
+    const cellSize = 4;
+    const columns = Math.ceil(runtime.width / cellSize);
+    const rows = Math.ceil(runtime.height / cellSize);
+    const maskContexts = {
+      land: createAvoidanceMaskContext(columns, rows, cellSize, "land"),
+      coast: createAvoidanceMaskContext(columns, rows, cellSize, "coast"),
+      geometry: createAvoidanceMaskContext(columns, rows, cellSize, "geometry")
+    };
+
+    if (mapData && Array.isArray(mapData.features)) {
+      mapData.features.forEach((feature) => {
+        if (feature.bbox && feature.bbox[3] < core.MERCATOR_SOUTH_LIMIT) {
+          return;
+        }
+        forEachPolygon(feature.geometry, (polygon) => {
+          drawAvoidancePolygon(maskContexts.land, polygon, "land");
+          drawAvoidancePolygon(maskContexts.coast, polygon, "coast");
+          drawAvoidancePolygon(maskContexts.geometry, polygon, "coast");
+        });
+      });
+    }
+
+    return labelLayout.createAvoidanceField({
+      width: runtime.width,
+      height: runtime.height,
+      cellSize,
+      landMask: alphaMaskFromCanvas(maskContexts.land, columns, rows),
+      coastMask: alphaMaskFromCanvas(maskContexts.coast, columns, rows),
+      coastGeometryMask: alphaMaskFromCanvas(maskContexts.geometry, columns, rows),
+      mapWorldWidth: runtime.mapRect.width,
+      coastGeometryRadius: 2
+    });
+  }
+
+  function getMapAvoidanceField() {
+    const key = [
+      runtime.width,
+      runtime.height,
+      runtime.mapRect.x,
+      runtime.mapRect.y,
+      runtime.mapRect.width,
+      runtime.mapRect.height,
+      settings.layout
+    ].join(":");
+    if (runtime.avoidanceFieldKey !== key) {
+      runtime.avoidanceFieldKey = key;
+      runtime.avoidanceField = buildMapAvoidanceField();
+    }
+    return runtime.avoidanceField;
   }
 
   function drawLand(ctx) {
@@ -454,22 +578,9 @@
     }
   }
 
-  function markerAvoidanceBox(point) {
-    const radius = runtime.width < 760 ? 12 : 14;
-    return {
-      left: point.x - radius,
-      right: point.x + radius,
-      top: point.y - radius,
-      bottom: point.y + radius
-    };
-  }
-
   function rebuildCityLayer(date, sun) {
     const fragment = document.createDocumentFragment();
-    const takenBoxes = [];
     const visibleCities = [];
-    const metrics = core.labelMetrics(settings.labelSize, runtime.width, runtime.height);
-    let renderedLabels = 0;
     runtime.cityViews = [];
 
     runtime.cities.forEach((city) => {
@@ -483,41 +594,111 @@
       visibleCities.push({ city, point });
     });
 
-    const markerBoxes = visibleCities.map((entry) => markerAvoidanceBox(entry.point));
-
     visibleCities.forEach(({ city, point }) => {
-      const placement = renderedLabels < 80 ? core.chooseLabelPlacement({
-        screenX: point.x,
-        screenY: point.y,
-        viewport: { x: 0, y: 0, width: runtime.width, height: runtime.height },
-        estimatedWidth: metrics.estimatedWidth,
-        estimatedHeight: metrics.estimatedHeight,
-        takenBoxes,
-        blockedBoxes: markerBoxes
-      }) : null;
       const marker = createCityMarker(point);
+      const labelView = createCityLabel(city);
       const view = {
         city,
+        point,
         marker,
-        label: null,
-        icon: null,
-        time: null
+        label: labelView.label,
+        icon: labelView.icon,
+        time: labelView.time
       };
 
-      fragment.appendChild(marker);
-      if (placement) {
-        const labelView = createCityLabel(city, placement);
-        view.label = labelView.label;
-        view.icon = labelView.icon;
-        view.time = labelView.time;
-        fragment.appendChild(labelView.label);
-        renderedLabels += 1;
-      }
       updateCityView(view, date, sun);
+      view.label.classList.add("is-measuring");
+      fragment.append(marker, view.label);
       runtime.cityViews.push(view);
     });
 
     labelLayer.replaceChildren(fragment);
+    const labels = runtime.cityViews.map((view) => {
+      const bounds = view.label.getBoundingClientRect();
+      return {
+        id: String(view.city.id),
+        markerId: String(view.city.id),
+        width: bounds.width,
+        height: bounds.height,
+        priority: view.city.current ? 2 : 0
+      };
+    });
+    const markers = runtime.cityViews.map((view) => ({
+      id: String(view.city.id),
+      x: view.point.x,
+      y: view.point.y
+    }));
+    const placements = labelLayout.planLabelLayout({
+      labels,
+      markers,
+      viewport: { x: 0, y: 0, width: runtime.width, height: runtime.height },
+      avoidanceField: getMapAvoidanceField(),
+      seed: [
+        settings.layout,
+        settings.labelSize,
+        runtime.language,
+        runtime.width,
+        runtime.height,
+        labels.map((label) => `${label.id}:${label.width.toFixed(2)}:${label.height.toFixed(2)}`).sort().join("|")
+      ].join(":")
+    });
+    const placementById = new Map(placements.map((placement) => [placement.id, placement]));
+
+    runtime.cityViews.forEach((view) => {
+      const placement = placementById.get(String(view.city.id));
+      if (!placement) {
+        return;
+      }
+      view.label.style.left = `${placement.centerX}px`;
+      view.label.style.top = `${placement.centerY}px`;
+      view.label.style.zIndex = view.city.current ? "4" : "2";
+      view.marker.style.zIndex = view.city.current ? "5" : "3";
+      view.label.classList.remove("is-measuring");
+    });
+    renderConnectors(placements);
+  }
+
+  function trimConnector(connector) {
+    const deltaX = connector.to.x - connector.from.x;
+    const deltaY = connector.to.y - connector.from.y;
+    const length = Math.hypot(deltaX, deltaY);
+    if (length <= 10) {
+      return connector;
+    }
+    const unitX = deltaX / length;
+    const unitY = deltaY / length;
+    const startPadding = Math.min(6, length * 0.25);
+    const endPadding = Math.min(2, length * 0.1);
+    return {
+      from: {
+        x: connector.from.x + unitX * startPadding,
+        y: connector.from.y + unitY * startPadding
+      },
+      to: {
+        x: connector.to.x - unitX * endPadding,
+        y: connector.to.y - unitY * endPadding
+      }
+    };
+  }
+
+  function renderConnectors(placements) {
+    const fragment = document.createDocumentFragment();
+    const cityById = new Map(runtime.cityViews.map((view) => [String(view.city.id), view.city]));
+    placements.forEach((placement) => {
+      if (!placement.connector) {
+        return;
+      }
+      const connector = trimConnector(placement.connector);
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("x1", String(connector.from.x));
+      line.setAttribute("y1", String(connector.from.y));
+      line.setAttribute("x2", String(connector.to.x));
+      line.setAttribute("y2", String(connector.to.y));
+      const city = cityById.get(placement.id);
+      line.setAttribute("class", `city-connector${city && city.current ? " is-current" : ""}`);
+      fragment.appendChild(line);
+    });
+    connectorLayer.replaceChildren(fragment);
   }
 
   function updateCityLayer(date, sun) {
@@ -528,10 +709,7 @@
     const daylight = core.solarCosineFromPosition(view.city.lat, view.city.lon, sun) > 0;
     view.marker.className = `city-marker ${daylight ? "is-day" : "is-night"}${view.city.current ? " is-current" : ""}`;
 
-    if (!view.label) {
-      return;
-    }
-    view.label.className = `city-label ${daylight ? "is-day" : "is-night"} ${view.label.dataset.placement}`;
+    view.label.className = `city-label ${daylight ? "is-day" : "is-night"}${view.city.current ? " is-current" : ""}`;
     view.icon.textContent = daylight ? "☀" : "☾";
     view.time.textContent = core.formatZonedTime(
       date,
@@ -542,11 +720,9 @@
     );
   }
 
-  function createCityLabel(city, placement) {
+  function createCityLabel(city) {
     const label = document.createElement("div");
-    label.dataset.placement = `place-${placement.placement}`;
-    label.style.left = `${placement.x}px`;
-    label.style.top = `${placement.y}px`;
+    label.dataset.cityId = String(city.id);
 
     const cityName = document.createElement("div");
     cityName.className = "city-name";
