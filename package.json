@@ -1,6 +1,7 @@
 {
   "name": "world-clock-timezone-map",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "generate": "node scripts/generate-timezone-data.mjs",
     "pull:publish-meta": "node scripts/pull-publish-metadata.mjs",
