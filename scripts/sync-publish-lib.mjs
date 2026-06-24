@@ -14,21 +14,17 @@ import {
   dirname,
   isAbsolute,
   join,
+  posix,
   relative,
   resolve,
   sep
 } from "node:path";
 import { mergeWorkshopMetadata } from "./publish-metadata-lib.mjs";
 
-export const PUBLISH_FILES = Object.freeze([
+export const PUBLISH_REQUIRED_FILES = Object.freeze([
   "index.html",
-  "styles.css",
   "project.json",
-  "preview.jpg",
-  "src/map-data.js",
-  "src/city-presets.js",
-  "src/wallpaper-core.js",
-  "src/main.js"
+  "preview.jpg"
 ]);
 
 async function pathExists(path) {
@@ -57,6 +53,85 @@ function containsPath(parentPath, childPath) {
   );
 }
 
+function appendUnique(files, relativePath) {
+  if (!files.includes(relativePath)) {
+    files.push(relativePath);
+  }
+}
+
+function extractHtmlAttribute(tag, name) {
+  const match = tag.match(new RegExp(`\\b${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s"'>]+))`, "i"));
+  return match ? match[1] ?? match[2] ?? match[3] : "";
+}
+
+function normalizeLocalResourcePath(resourcePath) {
+  const trimmed = resourcePath.trim();
+  const pathWithoutFragment = trimmed.split("#", 1)[0];
+  const pathWithoutQuery = pathWithoutFragment.split("?", 1)[0];
+  if (!pathWithoutQuery) {
+    throw new Error(`Publish resource path is empty: ${resourcePath}`);
+  }
+  if (
+    /^[a-z][a-z0-9+.-]*:/i.test(pathWithoutQuery)
+    || pathWithoutQuery.startsWith("//")
+    || pathWithoutQuery.startsWith("/")
+    || pathWithoutQuery.startsWith("\\")
+    || pathWithoutQuery.includes("\\")
+  ) {
+    throw new Error(`Publish resource must use a relative local path: ${resourcePath}`);
+  }
+
+  const normalized = posix.normalize(pathWithoutQuery);
+  if (
+    normalized === "."
+    || normalized === ".."
+    || normalized.startsWith("../")
+    || posix.isAbsolute(normalized)
+  ) {
+    throw new Error(`Publish resource must stay inside the project: ${resourcePath}`);
+  }
+  return normalized;
+}
+
+function collectIndexResources(indexHtml) {
+  const resources = [];
+  const tagPattern = /<(script|link)\b[^>]*>/gi;
+  let match;
+  while ((match = tagPattern.exec(indexHtml))) {
+    const tag = match[0];
+    const attribute = match[1].toLowerCase() === "script" ? "src" : "href";
+    const resourcePath = extractHtmlAttribute(tag, attribute);
+    if (resourcePath) {
+      appendUnique(resources, normalizeLocalResourcePath(resourcePath));
+    }
+  }
+  return resources;
+}
+
+async function readIndex(sourceRoot) {
+  try {
+    return await readFile(join(sourceRoot, "index.html"), "utf8");
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      throw new Error("Missing publish source file: index.html", { cause: error });
+    }
+    throw error;
+  }
+}
+
+export async function resolvePublishFiles(sourceRoot) {
+  const indexHtml = await readIndex(sourceRoot);
+  const files = [];
+  appendUnique(files, "index.html");
+  for (const relativePath of collectIndexResources(indexHtml)) {
+    appendUnique(files, relativePath);
+  }
+  for (const relativePath of PUBLISH_REQUIRED_FILES) {
+    appendUnique(files, relativePath);
+  }
+  return files;
+}
+
 async function readProject(path, label, allowMissing = false) {
   let source;
   try {
@@ -78,8 +153,8 @@ async function readProject(path, label, allowMissing = false) {
   }
 }
 
-async function validateSourceFiles(sourceRoot) {
-  for (const relativePath of PUBLISH_FILES) {
+async function validateSourceFiles(sourceRoot, publishFiles) {
+  for (const relativePath of publishFiles) {
     const sourcePath = join(sourceRoot, relativePath);
     let metadata;
     try {
@@ -120,9 +195,10 @@ async function stagePublishFiles({
   stageRoot,
   sourceProject,
   sourceProjectText,
-  existingPublishProject
+  existingPublishProject,
+  publishFiles
 }) {
-  for (const relativePath of PUBLISH_FILES) {
+  for (const relativePath of publishFiles) {
     const sourcePath = join(sourceRoot, relativePath);
     const targetPath = join(stageRoot, relativePath);
     await mkdir(dirname(targetPath), { recursive: true });
@@ -145,7 +221,7 @@ async function stagePublishFiles({
   }
 
   const stagedFiles = await listRelativeFiles(stageRoot);
-  const expectedFiles = [...PUBLISH_FILES].sort();
+  const expectedFiles = [...publishFiles].sort();
   if (
     stagedFiles.length !== expectedFiles.length
     || stagedFiles.some((file, index) => file !== expectedFiles[index])
@@ -241,7 +317,8 @@ export async function syncPublish({ sourceRoot, publishRoot, operations = {} }) 
     "existing publish",
     true
   );
-  await validateSourceFiles(resolvedSourceRoot);
+  const publishFiles = await resolvePublishFiles(resolvedSourceRoot);
+  await validateSourceFiles(resolvedSourceRoot, publishFiles);
 
   const publishParent = dirname(resolvedPublishRoot);
   await mkdir(publishParent, { recursive: true });
@@ -256,7 +333,8 @@ export async function syncPublish({ sourceRoot, publishRoot, operations = {} }) 
       stageRoot,
       sourceProject: sourceProjectResult.project,
       sourceProjectText: sourceProjectResult.source,
-      existingPublishProject: existingProjectResult.project
+      existingPublishProject: existingProjectResult.project,
+      publishFiles
     });
     await replacePublishDirectory({
       publishRoot: resolvedPublishRoot,
@@ -272,6 +350,6 @@ export async function syncPublish({ sourceRoot, publishRoot, operations = {} }) 
 
   return {
     destination: resolvedPublishRoot,
-    files: [...PUBLISH_FILES]
+    files: [...publishFiles]
   };
 }

@@ -8,7 +8,17 @@
   const DEG_TO_RAD = Math.PI / 180;
   const MERCATOR_NORTH_LIMIT = 72;
   const MERCATOR_SOUTH_LIMIT = -60;
+  const MAP_CORE_NORTH_LIMIT = 66.6;
+  const MAP_CORE_SOUTH_LIMIT = -56;
+  const MAP_NARROW_SOUTH_LIMIT = -72;
   const UNPROJECT_LAT_LIMIT = 85;
+  // 白令海峡付近の小島を接合線で分断しないため、大西洋中心表示だけ少し東へ寄せます。
+  const ATLANTIC_SEAM_LONGITUDE = -168.4;
+  const PACIFIC_SEAM_LONGITUDE = -30;
+  const MIN_LABEL_VIEWPORT_HEIGHT = 1;
+  const TERMINATOR_EDGE_ALPHA = 0.72;
+  const TERMINATOR_FADE_INNER_PX = 64;
+  const TERMINATOR_FADE_OUTER_PX = 160;
   const DAY_MS = 86400000;
   const SAME_CITY_DISTANCE_KM = 15;
   const canonicalTimeZoneCache = new Map();
@@ -51,17 +61,208 @@
   }
 
   function mercatorY(lat) {
-    const clamped = clamp(lat, MERCATOR_SOUTH_LIMIT, MERCATOR_NORTH_LIMIT);
+    const clamped = clamp(lat, -UNPROJECT_LAT_LIMIT, UNPROJECT_LAT_LIMIT);
     const rad = clamped * DEG_TO_RAD;
     return Math.log(Math.tan(Math.PI / 4 + rad / 2));
   }
 
-  function mercatorAspect() {
-    return (Math.PI * 2) / (mercatorY(MERCATOR_NORTH_LIMIT) - mercatorY(MERCATOR_SOUTH_LIMIT));
+  function mercatorAspect(north, south) {
+    return (Math.PI * 2) / (mercatorY(north) - mercatorY(south));
+  }
+
+  function solveLatitude(low, high, targetAspect, aspectForLatitude) {
+    let minimum = low;
+    let maximum = high;
+    for (let index = 0; index < 48; index += 1) {
+      const middle = (minimum + maximum) / 2;
+      if (aspectForLatitude(middle) > targetAspect) {
+        minimum = middle;
+      } else {
+        maximum = middle;
+      }
+    }
+    return (minimum + maximum) / 2;
+  }
+
+  function solveSouthLatitude(targetAspect) {
+    let southern = MAP_NARROW_SOUTH_LIMIT;
+    let northern = MAP_CORE_SOUTH_LIMIT;
+    for (let index = 0; index < 48; index += 1) {
+      const middle = (southern + northern) / 2;
+      if (mercatorAspect(MERCATOR_NORTH_LIMIT, middle) < targetAspect) {
+        southern = middle;
+      } else {
+        northern = middle;
+      }
+    }
+    return (southern + northern) / 2;
+  }
+
+  function latitudeAtMercatorY(mercator) {
+    return (2 * Math.atan(Math.exp(mercator)) - Math.PI / 2) / DEG_TO_RAD;
+  }
+
+  function mapViewForViewport(width, height) {
+    const viewportWidth = Math.max(1, Math.round(Number(width) || 1));
+    const viewportHeight = Math.max(1, Math.round(Number(height) || 1));
+    // 極小ビューポートでも投影計算用に少なくとも1pxを残します。
+    const reserveCap = Math.max(0, viewportHeight - 1);
+    const reserve = Math.min(
+      clamp(Math.round(viewportHeight * 0.052), 48, 96),
+      reserveCap
+    );
+    const usableHeight = Math.max(1, viewportHeight - reserve);
+    const targetAspect = viewportWidth / usableHeight;
+    const centeredAspect = viewportWidth / viewportHeight;
+    const coreAspect = mercatorAspect(MAP_CORE_NORTH_LIMIT, MAP_CORE_SOUTH_LIMIT);
+    const northExpandedAspect = mercatorAspect(MERCATOR_NORTH_LIMIT, MAP_CORE_SOUTH_LIMIT);
+    const narrowFullAspect = mercatorAspect(MERCATOR_NORTH_LIMIT, MAP_NARROW_SOUTH_LIMIT);
+    const maxLatitudeAspect = mercatorAspect(UNPROJECT_LAT_LIMIT, -UNPROJECT_LAT_LIMIT);
+    let north = MAP_CORE_NORTH_LIMIT;
+    let south = MAP_CORE_SOUTH_LIMIT;
+    let mapWidth = viewportWidth;
+    let mapHeight = viewportHeight;
+    let labelHeight = usableHeight;
+    let x = 0;
+    let y = 0;
+    let mode = "core";
+
+    if (targetAspect >= coreAspect) {
+      mapWidth = coreAspect * usableHeight;
+      x = (viewportWidth - mapWidth) / 2;
+      mode = "wide-core";
+    } else if (targetAspect >= northExpandedAspect) {
+      north = solveLatitude(MAP_CORE_NORTH_LIMIT, MERCATOR_NORTH_LIMIT, targetAspect, (latitude) =>
+        mercatorAspect(latitude, MAP_CORE_SOUTH_LIMIT)
+      );
+      mode = "north-expand";
+    } else if (targetAspect >= narrowFullAspect) {
+      north = MERCATOR_NORTH_LIMIT;
+      south = solveSouthLatitude(targetAspect);
+      mode = "south-expand";
+    } else if (targetAspect >= maxLatitudeAspect) {
+      // 赤道中央へ切り替えた後は、タスクバー余白ではなく画面全体の中心を基準にします。
+      north = solveLatitude(MERCATOR_NORTH_LIMIT, UNPROJECT_LAT_LIMIT, centeredAspect, (latitude) =>
+        mercatorAspect(latitude, -latitude)
+      );
+      south = -north;
+      labelHeight = viewportHeight;
+      mode = "equator";
+    } else {
+      north = UNPROJECT_LAT_LIMIT;
+      south = -UNPROJECT_LAT_LIMIT;
+      mapHeight = viewportWidth / maxLatitudeAspect;
+      y = (viewportHeight - mapHeight) / 2;
+      labelHeight = viewportHeight;
+      mode = "max-latitude";
+    }
+
+    return {
+      x,
+      y,
+      width: mapWidth,
+      height: mapHeight,
+      north,
+      south,
+      taskbarReserve: reserve,
+      usableHeight: labelHeight,
+      mode
+    };
+  }
+
+  function landSouthLimit(view) {
+    const south = Number(view && view.south);
+    // 南極大陸を描画対象に戻さないため、陸地だけは旧来の南限を維持します。
+    return Math.max(Number.isFinite(south) ? south : MERCATOR_SOUTH_LIMIT, MERCATOR_SOUTH_LIMIT);
+  }
+
+  function labelViewportForMapView(width, height, view) {
+    const viewportWidth = Math.max(1, Math.round(Number(width) || 1));
+    const viewportHeight = Math.max(1, Math.round(Number(height) || 1));
+    const source = view || {};
+    const mapY = clamp(Number(source.y) || 0, 0, Math.max(0, viewportHeight - 1));
+    const mapHeight = Math.max(1, Number(source.height) || viewportHeight);
+    const safeBottom = clamp(Number(source.usableHeight) || viewportHeight, 1, viewportHeight);
+    const minimumBottom = mapY + MIN_LABEL_VIEWPORT_HEIGHT;
+    const mapBottom = clamp(mapY + mapHeight, minimumBottom, viewportHeight);
+    const bottom = Math.max(minimumBottom, Math.min(safeBottom, mapBottom));
+
+    return {
+      x: 0,
+      y: mapY,
+      width: viewportWidth,
+      height: bottom - mapY
+    };
+  }
+
+  function normalizeLayout(layout) {
+    return layout === "pacific" ? "pacific" : "atlantic";
+  }
+
+  function projectionView(options) {
+    const config = options || {};
+    const source = config.view || {};
+    const layout = normalizeLayout(source.layout || config.layout || "atlantic");
+    const north = Number(source.north);
+    const south = Number(source.south);
+    const resolvedNorth = Number.isFinite(north) ? clamp(north, -UNPROJECT_LAT_LIMIT, UNPROJECT_LAT_LIMIT) : MERCATOR_NORTH_LIMIT;
+    const resolvedSouth = Number.isFinite(south) ? clamp(south, -UNPROJECT_LAT_LIMIT, UNPROJECT_LAT_LIMIT) : MERCATOR_SOUTH_LIMIT;
+    if (resolvedNorth <= resolvedSouth) {
+      return {
+        width: Math.max(1, Number(source.width || config.width) || 1),
+        north: MERCATOR_NORTH_LIMIT,
+        south: MERCATOR_SOUTH_LIMIT,
+        layout
+      };
+    }
+    return {
+      width: Math.max(1, Number(source.width || config.width) || 1),
+      north: resolvedNorth,
+      south: resolvedSouth,
+      layout
+    };
+  }
+
+  function terminatorFadeAlpha(x, view, viewportWidth) {
+    if (!view) {
+      return 1;
+    }
+    const point = Number(x) || 0;
+    const left = Number(view.x) || 0;
+    const mapWidth = Math.max(1, Number(view.width) || 1);
+    const right = left + mapWidth;
+    const screenWidth = Math.max(1, Number(viewportWidth) || right);
+
+    function sideAlpha(distance, margin) {
+      if (margin <= 0) {
+        return distance >= 0 ? 1 : 0;
+      }
+      // 外側は余白でゆっくり消し、内側は地図本体を保つため短く戻します。
+      const inner = Math.min(TERMINATOR_FADE_INNER_PX, Math.max(1, margin / 2));
+      const outer = Math.min(TERMINATOR_FADE_OUTER_PX, margin);
+      if (distance < 0) {
+        return clamp((outer + distance) / outer, 0, 1) * TERMINATOR_EDGE_ALPHA;
+      }
+      if (distance < inner) {
+        return TERMINATOR_EDGE_ALPHA + (1 - TERMINATOR_EDGE_ALPHA) * distance / inner;
+      }
+      return 1;
+    }
+
+    if (point < left) {
+      return sideAlpha(point - left, left);
+    }
+    if (point > right) {
+      return sideAlpha(right - point, screenWidth - right);
+    }
+    return Math.min(
+      sideAlpha(point - left, left),
+      sideAlpha(right - point, screenWidth - right)
+    );
   }
 
   function layoutSeam(layout) {
-    return layout === "pacific" ? -30 : -169;
+    return normalizeLayout(layout) === "pacific" ? PACIFIC_SEAM_LONGITUDE : ATLANTIC_SEAM_LONGITUDE;
   }
 
   function longitudeToX(lon, width, layout) {
@@ -71,33 +272,33 @@
   }
 
   function projectMercator(options) {
-    const width = options.width;
-    const layout = options.layout === "pacific" ? "pacific" : "atlantic";
-    const top = mercatorY(MERCATOR_NORTH_LIMIT);
-    const lat = clamp(Number(options.lat) || 0, MERCATOR_SOUTH_LIMIT, MERCATOR_NORTH_LIMIT);
+    const view = projectionView(options);
+    const top = mercatorY(view.north);
+    const lat = clamp(Number(options.lat) || 0, view.south, view.north);
+    const width = view.width;
     const scale = width / (Math.PI * 2);
-    const x = longitudeToX(Number(options.lon) || 0, width, layout);
+    const x = longitudeToX(Number(options.lon) || 0, width, view.layout);
     const y = (top - mercatorY(lat)) * scale;
 
     return { x, y };
   }
 
   function unprojectMercator(options) {
-    const width = Math.max(1, Number(options.width) || 1);
-    const layout = options.layout === "pacific" ? "pacific" : "atlantic";
+    const view = projectionView(options);
+    const width = view.width;
     const x = Number(options.x) || 0;
     const y = Number(options.y) || 0;
     const scale = width / (Math.PI * 2);
-    const mercator = mercatorY(MERCATOR_NORTH_LIMIT) - y / scale;
-    const lat = clamp((2 * Math.atan(Math.exp(mercator)) - Math.PI / 2) / DEG_TO_RAD, -UNPROJECT_LAT_LIMIT, UNPROJECT_LAT_LIMIT);
-    const lon = normalizeLongitude(layoutSeam(layout) + (x / width) * 360);
+    const mercator = mercatorY(view.north) - y / scale;
+    const lat = clamp(latitudeAtMercatorY(mercator), -UNPROJECT_LAT_LIMIT, UNPROJECT_LAT_LIMIT);
+    const lon = normalizeLongitude(layoutSeam(view.layout) + (x / width) * 360);
 
     return { lat, lon };
   }
 
   function coverMercatorRect(width, height) {
     const viewportWidth = Math.max(1, Math.round(Number(width) || 1));
-    const mapAspect = mercatorAspect();
+    const mapAspect = mercatorAspect(MERCATOR_NORTH_LIMIT, MERCATOR_SOUTH_LIMIT);
     let mapWidth = viewportWidth;
     let mapHeight = Math.round(mapWidth / mapAspect);
 
@@ -237,25 +438,27 @@
     const width = Math.max(1, Math.round(Number(config.width) || 1));
     const height = Math.max(1, Math.round(Number(config.height) || 1));
     const cellSize = Math.max(1, Math.floor(Number(config.cellSize) || 1));
-    const rect = config.rect || coverMercatorRect(width, height);
-    const layout = config.layout === "pacific" ? "pacific" : "atlantic";
+    const view = config.view || config.rect || coverMercatorRect(width, height);
+    const layout = normalizeLayout(config.layout || view.layout);
     const columns = [];
     const rows = [];
 
     for (let x = 0; x < width; x += cellSize) {
       const geo = unprojectMercator({
-        x: x + cellSize / 2 - rect.x,
-        y: cellSize / 2 - rect.y,
-        width: rect.width,
+        x: x + cellSize / 2 - (Number(view.x) || 0),
+        y: cellSize / 2 - (Number(view.y) || 0),
+        width: view.width,
+        view,
         layout
       });
       columns.push({ x, lon: geo.lon });
     }
     for (let y = 0; y < height; y += cellSize) {
       const geo = unprojectMercator({
-        x: cellSize / 2 - rect.x,
-        y: y + cellSize / 2 - rect.y,
-        width: rect.width,
+        x: cellSize / 2 - (Number(view.x) || 0),
+        y: y + cellSize / 2 - (Number(view.y) || 0),
+        width: view.width,
+        view,
         layout
       });
       rows.push({ y, lat: geo.lat });
@@ -833,8 +1036,11 @@
     getCityName,
     isDaylightAt,
     isValidTimeZone,
+    labelViewportForMapView,
     labelMetrics,
+    landSouthLimit,
     localeForLanguage,
+    mapViewForViewport,
     nextClockDelay,
     nextTerminatorDelay,
     parseIso6709Coordinate,
@@ -848,6 +1054,7 @@
     solarPosition,
     shouldBreakLandSegment,
     terminatorCellSize,
+    terminatorFadeAlpha,
     terminatorGridCoordinates,
     terminatorSolarFactors,
     timeZoneCoordinates,

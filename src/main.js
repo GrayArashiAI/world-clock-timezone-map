@@ -34,7 +34,7 @@
     dpr: 1,
     width: 0,
     height: 0,
-    mapRect: { x: 0, y: 0, width: 0, height: 0 },
+    mapView: { x: 0, y: 0, width: 0, height: 0, north: 72, south: -60, usableHeight: 0 },
     lastCustomWarning: "",
     lastCurrentWarning: "",
     terminatorGridKey: "",
@@ -177,7 +177,7 @@
     runtime.width = width;
     runtime.height = height;
     runtime.dpr = dpr;
-    runtime.mapRect = core.coverMercatorRect(width, height);
+    runtime.mapView = core.mapViewForViewport(width, height);
 
     configureCanvas(canvas, ctx, backingWidth.pixels, backingHeight.pixels, scaleX, scaleY);
     configureCanvas(staticCanvas, staticCtx, backingWidth.pixels, backingHeight.pixels, scaleX, scaleY);
@@ -311,13 +311,12 @@
     const projected = core.projectMercator({
       lat,
       lon,
-      width: runtime.mapRect.width,
-      height: runtime.mapRect.height,
+      view: runtime.mapView,
       layout: settings.layout
     });
     return {
-      x: runtime.mapRect.x + projected.x,
-      y: runtime.mapRect.y + projected.y
+      x: runtime.mapView.x + projected.x,
+      y: runtime.mapView.y + projected.y
     };
   }
 
@@ -341,10 +340,10 @@
     polygon.forEach((ring) => {
       const projected = labelLayout.unwrapProjectedRing(
         ring.map((coordinate) => projectToScreen(
-          Math.max(core.MERCATOR_SOUTH_LIMIT, Math.min(core.MERCATOR_NORTH_LIMIT, coordinate[1])),
+          Math.max(core.landSouthLimit(runtime.mapView), Math.min(runtime.mapView.north, coordinate[1])),
           coordinate[0]
         )),
-        runtime.mapRect.width
+        runtime.mapView.width
       );
       if (projected.length < 3) {
         return;
@@ -358,15 +357,13 @@
   }
 
   function drawAvoidancePolygon(targetContext, polygon, mode) {
-    [-runtime.mapRect.width, 0, runtime.mapRect.width].forEach((horizontalShift) => {
-      targetContext.beginPath();
-      appendProjectedPolygonPath(targetContext, polygon, horizontalShift);
-      if (mode === "land") {
-        targetContext.fill("evenodd");
-      } else {
-        targetContext.stroke();
-      }
-    });
+    targetContext.beginPath();
+    appendProjectedPolygonPath(targetContext, polygon, 0);
+    if (mode === "land") {
+      targetContext.fill("evenodd");
+    } else {
+      targetContext.stroke();
+    }
   }
 
   function alphaMaskFromCanvas(targetContext, columns, rows) {
@@ -410,7 +407,7 @@
 
     if (mapData && Array.isArray(mapData.features)) {
       mapData.features.forEach((feature) => {
-        if (feature.bbox && feature.bbox[3] < core.MERCATOR_SOUTH_LIMIT) {
+        if (feature.bbox && feature.bbox[3] < core.landSouthLimit(runtime.mapView)) {
           return;
         }
         forEachPolygon(feature.geometry, (polygon) => {
@@ -428,7 +425,7 @@
       landMask: alphaMaskFromCanvas(maskContexts.land, columns, rows),
       coastMask: alphaMaskFromCanvas(maskContexts.coast, columns, rows),
       coastGeometryMask: alphaMaskFromCanvas(maskContexts.geometry, columns, rows),
-      mapWorldWidth: runtime.mapRect.width,
+      mapWorldWidth: runtime.mapView.width,
       coastGeometryRadius: 2
     });
   }
@@ -437,10 +434,12 @@
     const key = [
       runtime.width,
       runtime.height,
-      runtime.mapRect.x,
-      runtime.mapRect.y,
-      runtime.mapRect.width,
-      runtime.mapRect.height,
+      runtime.mapView.x,
+      runtime.mapView.y,
+      runtime.mapView.width,
+      runtime.mapView.height,
+      runtime.mapView.north,
+      runtime.mapView.south,
       settings.layout
     ].join(":");
     if (runtime.avoidanceFieldKey !== key) {
@@ -469,14 +468,14 @@
         ring.forEach((coord) => {
           const lon = coord[0];
           const lat = coord[1];
-          if (lat < core.MERCATOR_SOUTH_LIMIT || lat > core.MERCATOR_NORTH_LIMIT) {
+          if (lat < core.landSouthLimit(runtime.mapView) || lat > runtime.mapView.north) {
             started = false;
             previous = null;
             return;
           }
           const projected = projectToScreen(lat, lon);
           const current = { lon, lat, x: projected.x, y: projected.y };
-          if (!started || core.shouldBreakLandSegment({ previous, current, width: runtime.mapRect.width })) {
+          if (!started || core.shouldBreakLandSegment({ previous, current, width: runtime.mapView.width })) {
             ctx.moveTo(projected.x, projected.y);
             started = true;
           } else {
@@ -498,10 +497,12 @@
     const key = [
       runtime.width,
       runtime.height,
-      runtime.mapRect.x,
-      runtime.mapRect.y,
-      runtime.mapRect.width,
-      runtime.mapRect.height,
+      runtime.mapView.x,
+      runtime.mapView.y,
+      runtime.mapView.width,
+      runtime.mapView.height,
+      runtime.mapView.north,
+      runtime.mapView.south,
       settings.layout,
       cellSize
     ].join(":");
@@ -510,7 +511,7 @@
       runtime.terminatorGrid = core.terminatorGridCoordinates({
         width: runtime.width,
         height: runtime.height,
-        rect: runtime.mapRect,
+        view: runtime.mapView,
         layout: settings.layout,
         cellSize
       });
@@ -532,16 +533,20 @@
     terminatorCtx.imageSmoothingEnabled = false;
     for (const row of solarFactors.rows) {
       for (const column of solarFactors.columns) {
+        const fade = core.terminatorFadeAlpha(column.x + cellSize / 2, runtime.mapView, runtime.width);
+        if (fade <= 0) {
+          continue;
+        }
         const cosine = row.constant + row.amplitude * column.hourCosine;
         if (cosine >= 0.1) {
           continue;
         }
 
         if (cosine < 0) {
-          const alpha = cosine < -0.16 ? 0.44 : core.clamp(0.2 + Math.abs(cosine) / 0.16 * 0.24, 0.2, 0.44);
+          const alpha = (cosine < -0.16 ? 0.44 : core.clamp(0.2 + Math.abs(cosine) / 0.16 * 0.24, 0.2, 0.44)) * fade;
           terminatorCtx.fillStyle = `rgba(0, 3, 10, ${alpha})`;
         } else {
-          const alpha = core.clamp((0.1 - cosine) / 0.1 * 0.11, 0.02, 0.11);
+          const alpha = core.clamp((0.1 - cosine) / 0.1 * 0.11, 0.02, 0.11) * fade;
           terminatorCtx.fillStyle = `rgba(251, 191, 102, ${alpha})`;
         }
         terminatorCtx.fillRect(column.x, row.y, cellSize, cellSize);
@@ -584,7 +589,7 @@
     runtime.cityViews = [];
 
     runtime.cities.forEach((city) => {
-      if (city.lat < core.MERCATOR_SOUTH_LIMIT || city.lat > core.MERCATOR_NORTH_LIMIT) {
+      if (city.lat < runtime.mapView.south || city.lat > runtime.mapView.north) {
         return;
       }
       const point = projectToScreen(city.lat, city.lon);
@@ -628,10 +633,11 @@
       x: view.point.x,
       y: view.point.y
     }));
+    const labelViewport = core.labelViewportForMapView(runtime.width, runtime.height, runtime.mapView);
     const placements = labelLayout.planLabelLayout({
       labels,
       markers,
-      viewport: { x: 0, y: 0, width: runtime.width, height: runtime.height },
+      viewport: labelViewport,
       avoidanceField: getMapAvoidanceField(),
       seed: [
         settings.layout,

@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
+import { fileURLToPath } from "node:url";
 import {
   mkdtemp,
   mkdir,
@@ -15,9 +16,19 @@ import {
 import { tmpdir } from "node:os";
 import { dirname, join, relative, sep } from "node:path";
 import {
-  PUBLISH_FILES,
+  resolvePublishFiles,
   syncPublish
 } from "../scripts/sync-publish-lib.mjs";
+
+const projectRoot = dirname(dirname(fileURLToPath(import.meta.url)));
+const defaultRuntimeResources = Object.freeze([
+  "styles.css",
+  "src/map-data.js",
+  "src/city-presets.js",
+  "src/wallpaper-core.js",
+  "src/label-layout.js",
+  "src/main.js"
+]);
 
 async function createFixtureRoot(t) {
   const root = await mkdtemp(join(tmpdir(), "world-clock-publish-test-"));
@@ -25,14 +36,33 @@ async function createFixtureRoot(t) {
   return root;
 }
 
-async function createSource(root, omittedFile = "") {
-  for (const relativePath of PUBLISH_FILES) {
+function fixtureIndex(resources = defaultRuntimeResources) {
+  const tags = resources.map((relativePath) => {
+    if (relativePath.endsWith(".css")) {
+      return `<link rel="stylesheet" href="${relativePath}">`;
+    }
+    return `<script src="${relativePath}"></script>`;
+  });
+  return `<!doctype html>\n${tags.join("\n")}\n`;
+}
+
+async function createSource(root, omittedFile = "", resources = defaultRuntimeResources) {
+  const fixtureFiles = [
+    "index.html",
+    "project.json",
+    "preview.jpg",
+    ...resources
+  ].filter((relativePath, index, files) => files.indexOf(relativePath) === index);
+
+  for (const relativePath of fixtureFiles) {
     if (relativePath === omittedFile) {
       continue;
     }
     const target = join(root, relativePath);
     await mkdir(dirname(target), { recursive: true });
-    if (relativePath === "project.json") {
+    if (relativePath === "index.html") {
+      await writeFile(target, fixtureIndex(resources));
+    } else if (relativePath === "project.json") {
       await writeFile(target, `${JSON.stringify({
         file: "index.html",
         preview: "preview.jpg",
@@ -63,6 +93,18 @@ async function listRelativeFiles(root) {
   return files.sort();
 }
 
+test("publish file list includes every local script loaded by index.html", async () => {
+  const indexHtml = await readFile(join(projectRoot, "index.html"), "utf8");
+  const publishFiles = await resolvePublishFiles(projectRoot);
+  const scriptPaths = [...indexHtml.matchAll(/<script\s+src="([^"]+)"><\/script>/g)]
+    .map((match) => match[1]);
+
+  assert.deepEqual(
+    scriptPaths.filter((scriptPath) => scriptPath.startsWith("src/")),
+    publishFiles.filter((file) => file.startsWith("src/"))
+  );
+});
+
 test("syncPublish replaces the destination with runtime files and preserves Workshop metadata", async (t) => {
   const root = await createFixtureRoot(t);
   const sourceRoot = join(root, "source");
@@ -80,9 +122,10 @@ test("syncPublish replaces the destination with runtime files and preserves Work
 
   const result = await syncPublish({ sourceRoot, publishRoot });
   const publishedProject = JSON.parse(await readFile(join(publishRoot, "project.json"), "utf8"));
+  const expectedFiles = await resolvePublishFiles(sourceRoot);
 
-  assert.deepEqual(await listRelativeFiles(publishRoot), [...PUBLISH_FILES].sort());
-  assert.deepEqual(result.files, [...PUBLISH_FILES]);
+  assert.deepEqual(await listRelativeFiles(publishRoot), [...expectedFiles].sort());
+  assert.deepEqual(result.files, expectedFiles);
   assert.deepEqual(
     {
       title: publishedProject.title,
@@ -95,6 +138,53 @@ test("syncPublish replaces the destination with runtime files and preserves Work
       workshopid: "123456789"
     }
   );
+});
+
+test("syncPublish discovers local runtime files from index.html", async (t) => {
+  const root = await createFixtureRoot(t);
+  const sourceRoot = join(root, "source");
+  const publishRoot = join(root, "publish");
+  await createSource(sourceRoot, "", [
+    "styles.css",
+    "src/map-data.js",
+    "src/extra-runtime.js"
+  ]);
+
+  const result = await syncPublish({ sourceRoot, publishRoot });
+
+  assert.equal(
+    await readFile(join(publishRoot, "src", "extra-runtime.js"), "utf8"),
+    "development:src/extra-runtime.js\n"
+  );
+  assert.equal(result.files.includes("src/extra-runtime.js"), true);
+});
+
+test("syncPublish rejects unsafe index resources before touching the destination", async (t) => {
+  const root = await createFixtureRoot(t);
+  const cases = [
+    ["absolute", "/src/main.js"],
+    ["parent", "../src/main.js"],
+    ["windows", "src\\main.js"],
+    ["remote", "https://example.com/runtime.js"]
+  ];
+
+  for (const [name, resourcePath] of cases) {
+    const sourceRoot = join(root, `source-${name}`);
+    const publishRoot = join(root, `publish-${name}`);
+    await createSource(sourceRoot, "", ["styles.css"]);
+    await writeFile(
+      join(sourceRoot, "index.html"),
+      `<!doctype html>\n<script src="${resourcePath}"></script>\n`
+    );
+    await mkdir(publishRoot, { recursive: true });
+    await writeFile(join(publishRoot, "sentinel.txt"), name);
+
+    await assert.rejects(
+      syncPublish({ sourceRoot, publishRoot }),
+      /relative local path|stay inside the project/
+    );
+    assert.equal(await readFile(join(publishRoot, "sentinel.txt"), "utf8"), name);
+  }
 });
 
 test("syncPublish preflight failures leave existing destinations unchanged", async (t) => {
@@ -154,6 +244,7 @@ test("syncPublish works while another process uses the publish directory", async
   await createSource(sourceRoot);
   await mkdir(publishRoot, { recursive: true });
   await writeFile(join(publishRoot, "project.json"), '{"workshopid":"123456789"}\n');
+  const expectedFiles = await resolvePublishFiles(sourceRoot);
   const directoryUser = spawn(
     process.execPath,
     ["-e", "process.stdout.write('ready'); setTimeout(() => {}, 30000);"],
@@ -171,7 +262,7 @@ test("syncPublish works while another process uses the publish directory", async
     await once(directoryUser, "exit");
   }
 
-  assert.deepEqual(await listRelativeFiles(publishRoot), [...PUBLISH_FILES].sort());
+  assert.deepEqual(await listRelativeFiles(publishRoot), [...expectedFiles].sort());
 });
 
 test("syncPublish preserves the backup when rollback is incomplete", async (t) => {

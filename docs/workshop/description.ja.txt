@@ -20,7 +20,7 @@
 
 [h2]使用方法[/h2]
 
-手動で追加するタイムゾーンは、[url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]IANA tzdb 2026b の都市一覧[/url]に含まれている必要があります。本プロジェクトで使用している IANA のバージョンは 2026b です。
+手動で追加するタイムゾーンは、[url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]IANAの都市一覧[/url]に含まれている必要があります。本プロジェクトで使用している IANA のバージョンは 2026b です。
 
 [h3]現在地の都市を設定[/h3]
 

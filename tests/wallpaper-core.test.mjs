@@ -11,8 +11,11 @@ const {
   formatZonedTime,
   getCityName,
   isDaylightAt,
+  labelViewportForMapView,
   labelMetrics,
   localeForLanguage,
+  landSouthLimit,
+  mapViewForViewport,
   nextClockDelay,
   nextTerminatorDelay,
   parseCustomCities,
@@ -26,6 +29,7 @@ const {
   solarCosineFromPosition,
   solarPosition,
   terminatorCellSize,
+  terminatorFadeAlpha,
   terminatorGridCoordinates,
   terminatorSolarFactors,
   timeZoneCoordinates,
@@ -183,7 +187,7 @@ test("IANA coordinate helpers resolve modern, legacy, and fixed-offset zones", (
 
 test("Mercator projection supports both seams and round-trips visible points", () => {
   const seamCases = [
-    ["atlantic", -169, 11],
+    ["atlantic", -168.4, 11.6],
     ["pacific", -30, 150]
   ];
   for (const [layout, seam, center] of seamCases) {
@@ -197,6 +201,61 @@ test("Mercator projection supports both seams and round-trips visible points", (
   assert.equal(Math.abs(restored.lat - point.lat) < 0.0001, true);
   assert.equal(Math.abs(restored.lon - point.lon) < 0.0001, true);
   assert.equal(projectMercator({ lat: 89, lon: 0, width: 1000 }).y, 0);
+});
+
+test("adaptive map view preserves useful latitude ranges across common aspect ratios", () => {
+  const nearCore = mapViewForViewport(2340, 1080);
+  assert.equal(nearCore.taskbarReserve, 56);
+  assert.equal(Math.abs(nearCore.north - 66.6) < 0.001, true);
+  assert.equal(Math.abs(nearCore.south + 56) < 0.001, true);
+  assert.equal(nearCore.height, 1080);
+  assert.equal(nearCore.usableHeight, 1024);
+  assert.equal(nearCore.mode, "wide-core");
+  assert.equal(nearCore.x >= 0 && nearCore.x < 10, true);
+  assert.equal(Math.abs(nearCore.x * 2 + nearCore.width - 2340) < 0.001, true);
+
+  const northExpanded = mapViewForViewport(2200, 1080);
+  assert.equal(northExpanded.mode, "north-expand");
+  assert.equal(northExpanded.north > 66.6 && northExpanded.north < 72, true);
+  assert.equal(Math.abs(northExpanded.south + 56) < 0.001, true);
+
+  const southStarted = mapViewForViewport(2100, 1080);
+  assert.equal(southStarted.mode, "south-expand");
+  assert.equal(southStarted.north, 72);
+  assert.equal(southStarted.south < -56 && southStarted.south > -60, true);
+
+  const widescreen = mapViewForViewport(1920, 1080);
+  assert.equal(widescreen.mode, "south-expand");
+  assert.equal(widescreen.north, 72);
+  assert.equal(widescreen.south < -60 && widescreen.south > -72, true);
+  assert.equal(widescreen.width, 1920);
+  assert.equal(widescreen.height, 1080);
+  assert.equal(widescreen.usableHeight, 1024);
+
+  const tallerDesktop = mapViewForViewport(1920, 1200);
+  assert.equal(tallerDesktop.mode, "equator");
+  assert.equal(tallerDesktop.north > 73 && tallerDesktop.north < 75, true);
+  assert.equal(Math.abs(tallerDesktop.north + tallerDesktop.south) < 0.001, true);
+  assert.equal(tallerDesktop.usableHeight, 1200);
+
+  const ultraWide = mapViewForViewport(3440, 1440);
+  assert.equal(Math.abs(ultraWide.north - 66.6) < 0.001, true);
+  assert.equal(ultraWide.width < 3440, true);
+  assert.equal(ultraWide.height, 1440);
+  assert.equal(ultraWide.usableHeight, 1365);
+  assert.equal(ultraWide.x > 100, true);
+
+  const portrait = mapViewForViewport(1080, 1920);
+  assert.equal(portrait.north, 85);
+  assert.equal(portrait.south, -85);
+  assert.equal(portrait.y > 400, true);
+  assert.equal(portrait.usableHeight, 1920);
+  assert.equal(portrait.y + portrait.height < portrait.usableHeight, true);
+
+  const tiny = mapViewForViewport(32, 20);
+  assert.equal(tiny.taskbarReserve, 19);
+  assert.equal(tiny.usableHeight, 1);
+  assert.equal(tiny.height >= 1, true);
 });
 
 test("viewport and terminator helpers produce stable dimensions and coordinates", () => {
@@ -219,6 +278,59 @@ test("viewport and terminator helpers produce stable dimensions and coordinates"
   assert.equal(grid.rows.length, 8);
   assert.equal(Number.isFinite(grid.columns[0].lon), true);
   assert.equal(Number.isFinite(grid.rows[0].lat), true);
+});
+
+test("terminator view wraps longitudes horizontally and fades through wide margins", () => {
+  const view = mapViewForViewport(3440, 1440);
+  const cellSize = 10;
+  const grid = terminatorGridCoordinates({
+    width: 3440,
+    height: 1440,
+    view,
+    layout: "atlantic",
+    cellSize
+  });
+  const leftMarginColumn = grid.columns[0];
+  const firstInsideColumn = grid.columns.find((column) =>
+    column.x + cellSize / 2 >= view.x
+  );
+  assert.equal(Number.isFinite(leftMarginColumn.lon), true);
+  assert.equal(Number.isFinite(firstInsideColumn.lon), true);
+  const longitudeDelta = Math.abs(leftMarginColumn.lon - firstInsideColumn.lon);
+  assert.equal(Math.min(longitudeDelta, 360 - longitudeDelta) < 60, true);
+  assert.equal(terminatorFadeAlpha(view.x + view.width / 2, view, 3440), 1);
+  assert.equal(terminatorFadeAlpha(view.x - 1, view, 3440) > 0, true);
+  assert.equal(terminatorFadeAlpha(0, view, 3440), 0);
+
+  const tinyMarginView = mapViewForViewport(2340, 1080);
+  assert.equal(terminatorFadeAlpha(tinyMarginView.x / 2, tinyMarginView, 2340) > 0, true);
+  assert.equal(terminatorFadeAlpha(0, tinyMarginView, 2340), 0);
+});
+
+test("map view keeps full-screen rendering separate from safe-area land limits", () => {
+  const view = mapViewForViewport(1920, 1080);
+  const grid = terminatorGridCoordinates({
+    width: 1920,
+    height: 1080,
+    view,
+    layout: "atlantic",
+    cellSize: 8
+  });
+  assert.equal(grid.rows.at(-1).y >= view.usableHeight - 8, true);
+  assert.equal(Number.isFinite(grid.rows.at(-1).lat), true);
+  assert.equal(landSouthLimit(view), -60);
+  assert.deepEqual(labelViewportForMapView(1920, 1080, view), {
+    x: 0,
+    y: 0,
+    width: 1920,
+    height: 1024
+  });
+
+  const portrait = mapViewForViewport(1080, 1920);
+  const labelViewport = labelViewportForMapView(1080, 1920, portrait);
+  assert.equal(labelViewport.y, portrait.y);
+  assert.equal(Math.abs(labelViewport.height - portrait.height) < 0.001, true);
+  assert.equal(labelViewport.y + labelViewport.height < 1920, true);
 });
 
 test("land segments break only at dataset or wrapped seams", () => {
