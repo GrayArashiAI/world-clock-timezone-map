@@ -36,7 +36,7 @@
 
 ### 新增自訂城市
 
-在「更多城市 (JSON)」中可以輸入一個或多個城市物件。專案支援省略陣列方括號。
+在「更多城市(見工坊說明)」中可以輸入一個或多個城市物件。專案支援省略陣列方括號。
 
 #### 完整填寫城市資訊
 
@@ -72,14 +72,9 @@
 {"timeZone": "Europe/Istanbul"},
 {"timeZone": "Europe/Moscow"},
 {"timeZone": "Asia/Dubai"},
-{
-	"timeZone": "Asia/Kolkata",
-	"name": "孟買",
-	"lat": 18.981050,
-	"lon": 72.826784
-},
+{"timeZone":"Asia/Kolkata","name":"孟買","lat":19.076,"lon":72.8777},
 {"timeZone": "Asia/Bangkok"},
-{"timeZone": "Asia/Shanghai"},
+{"timeZone":"Asia/Shanghai","name":"北京","lat":39.9042,"lon":116.4074},
 
 {"timeZone": "America/Sao_Paulo"},
 {"timeZone": "America/Lima"},

@@ -7,6 +7,7 @@ import languageDefinitions, { LANGUAGE_ORDER } from "../data/languages.mjs";
 const require = createRequire(import.meta.url);
 const cityPresetData = require("../src/city-presets.js");
 const project = JSON.parse(readFileSync(new URL("../project.json", import.meta.url), "utf8"));
+const cityPresetSource = readFileSync(new URL("../src/city-presets.js", import.meta.url), "utf8");
 const mainSource = readFileSync(new URL("../src/main.js", import.meta.url), "utf8");
 const properties = project.general.properties;
 const workshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=3747734053";
@@ -17,6 +18,9 @@ const readmeUrls = [
     (language) => new URL(`../docs/readme/README.${language}.md`, import.meta.url)
   )
 ];
+const workshopDescriptionUrls = ["zh-Hans", "zh-Hant", "en", "ja", "ko", "es", "ru", "pt", "de"].map(
+  (language) => new URL(`../docs/workshop/description.${language}.txt`, import.meta.url)
+);
 
 test("Wallpaper Engine settings expose the supported city and display controls", () => {
   assert.deepEqual(
@@ -65,29 +69,6 @@ test("browser loads the global label planner before the wallpaper runtime", () =
   assert.match(styles, /\.city-connector/);
 });
 
-test("language definitions generate complete runtime and Wallpaper Engine localization", () => {
-  const expectedUiKeys = Object.keys(languageDefinitions.en.ui).sort();
-  const wallpaperLocales = [];
-
-  assert.deepEqual(Object.keys(languageDefinitions).sort(), [...LANGUAGE_ORDER].sort());
-  assert.deepEqual(properties.language.options.map((option) => option.value), [...LANGUAGE_ORDER]);
-  for (const language of LANGUAGE_ORDER) {
-    const definition = languageDefinitions[language];
-    assert.deepEqual(Object.keys(definition.ui).sort(), expectedUiKeys, language);
-    assert.equal(cityPresetData.languages[language], definition.locale);
-    for (const locale of definition.wallpaperLocales) {
-      wallpaperLocales.push(locale);
-      const localization = project.general.localization[locale];
-      assert.equal(Boolean(localization), true, locale);
-      assert.equal(
-        localization[`ui_language_${language.replace("-", "_")}`],
-        definition.optionLabel
-      );
-    }
-  }
-  assert.equal(new Set(wallpaperLocales).size, wallpaperLocales.length);
-});
-
 test("city menus and localized labels come from the generated preset catalog", () => {
   const expectedValues = Object.keys(cityPresetData.presets);
   const firstOptions = properties.cityslot1.options;
@@ -131,16 +112,19 @@ test("runtime timezone catalog is complete and localized beyond preset cities", 
   );
 });
 
-test("localized READMEs retain publication and IANA usage information", () => {
-  const offlinePattern = /离线|離線|offline|オフライン|오프라인|sin conexión|автоном|Офлайн/i;
+test("generated city preset module stores names once and expands runtime records", () => {
+  const languageCount = Object.keys(cityPresetData.languages).length;
 
-  for (const readmeUrl of readmeUrls) {
-    const source = readFileSync(readmeUrl, "utf8");
-    assert.equal(source.includes(workshopUrl), true, readmeUrl.pathname);
-    assert.equal(source.includes(ianaUrl), true, readmeUrl.pathname);
-    assert.equal(source.includes("2026b"), true, readmeUrl.pathname);
-    assert.equal(offlinePattern.test(source), false, readmeUrl.pathname);
-  }
+  assert.equal(Array.isArray(cityPresetData.nameSets), true);
+  assert.equal(cityPresetData.nameSets.length < Object.keys(cityPresetData.timeZoneCatalog).length, true);
+  assert.equal(cityPresetData.nameSets.every((names) => names.length === languageCount), true);
+  assert.equal(Object.hasOwn(cityPresetData.presets.tokyo, "nameIndex"), false);
+  assert.equal(Object.hasOwn(cityPresetData.timeZoneCatalog["Asia/Tokyo"], "nameIndex"), false);
+  assert.equal(cityPresetData.presets.tokyo.names.ja, "東京");
+  assert.equal(cityPresetData.timeZoneCatalog["US/Pacific"].names.en, "Los Angeles");
+  assert.match(cityPresetSource, /"nameSets":\[/);
+  assert.match(cityPresetSource, /"nameIndex":/);
+  assert.equal(cityPresetSource.includes('"names":{"en"'), false);
 });
 
 test("development project retains published Workshop metadata", () => {

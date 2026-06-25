@@ -565,6 +565,10 @@
     return Object.fromEntries(SUPPORTED_LANGUAGES.map((language) => [language, english]));
   }
 
+  function manualNames(name) {
+    return Object.fromEntries(SUPPORTED_LANGUAGES.map((language) => [language, name]));
+  }
+
   function parseCoordinateValue(value) {
     if (typeof value === "number") {
       return Number.isFinite(value) ? value : null;
@@ -731,9 +735,14 @@
     }
 
     const coordinates = validCoordinates ? { lat, lon } : generatedCoordinates;
-    const names = timeZoneCity && timeZoneCity.names
-      ? { ...timeZoneCity.names }
-      : fallbackNames(requestedTimeZone);
+    let names;
+    if (name) {
+      names = manualNames(name);
+    } else if (timeZoneCity && timeZoneCity.names) {
+      names = { ...timeZoneCity.names };
+    } else {
+      names = fallbackNames(requestedTimeZone);
+    }
     const englishName = name || names.en || timeZoneEnglishName(requestedTimeZone);
     return {
       city: {
@@ -742,7 +751,8 @@
         lon: coordinates.lon,
         timeZone: requestedTimeZone,
         names,
-        custom: true
+        custom: true,
+        ...(name ? { name } : {})
       },
       errors: suppliedCoordinates && !validCoordinates ? ["invalid-coordinates"] : []
     };
@@ -838,9 +848,6 @@
     entries.forEach((entry, index) => {
       const result = normalizeCustomCity(entry, index);
       if (result.city) {
-        if (typeof entry.name === "string" && entry.name.trim()) {
-          result.city.name = entry.name.trim();
-        }
         cities.push(result.city);
       }
       result.errors.forEach((type) => errors.push({ type, index }));

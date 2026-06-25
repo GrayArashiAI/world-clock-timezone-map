@@ -36,7 +36,7 @@
 
 [h3]사용자 지정 도시 추가[/h3]
 
-“더 많은 도시 (JSON)”에는 하나 이상의 도시 객체를 입력할 수 있습니다. 배열 대괄호는 생략할 수 있습니다.
+“도시 추가(워크숍 설명 참조)”에는 하나 이상의 도시 객체를 입력할 수 있습니다. 배열 대괄호는 생략할 수 있습니다.
 
 [h3]모든 도시 정보 지정[/h3]
 
@@ -72,14 +72,9 @@
 {"timeZone": "Europe/Istanbul"},
 {"timeZone": "Europe/Moscow"},
 {"timeZone": "Asia/Dubai"},
-{
-	"timeZone": "Asia/Kolkata",
-	"name": "뭄바이",
-	"lat": 18.981050,
-	"lon": 72.826784
-},
+{"timeZone":"Asia/Kolkata","name":"뭄바이","lat":19.076,"lon":72.8777},
 {"timeZone": "Asia/Bangkok"},
-{"timeZone": "Asia/Shanghai"},
+{"timeZone":"Asia/Shanghai","name":"베이징","lat":39.9042,"lon":116.4074},
 
 {"timeZone": "America/Sao_Paulo"},
 {"timeZone": "America/Lima"},

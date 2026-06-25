@@ -36,7 +36,7 @@
 
 ### カスタム都市を追加
 
-「追加都市 (JSON)」には 1 つ以上の都市オブジェクトを入力できます。配列の角括弧は省略できます。
+「更に追加(ワークショップ説明参照)」には 1 つ以上の都市オブジェクトを入力できます。配列の角括弧は省略できます。
 
 #### 都市情報をすべて指定
 
@@ -72,14 +72,9 @@
 {"timeZone": "Europe/Istanbul"},
 {"timeZone": "Europe/Moscow"},
 {"timeZone": "Asia/Dubai"},
-{
-	"timeZone": "Asia/Kolkata",
-	"name": "ムンバイ",
-	"lat": 18.981050,
-	"lon": 72.826784
-},
+{"timeZone":"Asia/Kolkata","name":"ムンバイ","lat":19.076,"lon":72.8777},
 {"timeZone": "Asia/Bangkok"},
-{"timeZone": "Asia/Shanghai"},
+{"timeZone":"Asia/Shanghai","name":"北京","lat":39.9042,"lon":116.4074},
 
 {"timeZone": "America/Sao_Paulo"},
 {"timeZone": "America/Lima"},

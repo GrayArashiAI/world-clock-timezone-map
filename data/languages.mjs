@@ -9,7 +9,7 @@ export default {
     empty: "空",
     ui: {
       extraCity: "额外城市",
-      moreCities: "更多城市 (JSON)",
+      moreCities: "更多城市(见工坊说明)",
       mapLayout: "地图布局",
       language: "语言",
       hourFormat: "时间格式",
@@ -36,7 +36,7 @@ export default {
     empty: "空",
     ui: {
       extraCity: "額外城市",
-      moreCities: "更多城市 (JSON)",
+      moreCities: "更多城市(見工坊說明)",
       mapLayout: "地圖配置",
       language: "語言",
       hourFormat: "時間格式",
@@ -63,7 +63,7 @@ export default {
     empty: "Empty",
     ui: {
       extraCity: "Extra city",
-      moreCities: "More cities (JSON)",
+      moreCities: "More cities (see Workshop description)",
       mapLayout: "Map layout",
       language: "Language",
       hourFormat: "Hour format",
@@ -90,7 +90,7 @@ export default {
     empty: "空",
     ui: {
       extraCity: "追加都市",
-      moreCities: "追加都市 (JSON)",
+      moreCities: "更に追加(ワークショップ説明参照)",
       mapLayout: "地図レイアウト",
       language: "言語",
       hourFormat: "時刻形式",
@@ -117,7 +117,7 @@ export default {
     empty: "비어 있음",
     ui: {
       extraCity: "추가 도시",
-      moreCities: "더 많은 도시 (JSON)",
+      moreCities: "도시 추가(워크숍 설명 참조)",
       mapLayout: "지도 배치",
       language: "언어",
       hourFormat: "시간 형식",
@@ -144,7 +144,7 @@ export default {
     empty: "Vacío",
     ui: {
       extraCity: "Ciudad adicional",
-      moreCities: "Más ciudades (JSON)",
+      moreCities: "Más ciudades (ver descripción del Workshop)",
       mapLayout: "Diseño del mapa",
       language: "Idioma",
       hourFormat: "Formato de hora",
@@ -171,7 +171,7 @@ export default {
     empty: "Пусто",
     ui: {
       extraCity: "Доп. город",
-      moreCities: "Другие города (JSON)",
+      moreCities: "Доп. города (см. описание в Мастерской)",
       mapLayout: "Расположение карты",
       language: "Язык",
       hourFormat: "Формат времени",
@@ -198,7 +198,7 @@ export default {
     empty: "Vazio",
     ui: {
       extraCity: "Cidade adicional",
-      moreCities: "Mais cidades (JSON)",
+      moreCities: "Mais cidades (ver descrição do Workshop)",
       mapLayout: "Layout do mapa",
       language: "Idioma",
       hourFormat: "Formato de hora",
@@ -225,7 +225,7 @@ export default {
     empty: "Leer",
     ui: {
       extraCity: "Zusatzstadt",
-      moreCities: "Weitere Städte (JSON)",
+      moreCities: "Mehr Städte (s. Workshop-Beschreibung)",
       mapLayout: "Kartenausrichtung",
       language: "Sprache",
       hourFormat: "Zeitformat",

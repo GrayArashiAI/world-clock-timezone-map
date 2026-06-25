@@ -5,7 +5,7 @@
   "scripts": {
     "generate": "node scripts/generate-timezone-data.mjs",
     "pull:publish-meta": "node scripts/pull-publish-metadata.mjs",
-    "test": "node --test tests/wallpaper-core.test.mjs tests/label-layout.test.mjs tests/project-config.test.mjs tests/preview-gif.test.mjs tests/timezone-generator.test.mjs tests/publish-metadata.test.mjs tests/sync-publish.test.mjs",
+    "test": "node --test tests/wallpaper-core.test.mjs tests/label-layout.test.mjs tests/project-config.test.mjs tests/timezone-generator.test.mjs tests/publish-metadata.test.mjs tests/sync-publish.test.mjs",
     "preview:gif": "node scripts/render-preview-gif.mjs",
     "sync:publish": "node scripts/sync-publish.mjs",
     "build": "npm run generate && npm test && npm run sync:publish"

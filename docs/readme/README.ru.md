@@ -36,7 +36,7 @@
 
 ### Добавление пользовательских городов
 
-Поле «Другие города (JSON)» принимает один или несколько объектов городов. Квадратные скобки массива можно опустить.
+Поле «Доп. города (см. описание в Мастерской)» принимает один или несколько объектов городов. Квадратные скобки массива можно опустить.
 
 #### Указать все данные города
 
@@ -72,14 +72,9 @@
 {"timeZone": "Europe/Istanbul"},
 {"timeZone": "Europe/Moscow"},
 {"timeZone": "Asia/Dubai"},
-{
-	"timeZone": "Asia/Kolkata",
-	"name": "Мумбаи",
-	"lat": 18.981050,
-	"lon": 72.826784
-},
+{"timeZone":"Asia/Kolkata","name":"Мумбаи","lat":19.076,"lon":72.8777},
 {"timeZone": "Asia/Bangkok"},
-{"timeZone": "Asia/Shanghai"},
+{"timeZone":"Asia/Shanghai","name":"Пекин","lat":39.9042,"lon":116.4074},
 
 {"timeZone": "America/Sao_Paulo"},
 {"timeZone": "America/Lima"},

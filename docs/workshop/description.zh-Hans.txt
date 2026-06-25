@@ -36,7 +36,7 @@
 
 [h3]添加自定义城市[/h3]
 
-在“更多城市 (JSON)”中可以输入一个或多个城市对象。项目支持省略数组方括号。
+在”更多城市(见工坊说明)”中可以输入一个或多个城市对象。项目支持省略数组方括号。
 
 [h3]完整填写城市信息[/h3]
 
@@ -72,14 +72,9 @@
 {"timeZone": "Europe/Istanbul"},
 {"timeZone": "Europe/Moscow"},
 {"timeZone": "Asia/Dubai"},
-{
-	"timeZone": "Asia/Kolkata",
-	"name": "孟买",
-	"lat": 18.981050,
-	"lon": 72.826784
-},
+{"timeZone":"Asia/Kolkata","name":"孟买","lat":19.076,"lon":72.8777},
 {"timeZone": "Asia/Bangkok"},
-{"timeZone": "Asia/Shanghai"},
+{"timeZone":"Asia/Shanghai","name":"北京","lat":39.9042,"lon":116.4074},
 
 {"timeZone": "America/Sao_Paulo"},
 {"timeZone": "America/Lima"},

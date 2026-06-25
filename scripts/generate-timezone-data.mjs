@@ -64,13 +64,24 @@ generateProjectJson(cities);
 
 function createPresetData(dataVersion, records, allTimeZoneCities) {
   const emptyNames = Object.fromEntries(LANGUAGE_ORDER.map((language) => [language, languages[language].empty]));
+  const nameSets = [];
+  const nameSetIndexes = new Map();
+  const nameIndexFor = (names) => {
+    const values = LANGUAGE_ORDER.map((language) => names[language] || "");
+    const key = JSON.stringify(values);
+    if (!nameSetIndexes.has(key)) {
+      nameSetIndexes.set(key, nameSets.length);
+      nameSets.push(values);
+    }
+    return nameSetIndexes.get(key);
+  };
   const presets = {
     empty: {
       id: "empty",
       lat: 0,
       lon: 0,
       timeZone: "UTC",
-      names: emptyNames
+      nameIndex: nameIndexFor(emptyNames)
     }
   };
 
@@ -80,15 +91,26 @@ function createPresetData(dataVersion, records, allTimeZoneCities) {
       lat: city.lat,
       lon: city.lon,
       timeZone: city.timeZone,
-      names: city.names
+      nameIndex: nameIndexFor(city.names)
     };
   }
 
   return {
     version: dataVersion,
     languages: Object.fromEntries(LANGUAGE_ORDER.map((language) => [language, languages[language].locale])),
+    languageOrder: LANGUAGE_ORDER,
+    nameSets,
     presets,
-    timeZoneCatalog: Object.fromEntries(allTimeZoneCities.map((city) => [city.timeZone, city]))
+    timeZoneCatalog: Object.fromEntries(allTimeZoneCities.map((city) => [
+      city.timeZone,
+      {
+        timeZone: city.timeZone,
+        canonicalTimeZone: city.canonicalTimeZone,
+        lat: city.lat,
+        lon: city.lon,
+        nameIndex: nameIndexFor(city.names)
+      }
+    ]))
   };
 }
 
@@ -97,11 +119,38 @@ function writeGeneratedModule(relativePath, globalName, data, subject) {
   const content = [
     `// このファイルはIANA tzdb ${version}から生成された${subject}データです。`,
     "(function attachGeneratedData(root) {",
-    `  const data = ${serialized};`,
+    `  const compactData = ${serialized};`,
+    "  const data = expandGeneratedData(compactData);",
     "  if (typeof module !== \"undefined\" && module.exports) {",
     "    module.exports = data;",
     "  }",
     `  root.${globalName} = data;`,
+    "",
+    "  function expandGeneratedData(compact) {",
+    "    const languageOrder = compact.languageOrder || Object.keys(compact.languages || {});",
+    "    const expandedNameSets = compact.nameSets.map((nameSet) => Object.fromEntries(",
+    "      languageOrder.map((language, index) => [language, nameSet[index]])",
+    "    ));",
+    "    const expandRecords = (records) => Object.fromEntries(",
+    "      Object.entries(records || {}).map(([key, record]) => [key, expandRecord(record, expandedNameSets)])",
+    "    );",
+    "    return {",
+    "      version: compact.version,",
+    "      languages: compact.languages,",
+    "      languageOrder,",
+    "      nameSets: compact.nameSets,",
+    "      presets: expandRecords(compact.presets),",
+    "      timeZoneCatalog: expandRecords(compact.timeZoneCatalog)",
+    "    };",
+    "  }",
+    "",
+    "  function expandRecord(record, expandedNameSets) {",
+    "    const { nameIndex, ...expanded } = record;",
+    "    return {",
+    "      ...expanded,",
+    "      names: expandedNameSets[nameIndex]",
+    "    };",
+    "  }",
     "}(typeof globalThis !== \"undefined\" ? globalThis : this));",
     ""
   ].join("\n");

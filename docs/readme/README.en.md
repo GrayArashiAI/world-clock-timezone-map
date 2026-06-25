@@ -36,7 +36,7 @@ Coordinates use the `latitude,longitude` format. Use negative values for south a
 
 ### Add Custom Cities
 
-“More cities (JSON)” accepts one or more city objects. The surrounding array brackets may be omitted.
+“More cities (see Workshop description)” accepts one or more city objects. The surrounding array brackets may be omitted.
 
 #### Specify All City Data
 
@@ -72,14 +72,9 @@ Separate city objects with commas:
 {"timeZone": "Europe/Istanbul"},
 {"timeZone": "Europe/Moscow"},
 {"timeZone": "Asia/Dubai"},
-{
-	"timeZone": "Asia/Kolkata",
-	"name": "Mumbai",
-	"lat": 18.981050,
-	"lon": 72.826784
-},
+{"timeZone":"Asia/Kolkata","name":"Mumbai","lat":19.076,"lon":72.8777},
 {"timeZone": "Asia/Bangkok"},
-{"timeZone": "Asia/Shanghai"},
+{"timeZone":"Asia/Shanghai","name":"Beijing","lat":39.9042,"lon":116.4074},
 
 {"timeZone": "America/Sao_Paulo"},
 {"timeZone": "America/Lima"},

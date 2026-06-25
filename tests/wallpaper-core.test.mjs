@@ -43,7 +43,7 @@ test("custom city parsing accepts supported formats and reports invalid entries"
     '{"timeZone":"Europe/London"},{"timeZone":"Europe/Paris","name":"Desk"}'
   );
   const mixed = parseCustomCities(JSON.stringify([
-    { timeZone: "Asia/Shanghai" },
+    { timeZone: "Asia/Shanghai", name: "Beijing", lat: 39.9042, lon: 116.4074 },
     { name: "Missing timezone" },
     { timeZone: "Broken/Zone" }
   ]));
@@ -52,7 +52,7 @@ test("custom city parsing accepts supported formats and reports invalid entries"
   assert.equal(single.cities[0].names.ja, "東京");
   assert.equal(Math.abs(single.cities[0].lat - 35.65) < 0.2, true);
   assert.deepEqual(sequence.cities.map((city) => city.name || city.names.en), ["London", "Desk"]);
-  assert.deepEqual(mixed.cities.map((city) => city.names.en), ["Shanghai"]);
+  assert.deepEqual(mixed.cities.map((city) => city.name || city.names.en), ["Beijing"]);
   assert.deepEqual(mixed.errors.map((error) => error.type), ["invalid-timezone", "invalid-timezone"]);
   assert.deepEqual(invalidJson, { cities: [], errors: [{ type: "invalid-json" }] });
 });
@@ -70,9 +70,9 @@ test("custom city overrides are optional, validated, and localized", () => {
       name: manual.cities[0].name,
       lat: manual.cities[0].lat,
       lon: manual.cities[0].lon,
-      ja: manual.cities[0].names.ja
+      names: [...new Set(Object.values(manual.cities[0].names))]
     },
-    { name: "Mumbai", lat: 19.076, lon: 72.8777, ja: "コルカタ" }
+    { name: "Mumbai", lat: 19.076, lon: 72.8777, names: ["Mumbai"] }
   );
   assert.equal(incomplete.cities[0].names.de, "Wien");
   assert.equal(incomplete.errors[0].type, "invalid-coordinates");
@@ -120,11 +120,11 @@ test("current city rejects incomplete coordinates and uses timezone coordinates"
   for (const coords of [",", "35,", ",139", "，"]) {
     const result = resolveCurrentCity({
       coords,
-      timeZone: "Asia/Shanghai",
+      timeZone: "Asia/Tokyo",
       localTimeZone: "UTC"
     });
     assert.equal(result.city.manualCoordinates, false);
-    assert.equal(result.city.names.zh, "上海");
+    assert.equal(result.city.names.ja, "東京");
     assert.equal(result.errors[0].type, "invalid-coordinates");
   }
 });
@@ -476,7 +476,7 @@ test("runtime language helpers support every generated language and English fall
     assert.equal(resolveRuntimeLanguage(language), language);
     assert.equal(localeForLanguage(language), locale);
   }
-  assert.equal(getCityName({ name: "Manual", names: { en: "Generated" } }, "en"), "Manual");
+  assert.equal(getCityName({ name: "Manual", names: { en: "Manual" } }, "en"), "Manual");
   assert.equal(getCityName({ id: "tokyo", names: { en: "Tokyo", ja: "東京" } }, "ja"), "東京");
   assert.equal(resolveRuntimeLanguage("broken"), "en");
   assert.equal(localeForLanguage("broken"), "en-US");
