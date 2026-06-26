@@ -1,5 +1,6 @@
 # ローカル開発ツール
 /.codex/
+/.claude/
 /.agents/
 /.playwright-cli/
 /.VSCodeCounter/
