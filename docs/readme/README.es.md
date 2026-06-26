@@ -1,4 +1,4 @@
-[简体中文](../../README.md) | [繁體中文](README.zh-Hant.md) | [English](README.en.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | Español | [Русский](README.ru.md) | [Português](README.pt.md) | [Deutsch](README.de.md)
+[简体中文](../../README.md) | [繁體中文](README.zh-Hant.md) | [English](README.en.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | Español | [Русский](README.ru.md) | [Português](README.pt.md) | [Deutsch](README.de.md) | [Français](README.fr.md)
 
 # World Clock Timezone Map Wallpaper
 
@@ -12,7 +12,7 @@ Un reloj mundial para Wallpaper Engine que muestra la hora local, el estado de d
 - Zonas horarias IANA y horario de verano
 - Ciudad actual, ciudades predefinidas y ciudades JSON
 - Mapas centrados en el Atlántico o el Pacífico
-- Nueve idiomas de interfaz
+- Diez idiomas de interfaz
 
 ## Instalación
 

@@ -11,7 +11,7 @@ A Wallpaper Engine world clock that displays local city times, day-night states,
 [*]IANA time zones and daylight-saving time
 [*]Current, preset, and JSON-defined cities
 [*]Atlantic-centered and Pacific-centered layouts
-[*]Nine interface languages
+[*]Ten interface languages
 [/list]
 
 [h2]Github[/h2]

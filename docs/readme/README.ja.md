@@ -1,4 +1,4 @@
-[简体中文](../../README.md) | [繁體中文](README.zh-Hant.md) | [English](README.en.md) | 日本語 | [한국어](README.ko.md) | [Español](README.es.md) | [Русский](README.ru.md) | [Português](README.pt.md) | [Deutsch](README.de.md)
+[简体中文](../../README.md) | [繁體中文](README.zh-Hant.md) | [English](README.en.md) | 日本語 | [한국어](README.ko.md) | [Español](README.es.md) | [Русский](README.ru.md) | [Português](README.pt.md) | [Deutsch](README.de.md) | [Français](README.fr.md)
 
 # World Clock Timezone Map Wallpaper
 
@@ -12,7 +12,7 @@
 - IANA タイムゾーンと夏時間に対応
 - 現在地、プリセット、JSON カスタム都市
 - 大西洋中心と太平洋中心の地図レイアウト
-- 9 言語対応
+- 10 言語対応
 
 ## インストール
 

@@ -1,4 +1,4 @@
-[简体中文](../../README.md) | [繁體中文](README.zh-Hant.md) | [English](README.en.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Español](README.es.md) | Русский | [Português](README.pt.md) | [Deutsch](README.de.md)
+[简体中文](../../README.md) | [繁體中文](README.zh-Hant.md) | [English](README.en.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Español](README.es.md) | Русский | [Português](README.pt.md) | [Deutsch](README.de.md) | [Français](README.fr.md)
 
 # World Clock Timezone Map Wallpaper
 
@@ -12,7 +12,7 @@
 - Часовые пояса IANA и переход на летнее время
 - Текущий, предустановленные и пользовательские JSON-города
 - Карта с центром по Атлантическому или Тихому океану
-- Девять языков интерфейса
+- Десять языков интерфейса
 
 ## Установка
 

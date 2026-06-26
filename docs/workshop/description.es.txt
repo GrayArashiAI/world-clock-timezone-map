@@ -11,7 +11,7 @@ Un reloj mundial para Wallpaper Engine que muestra la hora local, el estado de d
 [*]Zonas horarias IANA y horario de verano
 [*]Ciudad actual, ciudades predefinidas y ciudades JSON
 [*]Mapas centrados en el Atlántico o el Pacífico
-[*]Nueve idiomas de interfaz
+[*]Diez idiomas de interfaz
 [/list]
 
 [h2]Github[/h2]

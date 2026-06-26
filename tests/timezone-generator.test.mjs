@@ -29,7 +29,8 @@ const cldrLocales = {
   es: "es",
   ru: "ru",
   pt: "pt",
-  de: "de"
+  de: "de",
+  fr: "fr"
 };
 const cldrByLanguage = Object.fromEntries(
   Object.entries(cldrLocales).map(([language, locale]) => [
@@ -142,12 +143,14 @@ test("localized timezone catalog is complete and preserves renamed alias locatio
       tokyo: [byZone.get("Asia/Tokyo").names.ja, byZone.get("Asia/Tokyo").names.ko],
       shanghai: [byZone.get("Asia/Shanghai").names.en, byZone.get("Asia/Shanghai").names.zh],
       vienna: byZone.get("Europe/Vienna").names.de,
+      viennaFr: byZone.get("Europe/Vienna").names.fr,
       faroe: byZone.get("Atlantic/Faroe").names.en
     },
     {
       tokyo: ["東京", "도쿄"],
       shanghai: ["Shanghai", "上海"],
       vienna: "Wien",
+      viennaFr: "Vienne",
       faroe: "Faroes"
     }
   );

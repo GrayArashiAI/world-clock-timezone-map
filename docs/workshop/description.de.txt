@@ -11,7 +11,7 @@ Eine Weltzeituhr für Wallpaper Engine, die Ortszeiten, Tag und Nacht sowie den 
 [*]IANA-Zeitzonen und Sommerzeit
 [*]Eigene, voreingestellte und per JSON definierte Städte
 [*]Atlantik- und Pazifik-zentrierte Kartenansicht
-[*]Neun Oberflächensprachen
+[*]Zehn Oberflächensprachen
 [/list]
 
 [h2]Github[/h2]

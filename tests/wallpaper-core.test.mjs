@@ -470,7 +470,8 @@ test("runtime language helpers support every generated language and English fall
     es: "es-ES",
     ru: "ru-RU",
     pt: "pt-BR",
-    de: "de-DE"
+    de: "de-DE",
+    fr: "fr-FR"
   };
   for (const [language, locale] of Object.entries(expected)) {
     assert.equal(resolveRuntimeLanguage(language), language);
@@ -478,6 +479,7 @@ test("runtime language helpers support every generated language and English fall
   }
   assert.equal(getCityName({ name: "Manual", names: { en: "Manual" } }, "en"), "Manual");
   assert.equal(getCityName({ id: "tokyo", names: { en: "Tokyo", ja: "東京" } }, "ja"), "東京");
+  assert.equal(getCityName({ id: "london", names: { en: "London", fr: "Londres" } }, "fr"), "Londres");
   assert.equal(resolveRuntimeLanguage("broken"), "en");
   assert.equal(localeForLanguage("broken"), "en-US");
 });

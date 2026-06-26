@@ -1,4 +1,4 @@
-简体中文 | [繁體中文](docs/readme/README.zh-Hant.md) | [English](docs/readme/README.en.md) | [日本語](docs/readme/README.ja.md) | [한국어](docs/readme/README.ko.md) | [Español](docs/readme/README.es.md) | [Русский](docs/readme/README.ru.md) | [Português](docs/readme/README.pt.md) | [Deutsch](docs/readme/README.de.md)
+简体中文 | [繁體中文](docs/readme/README.zh-Hant.md) | [English](docs/readme/README.en.md) | [日本語](docs/readme/README.ja.md) | [한국어](docs/readme/README.ko.md) | [Español](docs/readme/README.es.md) | [Русский](docs/readme/README.ru.md) | [Português](docs/readme/README.pt.md) | [Deutsch](docs/readme/README.de.md) | [Français](docs/readme/README.fr.md)
 
 # World Clock Timezone Map Wallpaper
 
@@ -12,7 +12,7 @@
 - IANA 时区与夏令时支持
 - 当前城市、预设城市与 JSON 自定义城市
 - 大西洋、太平洋两种地图布局
-- 9 种界面语言
+- 10 种界面语言
 
 ## 安装
 

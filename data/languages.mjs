@@ -1,4 +1,4 @@
-export const LANGUAGE_ORDER = ["en", "zh", "zh-hant", "ja", "ko", "es", "ru", "pt", "de"];
+export const LANGUAGE_ORDER = ["en", "zh", "zh-hant", "ja", "ko", "es", "ru", "pt", "de", "fr"];
 
 export default {
   zh: {
@@ -242,6 +242,33 @@ export default {
       small: "Klein",
       medium: "Mittel",
       large: "Groß"
+    }
+  },
+  fr: {
+    optionLabel: "Français",
+    locale: "fr-FR",
+    cldrLocale: "fr",
+    wallpaperLocales: ["fr-fr"],
+    empty: "Vide",
+    ui: {
+      extraCity: "Ville supplémentaire",
+      moreCities: "Ajouter des villes (cf. description Workshop)",
+      mapLayout: "Disposition de la carte",
+      language: "Langue",
+      hourFormat: "Format de l'heure",
+      showSeconds: "Afficher les secondes",
+      showTerminator: "Afficher la ligne jour-nuit",
+      atlantic: "Centrée sur l'Atlantique",
+      pacific: "Centrée sur le Pacifique",
+      hour24: "24 heures",
+      hour12: "12 heures",
+      currentCity: "Ma ville",
+      coordinates: "Mes coordonnées",
+      timeZone: "Mon fuseau horaire",
+      labelSize: "Taille des libellés",
+      small: "Petite",
+      medium: "Moyenne",
+      large: "Grande"
     }
   }
 };

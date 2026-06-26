@@ -1,0 +1,86 @@
+[h1]World Clock Timezone Map Wallpaper[/h1]
+
+Une horloge mondiale pour Wallpaper Engine qui affiche les heures locales des villes, l'état jour-nuit et le terminateur solaire en temps réel sur une carte du monde en projection de Mercator.
+
+[img]https://raw.githubusercontent.com/GrayArashiAI/world-clock-timezone-map/main/assets/world-map-timezone-map-preview.gif[/img]
+
+[h2]Fonctionnalités implémentées[/h2]
+
+[list]
+[*]Horloges mondiales et terminateur solaire en temps réel
+[*]Fuseaux horaires IANA et heure d'été
+[*]Ville actuelle, villes prédéfinies et villes JSON personnalisées
+[*]Cartes centrées sur l'Atlantique ou le Pacifique
+[*]Dix langues d'interface
+[/list]
+
+[h2]Github[/h2]
+
+[url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
+
+[h2]Utilisation[/h2]
+
+Les fuseaux horaires ajoutés manuellement doivent figurer dans la [url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]liste des villes IANA[/url]. Ce projet utilise la version IANA 2026b.
+
+[h3]Définir ma ville[/h3]
+
+Pour Pékin, saisissez les valeurs suivantes dans les paramètres de Wallpaper Engine :
+
+[list]
+[*][b]Mon fuseau horaire[/b]: [b]Asia/Shanghai[/b]
+[*][b]Ma ville[/b]: [b]Pékin[/b]
+[*][b]Mes coordonnées[/b]: [b]39.9042,116.4074[/b]
+[/list]
+
+Les coordonnées utilisent le format [b]latitude,longitude[/b]. Utilisez des valeurs négatives pour le sud et l'ouest. IANA n'a pas de fuseau horaire distinct pour Pékin ; Pékin utilise donc [b]Asia/Shanghai[/b].
+
+[h3]Ajouter des villes personnalisées[/h3]
+
+« Ajouter des villes (cf. description Workshop) » accepte un ou plusieurs objets de ville. Les crochets du tableau peuvent être omis.
+
+[h3]Spécifier toutes les données d'une ville[/h3]
+
+Avec Mumbai comme exemple, indiquez son fuseau horaire, son nom et ses coordonnées :
+
+[code]
+{"timeZone":"Asia/Kolkata","name":"Mumbai","lat":19.076,"lon":72.8777}
+[/code]
+
+[h3]Spécifier seulement un fuseau horaire[/h3]
+
+Avec Dublin comme exemple, indiquez seulement son fuseau horaire IANA. Le nom de la ville et les coordonnées sont complétés automatiquement :
+
+[code]
+{"timeZone":"Europe/Dublin"}
+[/code]
+
+[b]timeZone[/b] est obligatoire ; [b]name[/b], [b]lat[/b] et [b]lon[/b] sont facultatifs.
+
+[h3]Ajouter plusieurs villes[/h3]
+
+Séparez les objets de ville par des virgules :
+
+[code]
+{"timeZone": "Pacific/Honolulu"},
+{"timeZone": "America/Anchorage"},
+{"timeZone": "America/Los_Angeles"},
+{"timeZone": "America/Mexico_City"},
+{"timeZone": "America/New_York"},
+
+{"timeZone": "Europe/London"},
+{"timeZone": "Europe/Paris"},
+{"timeZone": "Europe/Istanbul"},
+{"timeZone": "Europe/Moscow"},
+{"timeZone": "Asia/Dubai"},
+{"timeZone":"Asia/Kolkata","name":"Mumbai","lat":19.076,"lon":72.8777},
+{"timeZone": "Asia/Bangkok"},
+{"timeZone":"Asia/Shanghai","name":"Pékin","lat":39.9042,"lon":116.4074},
+
+{"timeZone": "America/Sao_Paulo"},
+{"timeZone": "America/Lima"},
+{"timeZone": "America/Santiago"},
+
+{"timeZone": "Africa/Johannesburg"},
+{"timeZone": "Australia/Sydney"},
+{"timeZone": "Pacific/Auckland"},
+[/code]

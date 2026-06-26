@@ -14,11 +14,11 @@ const workshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=3747
 const ianaUrl = "https://data.iana.org/time-zones/tzdb-2026b/zone.tab";
 const readmeUrls = [
   new URL("../README.md", import.meta.url),
-  ...["zh-Hant", "en", "ja", "ko", "es", "ru", "pt", "de"].map(
+  ...["zh-Hant", "en", "ja", "ko", "es", "ru", "pt", "de", "fr"].map(
     (language) => new URL(`../docs/readme/README.${language}.md`, import.meta.url)
   )
 ];
-const workshopDescriptionUrls = ["zh-Hans", "zh-Hant", "en", "ja", "ko", "es", "ru", "pt", "de"].map(
+const workshopDescriptionUrls = ["zh-Hans", "zh-Hant", "en", "ja", "ko", "es", "ru", "pt", "de", "fr"].map(
   (language) => new URL(`../docs/workshop/description.${language}.txt`, import.meta.url)
 );
 
@@ -106,6 +106,7 @@ test("runtime timezone catalog is complete and localized beyond preset cities", 
     }
   }
   assert.equal(catalog["Europe/Vienna"].names.de, "Wien");
+  assert.equal(catalog["Europe/Vienna"].names.fr, "Vienne");
   assert.deepEqual(
     [catalog["Etc/GMT+5"].lat, catalog["Etc/GMT+5"].lon],
     [0, 0]
@@ -141,4 +142,16 @@ test("development project retains published Workshop metadata", () => {
     }
   );
   assert.equal(project.description.length > 100, true);
+});
+
+test("localized documentation stays aligned with published links", () => {
+  for (const url of readmeUrls) {
+    const content = readFileSync(url, "utf8");
+    assert.match(content, new RegExp(workshopUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+    assert.match(content, new RegExp(ianaUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+  for (const url of workshopDescriptionUrls) {
+    const content = readFileSync(url, "utf8");
+    assert.match(content, new RegExp(ianaUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
 });
