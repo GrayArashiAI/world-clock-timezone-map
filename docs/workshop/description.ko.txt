@@ -14,25 +14,33 @@
 [*]10개 인터페이스 언어
 [/list]
 
-[h2]Github[/h2]
+[h2]GitHub[/h2]
 
-[url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
+이 배경화면의 소스 코드는 GitHub에 오픈 소스로 공개되어 있습니다: [url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
 
 [h2]사용 방법[/h2]
 
-수동으로 추가하는 시간대는 [url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]IANA도시 목록[/url]에 있어야 합니다. 이 프로젝트에서 사용하는 IANA 버전은 2026b입니다.
+IANA 도시 목록은 수동으로 입력하는 시간대를 고르는 기준입니다. 표시할 도시가 반드시 이 목록에 있을 필요는 없습니다. 별도 IANA 항목이 없으면 같은 시간대의 IANA 도시를 선택하세요. 이 프로젝트에서 사용하는 IANA 버전은 2026b입니다.
+
+IANA 도시 목록: [url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]IANA 도시 목록[/url]
 
 [h3]내 도시 설정[/h3]
 
-베이징을 예로 들어 Wallpaper Engine 배경화면 설정에 다음 값을 입력합니다.
+내 도시에는 선택 입력값이 세 가지 있으며, 모두 비워 둘 수 있습니다:
+
+[list]
+[*][b]내 시간대[/b]: [b]Asia/Shanghai[/b] 같은 IANA 시간대를 입력합니다. 비워 두면 시스템 시간대에서 자동으로 가져옵니다.
+[*][b]내 도시[/b]: 표시할 도시 이름을 입력합니다. 비워 두면 시간대에서 자동으로 추론합니다.
+[*][b]내 좌표[/b]: [b]위도,경도[/b]를 입력합니다. 남위와 서경은 음수를 사용합니다. 비워 두면 시간대에서 자동으로 추론합니다.
+[/list]
+
+IANA에는 베이징 전용 항목이 없습니다. 베이징은 [b]Asia/Shanghai[/b]와 같은 시간대를 사용하므로, 베이징을 표시하려면 다음 값을 입력합니다:
 
 [list]
 [*][b]내 시간대[/b]: [b]Asia/Shanghai[/b]
 [*][b]내 도시[/b]: [b]베이징[/b]
 [*][b]내 좌표[/b]: [b]39.9042,116.4074[/b]
 [/list]
-
-좌표 형식은 [b]위도,경도[/b]입니다. 남위와 서경은 음수를 사용합니다. IANA에는 베이징 전용 시간대가 없으므로 [b]Asia/Shanghai[/b]를 사용합니다.
 
 [h3]사용자 지정 도시 추가[/h3]
 

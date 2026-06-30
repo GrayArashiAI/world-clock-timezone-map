@@ -20,19 +20,27 @@ A Wallpaper Engine world clock that displays local city times, day-night states,
 
 ## Usage
 
-Manually added time zones must appear in the [IANA city list](https://data.iana.org/time-zones/tzdb-2026b/zone.tab). This project uses IANA version 2026b.
+The IANA city list is used for manually entered time zones. The city you display does not have to appear in that list; if it has no separate IANA entry, choose an IANA city in the same time zone. This project uses IANA version 2026b.
+
+IANA city list: [IANA city list](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)
 
 ### Set Your City
 
-For Beijing, enter these values in the Wallpaper Engine settings:
+Your local city has three optional values, and all of them may be left blank:
+
+| Setting | How to fill it | If left blank |
+| --- | --- | --- |
+| My time zone | IANA time zone, such as `Asia/Shanghai` | Detected automatically from your system time zone |
+| My city | Display city name | Inferred automatically from the time zone |
+| My coordinates | `latitude,longitude`; use negative values for south and west | Inferred automatically from the time zone |
+
+IANA has no separate Beijing entry. Because Beijing shares the `Asia/Shanghai` time zone, enter these values to display Beijing:
 
 | Setting | Value |
 | --- | --- |
 | My time zone | `Asia/Shanghai` |
 | My city | `Beijing` |
 | My coordinates | `39.9042,116.4074` |
-
-Coordinates use the `latitude,longitude` format. Use negative values for south and west. IANA has no separate Beijing time zone, so Beijing uses `Asia/Shanghai`.
 
 ### Add Custom Cities
 

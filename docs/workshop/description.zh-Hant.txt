@@ -14,25 +14,33 @@
 [*]10 種介面語言
 [/list]
 
-[h2]Github[/h2]
+[h2]GitHub[/h2]
 
-[url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
+此桌布程式碼在 GitHub 上開源：[url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
 
 [h2]使用方法[/h2]
 
-手動新增的時區必須存在於 [url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]IANA城市列表[/url]中。本專案使用的 IANA 版本為 2026b。
+IANA 城市列表用於選擇手動填寫的時區。要顯示的城市不必出現在列表中；如果沒有對應條目，請選擇同一時區的 IANA 城市。本專案使用的 IANA 版本為 2026b。
+
+IANA 城市列表：[url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]IANA 城市列表[/url]
 
 [h3]設定我的城市[/h3]
 
-以北京為例，在 Wallpaper Engine 的桌布設定中填寫：
+本地城市有三個可選值，全部都可以留空：
+
+[list]
+[*][b]我的時區[/b]: 填寫 IANA 時區，例如 [b]Asia/Shanghai[/b]；留空時會從系統時區自動取得。
+[*][b]我的城市[/b]: 填寫要顯示的城市名稱；留空時會根據時區自動推斷。
+[*][b]我的座標[/b]: 填寫 [b]緯度,經度[/b]，南緯和西經使用負數；留空時會根據時區自動推斷。
+[/list]
+
+IANA 列表沒有獨立的北京條目，但北京與 [b]Asia/Shanghai[/b] 使用同一時區。若要顯示北京，可以填寫：
 
 [list]
 [*][b]我的時區[/b]: [b]Asia/Shanghai[/b]
 [*][b]我的城市[/b]: [b]北京[/b]
 [*][b]我的座標[/b]: [b]39.9042,116.4074[/b]
 [/list]
-
-座標格式為 [b]緯度,經度[/b]。南緯和西經使用負數。IANA 沒有獨立的北京時區，因此北京使用 [b]Asia/Shanghai[/b]。
 
 [h3]新增自訂城市[/h3]
 

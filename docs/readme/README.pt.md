@@ -20,19 +20,27 @@ Um relógio mundial para o Wallpaper Engine que mostra horários locais, estados
 
 ## Como usar
 
-Os fusos horários adicionados manualmente devem constar na [lista de cidades do IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab). Este projeto usa a versão 2026b do IANA.
+Use a lista de cidades do IANA para escolher fusos horários inseridos manualmente. A cidade exibida não precisa estar nessa lista; se ela não tiver uma entrada IANA própria, escolha uma cidade IANA no mesmo fuso horário. Este projeto usa a versão 2026b do IANA.
+
+Lista de cidades do IANA: [lista de cidades do IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)
 
 ### Configurar minha cidade
 
-Para Pequim, informe estes valores nas configurações do papel de parede no Wallpaper Engine:
+Minha cidade tem três valores opcionais; todos podem ficar em branco:
+
+| Configuração | Como preencher | Se ficar em branco |
+| --- | --- | --- |
+| Meu fuso horário | Fuso horário IANA, como `Asia/Shanghai` | Detectado automaticamente pelo fuso horário do sistema |
+| Minha cidade | Nome da cidade exibida | Inferido automaticamente pelo fuso horário |
+| Minhas coordenadas | `latitude,longitude`; use valores negativos para sul e oeste | Inferidas automaticamente pelo fuso horário |
+
+IANA não tem uma entrada exclusiva para Pequim. Como Pequim usa o fuso horário `Asia/Shanghai`, use estes valores para exibir Pequim:
 
 | Configuração | Valor |
 | --- | --- |
 | Meu fuso horário | `Asia/Shanghai` |
 | Minha cidade | `Pequim` |
 | Minhas coordenadas | `39.9042,116.4074` |
-
-As coordenadas usam o formato `latitude,longitude`. Use valores negativos para sul e oeste. A IANA não possui um fuso horário exclusivo para Pequim, portanto é usado `Asia/Shanghai`.
 
 ### Adicionar cidades personalizadas
 

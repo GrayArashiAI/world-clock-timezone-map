@@ -20,19 +20,27 @@ Un reloj mundial para Wallpaper Engine que muestra la hora local, el estado de d
 
 ## Uso
 
-Las zonas horarias añadidas manualmente deben aparecer en la [lista de ciudades de IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab). Este proyecto utiliza la versión 2026b de IANA.
+La lista de ciudades de IANA se usa para elegir las zonas horarias introducidas manualmente. La ciudad que se muestra no tiene que aparecer en esa lista; si no tiene una entrada IANA propia, elige una ciudad IANA de la misma zona horaria. Este proyecto utiliza la versión 2026b de IANA.
+
+Lista de ciudades de IANA: [lista de ciudades de IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)
 
 ### Configurar mi ciudad
 
-Para Pekín, introduce estos valores en la configuración del fondo de Wallpaper Engine:
+Mi ciudad tiene tres valores opcionales; todos pueden dejarse en blanco:
+
+| Ajuste | Cómo rellenarlo | Si se deja en blanco |
+| --- | --- | --- |
+| Mi zona horaria | Zona horaria IANA, como `Asia/Shanghai` | Se detecta automáticamente desde la zona horaria del sistema |
+| Mi ciudad | Nombre de ciudad que se mostrará | Se deduce automáticamente de la zona horaria |
+| Mis coordenadas | `latitud,longitud`; usa valores negativos para el sur y el oeste | Se deducen automáticamente de la zona horaria |
+
+IANA no tiene una entrada propia para Pekín. Como Pekín comparte la zona horaria `Asia/Shanghai`, usa estos valores para mostrar Pekín:
 
 | Ajuste | Valor |
 | --- | --- |
 | Mi zona horaria | `Asia/Shanghai` |
 | Mi ciudad | `Pekín` |
 | Mis coordenadas | `39.9042,116.4074` |
-
-Las coordenadas usan el formato `latitud,longitud`. Usa valores negativos para el sur y el oeste. IANA no incluye una zona horaria exclusiva para Pekín, por lo que se utiliza `Asia/Shanghai`.
 
 ### Añadir ciudades personalizadas
 

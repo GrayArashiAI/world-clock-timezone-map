@@ -14,25 +14,33 @@ Un reloj mundial para Wallpaper Engine que muestra la hora local, el estado de d
 [*]Diez idiomas de interfaz
 [/list]
 
-[h2]Github[/h2]
+[h2]GitHub[/h2]
 
-[url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
+El código fuente de este fondo está disponible como código abierto en GitHub: [url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
 
 [h2]Uso[/h2]
 
-Las zonas horarias añadidas manualmente deben aparecer en la [url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]lista de ciudades de IANA[/url]. Este proyecto utiliza la versión 2026b de IANA.
+La lista de ciudades de IANA se usa para elegir las zonas horarias introducidas manualmente. La ciudad que se muestra no tiene que aparecer en esa lista; si no tiene una entrada IANA propia, elige una ciudad IANA de la misma zona horaria. Este proyecto utiliza la versión 2026b de IANA.
+
+Lista de ciudades de IANA: [url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]lista de ciudades de IANA[/url]
 
 [h3]Configurar mi ciudad[/h3]
 
-Para Pekín, introduce estos valores en la configuración del fondo de Wallpaper Engine:
+Mi ciudad tiene tres valores opcionales; todos pueden dejarse en blanco:
+
+[list]
+[*][b]Mi zona horaria[/b]: introduce una zona horaria IANA, como [b]Asia/Shanghai[/b]; si se deja en blanco, se detecta automáticamente desde la zona horaria del sistema.
+[*][b]Mi ciudad[/b]: introduce el nombre de ciudad que se mostrará; si se deja en blanco, se deduce automáticamente de la zona horaria.
+[*][b]Mis coordenadas[/b]: introduce [b]latitud,longitud[/b], usando valores negativos para el sur y el oeste; si se deja en blanco, se deducen automáticamente de la zona horaria.
+[/list]
+
+IANA no tiene una entrada propia para Pekín. Como Pekín comparte la zona horaria [b]Asia/Shanghai[/b], usa estos valores para mostrar Pekín:
 
 [list]
 [*][b]Mi zona horaria[/b]: [b]Asia/Shanghai[/b]
 [*][b]Mi ciudad[/b]: [b]Pekín[/b]
 [*][b]Mis coordenadas[/b]: [b]39.9042,116.4074[/b]
 [/list]
-
-Las coordenadas usan el formato [b]latitud,longitud[/b]. Usa valores negativos para el sur y el oeste. IANA no incluye una zona horaria exclusiva para Pekín, por lo que se utiliza [b]Asia/Shanghai[/b].
 
 [h3]Añadir ciudades personalizadas[/h3]
 

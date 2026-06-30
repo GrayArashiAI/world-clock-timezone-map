@@ -14,25 +14,33 @@ Um relógio mundial para o Wallpaper Engine que mostra horários locais, estados
 [*]Dez idiomas de interface
 [/list]
 
-[h2]Github[/h2]
+[h2]GitHub[/h2]
 
-[url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
+O código-fonte deste papel de parede é open source no GitHub: [url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
 
 [h2]Como usar[/h2]
 
-Os fusos horários adicionados manualmente devem constar na [url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]lista de cidades do IANA[/url]. Este projeto usa a versão 2026b do IANA.
+Use a lista de cidades do IANA para escolher fusos horários inseridos manualmente. A cidade exibida não precisa estar nessa lista; se ela não tiver uma entrada IANA própria, escolha uma cidade IANA no mesmo fuso horário. Este projeto usa a versão 2026b do IANA.
+
+Lista de cidades do IANA: [url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]lista de cidades do IANA[/url]
 
 [h3]Configurar minha cidade[/h3]
 
-Para Pequim, informe estes valores nas configurações do papel de parede no Wallpaper Engine:
+Minha cidade tem três valores opcionais; todos podem ficar em branco:
+
+[list]
+[*][b]Meu fuso horário[/b]: informe um fuso horário IANA, como [b]Asia/Shanghai[/b]; se ficar em branco, ele é detectado automaticamente pelo fuso horário do sistema.
+[*][b]Minha cidade[/b]: informe o nome da cidade exibida; se ficar em branco, ele é inferido automaticamente pelo fuso horário.
+[*][b]Minhas coordenadas[/b]: informe [b]latitude,longitude[/b], usando valores negativos para sul e oeste; se ficarem em branco, elas são inferidas automaticamente pelo fuso horário.
+[/list]
+
+IANA não tem uma entrada exclusiva para Pequim. Como Pequim usa o fuso horário [b]Asia/Shanghai[/b], use estes valores para exibir Pequim:
 
 [list]
 [*][b]Meu fuso horário[/b]: [b]Asia/Shanghai[/b]
 [*][b]Minha cidade[/b]: [b]Pequim[/b]
 [*][b]Minhas coordenadas[/b]: [b]39.9042,116.4074[/b]
 [/list]
-
-As coordenadas usam o formato [b]latitude,longitude[/b]. Use valores negativos para sul e oeste. A IANA não possui um fuso horário exclusivo para Pequim, portanto é usado [b]Asia/Shanghai[/b].
 
 [h3]Adicionar cidades personalizadas[/h3]
 

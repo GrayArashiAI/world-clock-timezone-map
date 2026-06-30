@@ -14,25 +14,33 @@ Eine Weltzeituhr für Wallpaper Engine, die Ortszeiten, Tag und Nacht sowie den 
 [*]Zehn Oberflächensprachen
 [/list]
 
-[h2]Github[/h2]
+[h2]GitHub[/h2]
 
-[url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
+Der Quellcode dieses Wallpapers ist auf GitHub als Open Source verfügbar: [url=https://github.com/GrayArashiAI/world-clock-timezone-map/]GitHub[/url]
 
 [h2]Verwendung[/h2]
 
-Manuell hinzugefügte Zeitzonen müssen in der [url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]Städteliste von IANA[/url] enthalten sein. Dieses Projekt verwendet die IANA-Version 2026b.
+Die IANA-Städteliste dient zur Auswahl manuell eingetragener Zeitzonen. Die angezeigte Stadt muss nicht in dieser Liste stehen; wenn es keinen eigenen IANA-Eintrag gibt, wählen Sie eine IANA-Stadt in derselben Zeitzone. Dieses Projekt verwendet die IANA-Version 2026b.
+
+IANA-Städteliste: [url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]IANA-Städteliste[/url]
 
 [h3]Eigene Stadt einstellen[/h3]
 
-Für Peking werden in den Wallpaper-Engine-Einstellungen folgende Werte eingetragen:
+Die eigene Stadt hat drei optionale Werte; alle können leer bleiben:
+
+[list]
+[*][b]Eigene Zeitzone[/b]: IANA-Zeitzone eingeben, z. B. [b]Asia/Shanghai[/b]; bei leerem Feld wird sie automatisch aus der Systemzeitzone ermittelt.
+[*][b]Eigene Stadt[/b]: anzuzeigenden Stadtnamen eingeben; bei leerem Feld wird er automatisch aus der Zeitzone abgeleitet.
+[*][b]Eigene Koordinaten[/b]: [b]Breitengrad,Längengrad[/b] eingeben, für Süden und Westen negative Werte verwenden; bei leerem Feld werden sie automatisch aus der Zeitzone abgeleitet.
+[/list]
+
+IANA führt keinen eigenen Eintrag für Peking. Da Peking die Zeitzone [b]Asia/Shanghai[/b] nutzt, tragen Sie zum Anzeigen von Peking folgende Werte ein:
 
 [list]
 [*][b]Eigene Zeitzone[/b]: [b]Asia/Shanghai[/b]
 [*][b]Eigene Stadt[/b]: [b]Peking[/b]
 [*][b]Eigene Koordinaten[/b]: [b]39.9042,116.4074[/b]
 [/list]
-
-Koordinaten verwenden das Format [b]Breitengrad,Längengrad[/b]. Für Süden und Westen werden negative Werte verwendet. IANA führt keine eigene Zeitzone für Peking, daher wird [b]Asia/Shanghai[/b] verwendet.
 
 [h3]Benutzerdefinierte Städte hinzufügen[/h3]
 

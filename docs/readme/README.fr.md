@@ -20,19 +20,27 @@ Une horloge mondiale pour Wallpaper Engine qui affiche les heures locales des vi
 
 ## Utilisation
 
-Les fuseaux horaires ajoutés manuellement doivent figurer dans la [liste des villes IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab). Ce projet utilise la version IANA 2026b.
+La liste des villes IANA sert à choisir les fuseaux horaires saisis manuellement. La ville affichée n'a pas besoin de figurer dans cette liste ; si elle n'a pas d'entrée IANA dédiée, choisissez une ville IANA du même fuseau horaire. Ce projet utilise la version IANA 2026b.
+
+Liste des villes IANA : [liste des villes IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)
 
 ### Définir ma ville
 
-Pour Pékin, saisissez les valeurs suivantes dans les paramètres de Wallpaper Engine :
+Ma ville comporte trois valeurs facultatives ; elles peuvent toutes rester vides :
+
+| Paramètre | Comment le remplir | Si le champ reste vide |
+| --- | --- | --- |
+| Mon fuseau horaire | Fuseau horaire IANA, par exemple `Asia/Shanghai` | Détecté automatiquement depuis le fuseau horaire du système |
+| Ma ville | Nom de la ville à afficher | Déduit automatiquement du fuseau horaire |
+| Mes coordonnées | `latitude,longitude` ; utilisez des valeurs négatives pour le sud et l'ouest | Déduites automatiquement du fuseau horaire |
+
+IANA n'a pas d'entrée dédiée pour Pékin. Comme Pékin partage le fuseau horaire `Asia/Shanghai`, utilisez ces valeurs pour afficher Pékin :
 
 | Paramètre | Valeur |
 | --- | --- |
 | Mon fuseau horaire | `Asia/Shanghai` |
 | Ma ville | `Pékin` |
 | Mes coordonnées | `39.9042,116.4074` |
-
-Les coordonnées utilisent le format `latitude,longitude`. Utilisez des valeurs négatives pour le sud et l'ouest. IANA n'a pas de fuseau horaire distinct pour Pékin ; Pékin utilise donc `Asia/Shanghai`.
 
 ### Ajouter des villes personnalisées
 

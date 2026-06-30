@@ -20,19 +20,27 @@ Eine Weltzeituhr für Wallpaper Engine, die Ortszeiten, Tag und Nacht sowie den 
 
 ## Verwendung
 
-Manuell hinzugefügte Zeitzonen müssen in der [Städteliste von IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab) enthalten sein. Dieses Projekt verwendet die IANA-Version 2026b.
+Die IANA-Städteliste dient zur Auswahl manuell eingetragener Zeitzonen. Die angezeigte Stadt muss nicht in dieser Liste stehen; wenn es keinen eigenen IANA-Eintrag gibt, wählen Sie eine IANA-Stadt in derselben Zeitzone. Dieses Projekt verwendet die IANA-Version 2026b.
+
+IANA-Städteliste: [IANA-Städteliste](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)
 
 ### Eigene Stadt einstellen
 
-Für Peking werden in den Wallpaper-Engine-Einstellungen folgende Werte eingetragen:
+Die eigene Stadt hat drei optionale Werte; alle können leer bleiben:
+
+| Einstellung | Eingabe | Bei leerem Feld |
+| --- | --- | --- |
+| Eigene Zeitzone | IANA-Zeitzone, z. B. `Asia/Shanghai` | Wird automatisch aus der Systemzeitzone ermittelt |
+| Eigene Stadt | Anzuzeigender Stadtname | Wird automatisch aus der Zeitzone abgeleitet |
+| Eigene Koordinaten | `Breitengrad,Längengrad`; für Süden und Westen negative Werte verwenden | Werden automatisch aus der Zeitzone abgeleitet |
+
+IANA führt keinen eigenen Eintrag für Peking. Da Peking die Zeitzone `Asia/Shanghai` nutzt, tragen Sie zum Anzeigen von Peking folgende Werte ein:
 
 | Einstellung | Wert |
 | --- | --- |
 | Eigene Zeitzone | `Asia/Shanghai` |
 | Eigene Stadt | `Peking` |
 | Eigene Koordinaten | `39.9042,116.4074` |
-
-Koordinaten verwenden das Format `Breitengrad,Längengrad`. Für Süden und Westen werden negative Werte verwendet. IANA führt keine eigene Zeitzone für Peking, daher wird `Asia/Shanghai` verwendet.
 
 ### Benutzerdefinierte Städte hinzufügen
 
