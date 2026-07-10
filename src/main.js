@@ -42,6 +42,8 @@
     avoidanceFieldKey: "",
     avoidanceField: null,
     animationFrame: 0,
+    frameRequestedAt: 0,
+    enginePaused: false,
     clockTimer: 0,
     terminatorTimer: 0,
     staticLayerDirty: true,
@@ -58,6 +60,14 @@
       scheduleClock();
       scheduleTerminator();
       scheduleRender();
+    },
+    setPaused(paused) {
+      runtime.enginePaused = Boolean(paused);
+      if (runtime.enginePaused) {
+        stopUpdateTimers();
+        return;
+      }
+      resumeUpdates();
     }
   };
 
@@ -191,14 +201,30 @@
     return true;
   }
 
+  // 待機復帰などで rAF コールバックが失われた場合に諦めるまでの時間。
+  const FRAME_STALL_MS = 2000;
+
   function scheduleRender() {
     if (runtime.animationFrame) {
       return;
     }
+    runtime.frameRequestedAt = Date.now();
     runtime.animationFrame = requestAnimationFrame(() => {
       runtime.animationFrame = 0;
       render();
     });
+  }
+
+  function recoverStalledFrame() {
+    if (!runtime.animationFrame) {
+      return;
+    }
+    if (Date.now() - runtime.frameRequestedAt < FRAME_STALL_MS) {
+      return;
+    }
+    cancelAnimationFrame(runtime.animationFrame);
+    runtime.animationFrame = 0;
+    render();
   }
 
   function scheduleClock() {
@@ -206,13 +232,15 @@
       clearTimeout(runtime.clockTimer);
       runtime.clockTimer = 0;
     }
-    if (document.hidden) {
+    if (document.hidden || runtime.enginePaused) {
       return;
     }
 
     const delay = core.nextClockDelay(Date.now(), settings.showSeconds);
     runtime.clockTimer = setTimeout(() => {
       runtime.clockTimer = 0;
+      updateClockTimes(new Date());
+      recoverStalledFrame();
       scheduleRender();
       scheduleClock();
     }, delay);
@@ -223,7 +251,7 @@
       clearTimeout(runtime.terminatorTimer);
       runtime.terminatorTimer = 0;
     }
-    if (document.hidden || !settings.showTerminator) {
+    if (document.hidden || runtime.enginePaused || !settings.showTerminator) {
       return;
     }
 
@@ -236,23 +264,35 @@
     }, delay);
   }
 
-  function handleVisibilityChange() {
-    if (document.hidden) {
-      if (runtime.clockTimer) {
-        clearTimeout(runtime.clockTimer);
-        runtime.clockTimer = 0;
-      }
-      if (runtime.terminatorTimer) {
-        clearTimeout(runtime.terminatorTimer);
-        runtime.terminatorTimer = 0;
-      }
-      return;
+  function stopUpdateTimers() {
+    if (runtime.clockTimer) {
+      clearTimeout(runtime.clockTimer);
+      runtime.clockTimer = 0;
     }
+    if (runtime.terminatorTimer) {
+      clearTimeout(runtime.terminatorTimer);
+      runtime.terminatorTimer = 0;
+    }
+  }
 
+  function resumeUpdates() {
+    // 停止前から残っている rAF は発火しない可能性があるので捨てて取り直す。
+    if (runtime.animationFrame) {
+      cancelAnimationFrame(runtime.animationFrame);
+      runtime.animationFrame = 0;
+    }
     runtime.terminatorLayerDirty = true;
     scheduleRender();
     scheduleClock();
     scheduleTerminator();
+  }
+
+  function handleVisibilityChange() {
+    if (document.hidden) {
+      stopUpdateTimers();
+      return;
+    }
+    resumeUpdates();
   }
 
   function render() {
@@ -711,12 +751,12 @@
     runtime.cityViews.forEach((view) => updateCityView(view, date, sun));
   }
 
-  function updateCityView(view, date, sun) {
-    const daylight = core.solarCosineFromPosition(view.city.lat, view.city.lon, sun) > 0;
-    view.marker.className = `city-marker ${daylight ? "is-day" : "is-night"}${view.city.current ? " is-current" : ""}`;
+  // rAF に依存せず時刻表示だけを書き換える(描画が止まっても時計は進める)。
+  function updateClockTimes(date) {
+    runtime.cityViews.forEach((view) => updateCityTime(view, date));
+  }
 
-    view.label.className = `city-label ${daylight ? "is-day" : "is-night"}${view.city.current ? " is-current" : ""}`;
-    view.icon.textContent = daylight ? "☀" : "☾";
+  function updateCityTime(view, date) {
     view.time.textContent = core.formatZonedTime(
       date,
       view.city.timeZone,
@@ -724,6 +764,15 @@
       settings.showSeconds,
       runtime.locale
     );
+  }
+
+  function updateCityView(view, date, sun) {
+    const daylight = core.solarCosineFromPosition(view.city.lat, view.city.lon, sun) > 0;
+    view.marker.className = `city-marker ${daylight ? "is-day" : "is-night"}${view.city.current ? " is-current" : ""}`;
+
+    view.label.className = `city-label ${daylight ? "is-day" : "is-night"}${view.city.current ? " is-current" : ""}`;
+    view.icon.textContent = daylight ? "☀" : "☾";
+    updateCityTime(view, date);
   }
 
   function createCityLabel(city) {
