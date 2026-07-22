@@ -60,7 +60,31 @@ test("clock keeps ticking when a pending animation frame never fires", async () 
   }
 });
 
-test("setPaused(true/false) suspends and resumes clock updates", async () => {
+test("clock keeps ticking through a transient error inside a tick", async () => {
+  const browser = await chromium.launch();
+  try {
+    const page = await openWallpaperPage(browser);
+    // 時刻整形を一定時間だけ確実に例外化し、tick 本体を失敗させる。
+    await page.evaluate(() => {
+      const core = window.WorldClockCore;
+      const original = core.formatZonedTime;
+      core.formatZonedTime = () => {
+        throw new Error("transient formatting failure");
+      };
+      window.setTimeout(() => {
+        core.formatZonedTime = original;
+      }, 1500);
+    });
+    await page.waitForTimeout(600);
+    const frozenText = await readFirstClockText(page);
+    // 例外が収まった後、心拍が生きていれば時計は再び進む。
+    await waitForClockChange(page, frozenText, 5000);
+  } finally {
+    await browser.close();
+  }
+});
+
+test("clock keeps ticking even while the engine reports paused", async () => {
   const browser = await chromium.launch();
   try {
     const page = await openWallpaperPage(browser);
@@ -69,14 +93,16 @@ test("setPaused(true/false) suspends and resumes clock updates", async () => {
     );
     assert.equal(hasSetPaused, true, "wallpaperPropertyListener.setPaused が実装されていること");
 
+    // 一時停止通知を受けても時計の心拍は止めない(復帰通知の欠落で凍結しない)。
     await page.evaluate(() => window.wallpaperPropertyListener.setPaused(true));
-    await page.waitForTimeout(400);
+    await page.waitForTimeout(600);
     const pausedText = await readFirstClockText(page);
-    await page.waitForTimeout(1600);
-    assert.equal(await readFirstClockText(page), pausedText, "一時停止中は時計が更新されないこと");
-
-    await page.evaluate(() => window.wallpaperPropertyListener.setPaused(false));
     await waitForClockChange(page, pausedText, 4000);
+
+    // 復帰通知が来たら描画も追従する。
+    await page.evaluate(() => window.wallpaperPropertyListener.setPaused(false));
+    const resumedText = await readFirstClockText(page);
+    await waitForClockChange(page, resumedText, 4000);
   } finally {
     await browser.close();
   }

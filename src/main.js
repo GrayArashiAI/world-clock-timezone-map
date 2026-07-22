@@ -57,17 +57,18 @@
       applyWallpaperProperties(properties || {});
       rebuildCities();
       invalidateAllLayers();
-      scheduleClock();
+      restartClock();
       scheduleTerminator();
       scheduleRender();
     },
     setPaused(paused) {
       runtime.enginePaused = Boolean(paused);
       if (runtime.enginePaused) {
-        stopUpdateTimers();
+        // 重い描画だけ止める。時計の心拍は止めない(復帰通知の欠落で凍結しないため)。
+        stopTerminatorTimer();
         return;
       }
-      resumeUpdates();
+      resumeRendering();
     }
   };
 
@@ -227,23 +228,40 @@
     render();
   }
 
+  // 時計の心拍。可視状態や一時停止に関係なく動き続け、待機復帰後も
+  // イベントを待たずに自力で回復する。ここが唯一の時刻更新源。
   function scheduleClock() {
+    if (runtime.clockTimer) {
+      return;
+    }
+    runtime.clockTimer = setTimeout(runClockTick, core.nextClockDelay(Date.now(), settings.showSeconds));
+  }
+
+  // showSeconds など tick 間隔に関わる設定が変わったときだけ、
+  // 前景(ユーザー操作)経由で明示的に取り直す。
+  function restartClock() {
     if (runtime.clockTimer) {
       clearTimeout(runtime.clockTimer);
       runtime.clockTimer = 0;
     }
-    if (document.hidden || runtime.enginePaused) {
-      return;
-    }
+    scheduleClock();
+  }
 
-    const delay = core.nextClockDelay(Date.now(), settings.showSeconds);
-    runtime.clockTimer = setTimeout(() => {
-      runtime.clockTimer = 0;
+  function runClockTick() {
+    // 本体で何が起きても心拍が途切れないよう、先に次回を予約する。
+    runtime.clockTimer = setTimeout(runClockTick, core.nextClockDelay(Date.now(), settings.showSeconds));
+    try {
+      // 時刻表示は rAF に依存せず常に更新する(描画が止まっても時計は進む)。
       updateClockTimes(new Date());
-      recoverStalledFrame();
-      scheduleRender();
-      scheduleClock();
-    }, delay);
+      // 重い再描画は可視かつ非停止のときだけ。停止した rAF はここで回収する。
+      if (!document.hidden && !runtime.enginePaused) {
+        recoverStalledFrame();
+        scheduleRender();
+      }
+    } catch (error) {
+      // 一時的な失敗で心拍を止めない。次の tick で自然に回復する。
+      console.error("時計更新中にエラーが発生しました。", error);
+    }
   }
 
   function scheduleTerminator() {
@@ -254,45 +272,48 @@
     if (document.hidden || runtime.enginePaused || !settings.showTerminator) {
       return;
     }
-
-    const delay = core.nextTerminatorDelay(Date.now());
-    runtime.terminatorTimer = setTimeout(() => {
-      runtime.terminatorTimer = 0;
-      runtime.terminatorLayerDirty = true;
-      scheduleRender();
-      scheduleTerminator();
-    }, delay);
+    runtime.terminatorTimer = setTimeout(runTerminatorTick, core.nextTerminatorDelay(Date.now()));
   }
 
-  function stopUpdateTimers() {
-    if (runtime.clockTimer) {
-      clearTimeout(runtime.clockTimer);
-      runtime.clockTimer = 0;
+  function runTerminatorTick() {
+    runtime.terminatorTimer = 0;
+    try {
+      runtime.terminatorLayerDirty = true;
+      scheduleRender();
+    } catch (error) {
+      console.error("昼夜境界の更新中にエラーが発生しました。", error);
+    } finally {
+      // 本体が失敗しても必ず次回を予約する。
+      scheduleTerminator();
     }
+  }
+
+  function stopTerminatorTimer() {
     if (runtime.terminatorTimer) {
       clearTimeout(runtime.terminatorTimer);
       runtime.terminatorTimer = 0;
     }
   }
 
-  function resumeUpdates() {
+  function resumeRendering() {
     // 停止前から残っている rAF は発火しない可能性があるので捨てて取り直す。
     if (runtime.animationFrame) {
       cancelAnimationFrame(runtime.animationFrame);
       runtime.animationFrame = 0;
     }
     runtime.terminatorLayerDirty = true;
+    scheduleClock(); // 万一心拍が止まっていても確実に動かす。
     scheduleRender();
-    scheduleClock();
     scheduleTerminator();
   }
 
   function handleVisibilityChange() {
     if (document.hidden) {
-      stopUpdateTimers();
+      // 時計は動かしたまま、重い描画だけ止める。
+      stopTerminatorTimer();
       return;
     }
-    resumeUpdates();
+    resumeRendering();
   }
 
   function render() {
