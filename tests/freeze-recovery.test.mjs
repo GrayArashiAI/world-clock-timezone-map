@@ -45,6 +45,58 @@ function waitForClockChange(page, previousText, timeout) {
   );
 }
 
+// ロック画面差し替えのために document.hidden を切り替えられるようにする。
+function installVisibilityOverride(page) {
+  return page.evaluate(() => {
+    let hiddenValue = false;
+    Object.defineProperty(document, "hidden", {
+      configurable: true,
+      get: () => hiddenValue
+    });
+    Object.defineProperty(document, "visibilityState", {
+      configurable: true,
+      get: () => (hiddenValue ? "hidden" : "visible")
+    });
+    window.__setHidden = (value) => {
+      hiddenValue = Boolean(value);
+      document.dispatchEvent(new Event("visibilitychange"));
+    };
+  });
+}
+
+// 昼夜レイヤーの定期更新を止め、再描画源を検証対象だけに絞る。
+async function isolateRedrawSource(page) {
+  await page.evaluate(() => window.wallpaperPropertyListener.applyUserProperties({
+    showterminator: { value: false }
+  }));
+  await page.waitForTimeout(600);
+}
+
+function clearCanvas(page) {
+  return page.evaluate(() => {
+    const canvas = document.getElementById("mapCanvas");
+    const context = canvas.getContext("2d");
+    context.save();
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.restore();
+  });
+}
+
+function waitForCanvasContent(page, timeout) {
+  return page.waitForFunction(() => {
+    const canvas = document.getElementById("mapCanvas");
+    const context = canvas.getContext("2d");
+    const pixels = context.getImageData(0, 0, 64, 64).data;
+    for (let index = 3; index < pixels.length; index += 4) {
+      if (pixels[index] > 0) {
+        return true;
+      }
+    }
+    return false;
+  }, undefined, { timeout, polling: 100 });
+}
+
 function canvasOpaquePixelCount(page) {
   return page.evaluate(() => {
     const canvas = document.getElementById("mapCanvas");
@@ -206,6 +258,38 @@ test("canvas context restoration redraws the map", async () => {
       }
       return false;
     }, undefined, { timeout: 3000, polling: 100 });
+  } finally {
+    await browser.close();
+  }
+});
+
+test("a fresh frame is drawn when the wallpaper becomes hidden", async () => {
+  const browser = await chromium.launch();
+  try {
+    const page = await openWallpaperPage(browser);
+    await installVisibilityOverride(page);
+    await isolateRedrawSource(page);
+    await clearCanvas(page);
+    assert.equal(await canvasOpaquePixelCount(page), 0, "消去後は地図が空であること");
+
+    // ロック画面スナップショットに備え、隠れる直前に最新フレームを描く。
+    await page.evaluate(() => window.__setHidden(true));
+    await waitForCanvasContent(page, 2000);
+  } finally {
+    await browser.close();
+  }
+});
+
+test("a fresh frame is drawn when the engine pauses", async () => {
+  const browser = await chromium.launch();
+  try {
+    const page = await openWallpaperPage(browser);
+    await isolateRedrawSource(page);
+    await clearCanvas(page);
+    assert.equal(await canvasOpaquePixelCount(page), 0, "消去後は地図が空であること");
+
+    await page.evaluate(() => window.wallpaperPropertyListener.setPaused(true));
+    await waitForCanvasContent(page, 2000);
   } finally {
     await browser.close();
   }

@@ -69,9 +69,21 @@
     contextRestores: 0,
     visibilityChanges: 0,
     pauseEvents: 0,
+    snapshotFrames: 0,
+    lastHiddenAt: "",
     resizes: 0,
     geometry: "",
-    errors: []
+    errors: [],
+    // 凍結時の状態を一目で確認するための現在値。
+    get state() {
+      return {
+        hidden: document.hidden,
+        paused: runtime.enginePaused,
+        clockRunning: Boolean(runtime.clockTimer),
+        cityViews: runtime.cityViews.length,
+        labelsInDom: labelLayer.childElementCount
+      };
+    }
   };
   window.__worldClockDiag = diagnostics;
 
@@ -101,6 +113,7 @@
       if (runtime.enginePaused) {
         // 重い描画だけ止める。時計の心拍は止めない(復帰通知の欠落で凍結しないため)。
         stopTerminatorTimer();
+        renderSnapshotFrame();
         return;
       }
       resumeRendering();
@@ -398,11 +411,27 @@
     scheduleTerminator();
   }
 
+  // Wallpaper Engine のロック画面差し替えは壁紙を静止画として取り込むため、
+  // 隠れる/停止する直前に必ず最新の一枚を描いてから止まる。
+  function renderSnapshotFrame() {
+    try {
+      updateClockTimes(new Date());
+      runtime.terminatorLayerDirty = true;
+      forceSynchronousRender();
+      diagnostics.snapshotFrames += 1;
+    } catch (error) {
+      recordDiagnosticError("snapshot-frame", error);
+      console.error("スナップショット用の描画に失敗しました。", error);
+    }
+  }
+
   function handleVisibilityChange() {
     diagnostics.visibilityChanges += 1;
     if (document.hidden) {
+      diagnostics.lastHiddenAt = new Date().toISOString();
       // 時計は動かしたまま、重い描画だけ止める。
       stopTerminatorTimer();
+      renderSnapshotFrame();
       return;
     }
     resumeRendering();
