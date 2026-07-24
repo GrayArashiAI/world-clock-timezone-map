@@ -31,6 +31,7 @@ async function openWallpaperPage(browser) {
   return page;
 }
 
+// 画面に実際に繋がっているノードの時刻だけを読む。
 function readFirstClockText(page) {
   return page.evaluate(() => document.querySelector("#labelLayer .city-time").textContent);
 }
@@ -42,6 +43,21 @@ function waitForClockChange(page, previousText, timeout) {
     // rAF を塞ぐテストでも判定が走るよう、rAF ではなく間隔ポーリングで待つ。
     { timeout, polling: 100 }
   );
+}
+
+function canvasOpaquePixelCount(page) {
+  return page.evaluate(() => {
+    const canvas = document.getElementById("mapCanvas");
+    const context = canvas.getContext("2d");
+    const pixels = context.getImageData(0, 0, Math.min(canvas.width, 64), Math.min(canvas.height, 64)).data;
+    let opaque = 0;
+    for (let index = 3; index < pixels.length; index += 4) {
+      if (pixels[index] > 0) {
+        opaque += 1;
+      }
+    }
+    return opaque;
+  });
 }
 
 test("clock keeps ticking when a pending animation frame never fires", async () => {
@@ -103,6 +119,109 @@ test("clock keeps ticking even while the engine reports paused", async () => {
     await page.evaluate(() => window.wallpaperPropertyListener.setPaused(false));
     const resumedText = await readFirstClockText(page);
     await waitForClockChange(page, resumedText, 4000);
+  } finally {
+    await browser.close();
+  }
+});
+
+test("clock recovers when on-screen labels diverge from the tracked views", async () => {
+  const browser = await chromium.launch();
+  try {
+    const page = await openWallpaperPage(browser);
+    // 再構築が途中で失敗し、画面には古いノードだけが残った状態を再現する。
+    // 内部が保持するビューは画面から切り離され、更新しても見た目は凍る。
+    await page.evaluate(() => {
+      const layer = document.getElementById("labelLayer");
+      const stale = Array.from(layer.children).map((node) => node.cloneNode(true));
+      layer.replaceChildren(...stale);
+    });
+    await page.waitForTimeout(600);
+    const frozenText = await readFirstClockText(page);
+    await waitForClockChange(page, frozenText, 5000);
+  } finally {
+    await browser.close();
+  }
+});
+
+test("a large wall-clock jump forces a full rebuild", async () => {
+  const browser = await chromium.launch();
+  try {
+    const page = await openWallpaperPage(browser);
+    // 比較基準となる前回 tick が必要なので、心拍が一度回るまで待つ。
+    const initialText = await readFirstClockText(page);
+    await waitForClockChange(page, initialText, 4000);
+    await page.evaluate(() => {
+      document.querySelectorAll("#labelLayer .city-label").forEach((node) => {
+        node.dataset.beforeWake = "1";
+      });
+    });
+    // 待機復帰で実時間が飛んだ状況を再現する。
+    await page.evaluate(() => {
+      const realNow = Date.now.bind(Date);
+      Date.now = () => realNow() + 120000;
+    });
+    await page.waitForFunction(
+      () => document.querySelectorAll("#labelLayer .city-label[data-before-wake]").length === 0,
+      undefined,
+      { timeout: 5000, polling: 100 }
+    );
+  } finally {
+    await browser.close();
+  }
+});
+
+test("canvas context restoration redraws the map", async () => {
+  const browser = await chromium.launch();
+  try {
+    const page = await openWallpaperPage(browser);
+    // 昼夜レイヤーの定期更新を止め、復帰処理だけが再描画源になるようにする。
+    await page.evaluate(() => window.wallpaperPropertyListener.applyUserProperties({
+      showterminator: { value: false }
+    }));
+    await page.waitForTimeout(600);
+    assert.ok(await canvasOpaquePixelCount(page) > 0, "初期状態では地図が描かれていること");
+
+    // GPU コンテキスト喪失で内容が消えた状態を再現する。
+    await page.evaluate(() => {
+      const canvas = document.getElementById("mapCanvas");
+      const context = canvas.getContext("2d");
+      context.save();
+      context.setTransform(1, 0, 0, 1, 0, 0);
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.restore();
+    });
+    assert.equal(await canvasOpaquePixelCount(page), 0, "消去後は地図が空であること");
+
+    await page.evaluate(() => {
+      document.getElementById("mapCanvas").dispatchEvent(new Event("contextrestored"));
+    });
+    await page.waitForFunction(() => {
+      const canvas = document.getElementById("mapCanvas");
+      const context = canvas.getContext("2d");
+      const pixels = context.getImageData(0, 0, 64, 64).data;
+      for (let index = 3; index < pixels.length; index += 4) {
+        if (pixels[index] > 0) {
+          return true;
+        }
+      }
+      return false;
+    }, undefined, { timeout: 3000, polling: 100 });
+  } finally {
+    await browser.close();
+  }
+});
+
+test("diagnostics expose a live heartbeat counter", async () => {
+  const browser = await chromium.launch();
+  try {
+    const page = await openWallpaperPage(browser);
+    const first = await page.evaluate(() => window.__worldClockDiag && window.__worldClockDiag.tickCount);
+    assert.equal(typeof first, "number", "__worldClockDiag.tickCount が数値であること");
+    await page.waitForFunction(
+      (previous) => window.__worldClockDiag.tickCount > previous,
+      first,
+      { timeout: 4000, polling: 100 }
+    );
   } finally {
     await browser.close();
   }

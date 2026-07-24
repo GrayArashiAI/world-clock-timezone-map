@@ -45,12 +45,46 @@
     frameRequestedAt: 0,
     enginePaused: false,
     clockTimer: 0,
+    lastTickAt: 0,
     terminatorTimer: 0,
     staticLayerDirty: true,
     terminatorLayerDirty: true,
     cityLayerDirty: true,
     sceneDirty: true
   };
+
+  // 凍結が再発したときに原因を切り分けるための痕跡。
+  // 開発者コンソールで __worldClockDiag を見れば、心拍が生きているのか
+  // (= こちらの不具合)、止まっているのか(= 描画側がページごと停止)が分かる。
+  const diagnostics = {
+    startedAt: new Date().toISOString(),
+    tickCount: 0,
+    lastTickAt: "",
+    renderCount: 0,
+    lastRenderAt: "",
+    wakeGaps: 0,
+    layerRepairs: 0,
+    frameStallRecoveries: 0,
+    contextLosses: 0,
+    contextRestores: 0,
+    visibilityChanges: 0,
+    pauseEvents: 0,
+    resizes: 0,
+    geometry: "",
+    errors: []
+  };
+  window.__worldClockDiag = diagnostics;
+
+  function recordDiagnosticError(stage, error) {
+    diagnostics.errors.push({
+      at: new Date().toISOString(),
+      stage,
+      message: error && error.message ? error.message : String(error)
+    });
+    if (diagnostics.errors.length > 20) {
+      diagnostics.errors.shift();
+    }
+  }
 
   window.wallpaperPropertyListener = {
     applyUserProperties(properties) {
@@ -62,6 +96,7 @@
       scheduleRender();
     },
     setPaused(paused) {
+      diagnostics.pauseEvents += 1;
       runtime.enginePaused = Boolean(paused);
       if (runtime.enginePaused) {
         // 重い描画だけ止める。時計の心拍は止めない(復帰通知の欠落で凍結しないため)。
@@ -198,12 +233,16 @@
     connectorLayer.setAttribute("viewBox", `0 0 ${width} ${height}`);
     connectorLayer.setAttribute("width", String(width));
     connectorLayer.setAttribute("height", String(height));
+    diagnostics.resizes += 1;
+    diagnostics.geometry = `${width}x${height}@${dpr}x`;
     invalidateAllLayers();
     return true;
   }
 
   // 待機復帰などで rAF コールバックが失われた場合に諦めるまでの時間。
   const FRAME_STALL_MS = 2000;
+  // 実時間がこの分だけ余計に飛んだら、待機やセッション切替からの復帰とみなす。
+  const WAKE_GAP_TOLERANCE_MS = 5000;
 
   function scheduleRender() {
     if (runtime.animationFrame) {
@@ -223,6 +262,7 @@
     if (Date.now() - runtime.frameRequestedAt < FRAME_STALL_MS) {
       return;
     }
+    diagnostics.frameStallRecoveries += 1;
     cancelAnimationFrame(runtime.animationFrame);
     runtime.animationFrame = 0;
     render();
@@ -247,21 +287,72 @@
     scheduleClock();
   }
 
+  // 待機・セッション切替からの復帰を、イベントではなく実時間の飛びで検出する。
+  function detectWakeGap(nowMs) {
+    const previous = runtime.lastTickAt;
+    runtime.lastTickAt = nowMs;
+    if (!previous) {
+      return false;
+    }
+    const expected = settings.showSeconds ? 1000 : 60000;
+    return nowMs - previous > expected + WAKE_GAP_TOLERANCE_MS;
+  }
+
+  // 画面上のラベルと内部が保持するビューがずれていないかを確かめる。
+  // 再構築が途中で失敗すると、更新先が画面から切り離されて時計が凍って見える。
+  function needsCityLayerRepair() {
+    const first = runtime.cityViews[0];
+    if (first) {
+      return !document.contains(first.label);
+    }
+    // ビューが空なのに画面へ古いラベルが残っている場合も不整合。
+    return labelLayer.childElementCount > 0;
+  }
+
   function runClockTick() {
     // 本体で何が起きても心拍が途切れないよう、先に次回を予約する。
     runtime.clockTimer = setTimeout(runClockTick, core.nextClockDelay(Date.now(), settings.showSeconds));
+    diagnostics.tickCount += 1;
     try {
+      const wokeFromGap = detectWakeGap(Date.now());
+      const needsRepair = needsCityLayerRepair();
+      if (wokeFromGap) {
+        diagnostics.wakeGaps += 1;
+        // 復帰後は継続性を仮定せず、全レイヤーを作り直す。
+        invalidateAllLayers();
+      }
+      if (needsRepair) {
+        diagnostics.layerRepairs += 1;
+        runtime.cityLayerDirty = true;
+      }
+
       // 時刻表示は rAF に依存せず常に更新する(描画が止まっても時計は進む)。
       updateClockTimes(new Date());
+
       // 重い再描画は可視かつ非停止のときだけ。停止した rAF はここで回収する。
       if (!document.hidden && !runtime.enginePaused) {
         recoverStalledFrame();
-        scheduleRender();
+        if (wokeFromGap || needsRepair) {
+          // 復旧は rAF の生存を当てにせず同期で行う。
+          forceSynchronousRender();
+        } else {
+          scheduleRender();
+        }
       }
+      diagnostics.lastTickAt = new Date().toISOString();
     } catch (error) {
       // 一時的な失敗で心拍を止めない。次の tick で自然に回復する。
+      recordDiagnosticError("clock-tick", error);
       console.error("時計更新中にエラーが発生しました。", error);
     }
+  }
+
+  function forceSynchronousRender() {
+    if (runtime.animationFrame) {
+      cancelAnimationFrame(runtime.animationFrame);
+      runtime.animationFrame = 0;
+    }
+    render();
   }
 
   function scheduleTerminator() {
@@ -308,6 +399,7 @@
   }
 
   function handleVisibilityChange() {
+    diagnostics.visibilityChanges += 1;
     if (document.hidden) {
       // 時計は動かしたまま、重い描画だけ止める。
       stopTerminatorTimer();
@@ -316,7 +408,28 @@
     resumeRendering();
   }
 
+  // RDP と実機の切替などで GPU が付け替わると 2D コンテキストが失われ、
+  // 描いた内容が消える。復帰通知を受けたら全レイヤーを描き直す。
+  function handleContextLost(event) {
+    // 既定動作のままだとコンテキストが復元されない。
+    event.preventDefault();
+    diagnostics.contextLosses += 1;
+  }
+
+  function handleContextRestored() {
+    diagnostics.contextRestores += 1;
+    invalidateAllLayers();
+    scheduleRender();
+  }
+
+  function watchContextLoss(targetCanvas) {
+    targetCanvas.addEventListener("contextlost", handleContextLost);
+    targetCanvas.addEventListener("contextrestored", handleContextRestored);
+  }
+
   function render() {
+    diagnostics.renderCount += 1;
+    diagnostics.lastRenderAt = new Date().toISOString();
     resizeCanvas();
     const now = new Date();
     const sun = core.solarPosition(now);
@@ -829,6 +942,7 @@
     rebuildCities();
     window.addEventListener("resize", scheduleRender, { passive: true });
     document.addEventListener("visibilitychange", handleVisibilityChange);
+    [canvas, staticCanvas, terminatorCanvas].forEach(watchContextLoss);
     scheduleClock();
     scheduleTerminator();
     scheduleRender();
