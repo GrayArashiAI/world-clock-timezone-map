@@ -7,6 +7,7 @@ const {
   CITY_PRESETS,
   canvasBackingSize,
   chooseLabelPlacement,
+  coastlineWidth,
   coverMercatorRect,
   formatZonedTime,
   getCityName,
@@ -261,9 +262,37 @@ test("adaptive map view preserves useful latitude ranges across common aspect ra
 test("viewport and terminator helpers produce stable dimensions and coordinates", () => {
   assert.deepEqual(canvasBackingSize(1919, 1.25), { css: 1919, pixels: 2399 });
   assert.deepEqual(viewportFillRect(1920, 1032), { x: 0, y: 0, width: 1920, height: 1032 });
+  // セルの大きさは画面の高さに比例し、上限と下限で頭打ちにします。
   assert.deepEqual(
-    [terminatorCellSize(1920, 1032), terminatorCellSize(2560, 1440), terminatorCellSize(390, 844)],
-    [8, 10, 4]
+    [
+      terminatorCellSize(1032, 1),
+      terminatorCellSize(1440, 1),
+      terminatorCellSize(2160, 1),
+      terminatorCellSize(844, 1)
+    ],
+    [6, 8, 10, 5]
+  );
+  // 拡大率つきの画面では、セル幅×拡大率が整数になる大きさへ寄せます。
+  assert.deepEqual(
+    [
+      terminatorCellSize(720, 1.5),
+      terminatorCellSize(864, 1.25),
+      terminatorCellSize(1080, 2)
+    ],
+    [4, 4, 6]
+  );
+  [
+    [720, 1.5],
+    [864, 1.25],
+    [1440, 1.75]
+  ].forEach(([height, dpr]) => {
+    const cellSize = terminatorCellSize(height, dpr);
+    assert.equal(Number.isInteger(cellSize * dpr), true);
+  });
+  // 海岸線も同じ基準で、1080px を 1.5px として上下限に収めます。
+  assert.deepEqual(
+    [coastlineWidth(720), coastlineWidth(1080), coastlineWidth(1440), coastlineWidth(2160), coastlineWidth(400)],
+    [1, 1.5, 2, 3, 1]
   );
 
   const rect = coverMercatorRect(100, 80);

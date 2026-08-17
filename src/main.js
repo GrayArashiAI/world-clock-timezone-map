@@ -659,7 +659,8 @@
 
     ctx.save();
     ctx.strokeStyle = "rgba(132, 166, 181, 0.58)";
-    ctx.lineWidth = 1.5;
+    // 画面が大きいほど地図も拡大されるため、線幅も高さに合わせて太らせます。
+    ctx.lineWidth = core.coastlineWidth(runtime.height);
 
     mapData.features.forEach((feature) => {
       forEachRing(feature.geometry, (ring) => {
@@ -728,7 +729,8 @@
       return;
     }
 
-    const cellSize = core.terminatorCellSize(runtime.width, runtime.height);
+    // 拡大率も渡し、セル境界が端末ピクセルの途中に落ちて格子状の筋が出るのを防ぎます。
+    const cellSize = core.terminatorCellSize(runtime.height, runtime.dpr);
     const grid = getTerminatorGrid(cellSize);
     const solarFactors = core.terminatorSolarFactors(grid, sun);
 

@@ -19,6 +19,19 @@
   const TERMINATOR_EDGE_ALPHA = 0.72;
   const TERMINATOR_FADE_INNER_PX = 64;
   const TERMINATOR_FADE_OUTER_PX = 160;
+  // 見た目の密度を画面の大きさによらず一定に保つための基準。
+  // 海岸線は 1080px の高さで従来値 1.5px になるよう合わせています。
+  const DISPLAY_REFERENCE_HEIGHT = 1080;
+  // 昼夜境界は階段状の粒が目立たないよう、従来の 8px より細かい 6px を基準にします。
+  // 塗るセル数は幅×高さ÷セル幅²で増えるため、下げすぎると再描画が重くなります。
+  const TERMINATOR_CELL_BASE_PX = 6;
+  const TERMINATOR_CELL_MIN_PX = 3;
+  const TERMINATOR_CELL_MAX_PX = 10;
+  const COASTLINE_BASE_WIDTH_PX = 1.5;
+  const COASTLINE_MIN_WIDTH_PX = 1;
+  const COASTLINE_MAX_WIDTH_PX = 3;
+  // 端末ピクセルへ載っているかを判定する許容差(浮動小数の丸め対策)。
+  const DEVICE_PIXEL_EPSILON = 1e-6;
   const DAY_MS = 86400000;
   const SAME_CITY_DISTANCE_KM = 15;
   const canonicalTimeZoneCache = new Map();
@@ -424,13 +437,41 @@
     return placement;
   }
 
-  function terminatorCellSize(width, height) {
-    const viewportWidth = Math.max(1, Math.round(Number(width) || 1));
+  // 画面の高さに対するセル比を一定にして、どの解像度でも同じ粒立ちに見せます。
+  function terminatorCellTarget(viewportHeight) {
+    const ideal = TERMINATOR_CELL_BASE_PX * viewportHeight / DISPLAY_REFERENCE_HEIGHT;
+    return clamp(Math.round(ideal), TERMINATOR_CELL_MIN_PX, TERMINATOR_CELL_MAX_PX);
+  }
+
+  function alignsToDevicePixels(cssSize, scale) {
+    const devicePixels = cssSize * scale;
+    return Math.abs(devicePixels - Math.round(devicePixels)) < DEVICE_PIXEL_EPSILON;
+  }
+
+  // セル境界が端末ピクセルの途中に落ちると、隣り合うセルの縁が同じ物理ピクセルへ
+  // 半透明で二重に乗り、薄い夜側に格子状の筋が浮きます。そのため理想値の近くから
+  // 「セル幅×拡大率が整数になる大きさ」を選び直します。画面幅で割り切れるかどうかは
+  // 見た目に影響しない(はみ出した分はクリップされるだけ)ので条件に含めません。
+  function terminatorCellSize(height, devicePixelRatio) {
     const viewportHeight = Math.max(1, Math.round(Number(height) || 1));
-    const target = viewportWidth >= 2200 ? 10 : viewportWidth >= 1600 ? 8 : viewportWidth >= 760 ? 8 : 4;
-    const candidates = [target, target - 2, target + 2, 10, 8, 6, 5, 4].filter((size) => size >= 4);
-    const exact = candidates.find((size) => viewportWidth % size === 0 && viewportHeight % size === 0);
-    return exact || target;
+    const scale = Math.max(1, Number(devicePixelRatio) || 1);
+    const target = terminatorCellTarget(viewportHeight);
+    const candidates = [];
+    for (let size = TERMINATOR_CELL_MIN_PX; size <= TERMINATOR_CELL_MAX_PX; size += 1) {
+      candidates.push(size);
+    }
+    // 理想値に近い順。同じ差なら描画量が軽くなる大きい方を選びます。
+    candidates.sort((a, b) => Math.abs(a - target) - Math.abs(b - target) || b - a);
+    return candidates.find((size) => alignsToDevicePixels(size, scale)) || target;
+  }
+
+  // 海岸線も同じ考え方で、画面の高さに比例した太さにします。
+  function coastlineWidth(viewportHeight) {
+    const height = Math.max(1, Math.round(Number(viewportHeight) || 1));
+    const scaled = COASTLINE_BASE_WIDTH_PX * height / DISPLAY_REFERENCE_HEIGHT;
+    const bounded = clamp(scaled, COASTLINE_MIN_WIDTH_PX, COASTLINE_MAX_WIDTH_PX);
+    // 0.05px 刻みに丸めて、わずかな解像度差で線幅が揺れないようにします。
+    return Math.round(bounded * 20) / 20;
   }
 
   function terminatorGridCoordinates(options) {
@@ -1037,6 +1078,7 @@
     canvasBackingSize,
     chooseLabelPlacement,
     clamp,
+    coastlineWidth,
     coverMercatorRect,
     detectLocalTimeZone,
     formatZonedTime,
