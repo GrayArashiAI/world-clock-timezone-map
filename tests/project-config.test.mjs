@@ -6,6 +6,11 @@ import languageDefinitions, { LANGUAGE_ORDER } from "../data/languages.mjs";
 
 const require = createRequire(import.meta.url);
 const cityPresetData = require("../src/city-presets.js");
+const {
+  TERMINATOR_PIXEL_LEVEL_DEFAULT,
+  TERMINATOR_PIXEL_LEVEL_MAX,
+  TERMINATOR_PIXEL_LEVEL_SMOOTH
+} = require("../src/wallpaper-core.js");
 const project = JSON.parse(readFileSync(new URL("../project.json", import.meta.url), "utf8"));
 const cityPresetSource = readFileSync(new URL("../src/city-presets.js", import.meta.url), "utf8");
 const mainSource = readFileSync(new URL("../src/main.js", import.meta.url), "utf8");
@@ -34,6 +39,53 @@ test("Wallpaper Engine settings expose the supported city and display controls",
   assert.deepEqual(properties.hourformat.options.map((option) => option.value), ["24", "12"]);
   assert.equal(properties.showseconds.type, "bool");
   assert.equal(properties.showterminator.type, "bool");
+  // 晨昏線の粒度は整数の目盛りで、既定はブラウザー側の初期値と揃えます。
+  assert.deepEqual(
+    (({ type, min, max, step, value }) => ({ type, min, max, step, value }))(properties.terminatorpixelsize),
+    {
+      type: "slider",
+      min: TERMINATOR_PIXEL_LEVEL_SMOOTH,
+      max: TERMINATOR_PIXEL_LEVEL_MAX,
+      step: 1,
+      value: TERMINATOR_PIXEL_LEVEL_DEFAULT
+    }
+  );
+});
+
+// project.json の文言は data/languages.mjs から生成されます。片方だけ直しても
+// 気づけるよう、定義側の訳文がすべて生成物へ届いているかを見張ります。
+test("every label in the language definitions reaches the generated project", () => {
+  for (const language of LANGUAGE_ORDER) {
+    const definition = languageDefinitions[language];
+    const labels = Object.values(definition.ui);
+
+    assert.equal(labels.length > 0, true, language);
+    for (const locale of definition.wallpaperLocales) {
+      const generated = Object.values(project.general.localization[locale]);
+      for (const label of labels) {
+        // 都市スロットだけは "額外城市 1" のように番号が付きます。
+        const reached = generated.some((text) => text === label || text.startsWith(`${label} `));
+        assert.equal(reached, true, `${locale}: ${label}`);
+      }
+    }
+  }
+});
+
+test("every settings label is translated into all published languages", () => {
+  // ui_browse_properties_* は Wallpaper Engine 側が翻訳を持つ組み込み文言なので数えません。
+  const labelKeys = Object.values(properties)
+    .map((property) => property.text)
+    .filter((text) => typeof text === "string" && text.startsWith("ui_") && !text.startsWith("ui_browse_properties_"));
+
+  assert.equal(labelKeys.includes("ui_terminator_pixel_size"), true);
+  for (const language of LANGUAGE_ORDER) {
+    for (const locale of languageDefinitions[language].wallpaperLocales) {
+      const localization = project.general.localization[locale];
+      for (const key of labelKeys) {
+        assert.equal(typeof localization[key] === "string" && localization[key].length > 0, true, `${locale}:${key}`);
+      }
+    }
+  }
 });
 
 test("browser defaults and rendering performance contracts stay aligned", () => {
@@ -51,6 +103,13 @@ test("browser defaults and rendering performance contracts stay aligned", () => 
   assert.match(mainSource, /const terminatorCanvas\s*=\s*document\.createElement\("canvas"\)/);
   assert.match(mainSource, /core\.terminatorSolarFactors\(grid, sun\)/);
   assert.match(mainSource, /document\.documentElement\.clientWidth/);
+  // 一番細かい粒度ではセルが画素数だけ並ぶので、色文字列の作り直しと
+  // 1 セルずつの描画命令を避ける組み立てを崩さないよう固定します。
+  assert.match(mainSource, /core\.normalizeTerminatorPixelLevel\(/);
+  assert.match(mainSource, /core\.terminatorPaintKey\(/);
+  assert.match(mainSource, /core\.writeTerminatorPixels\(/);
+  assert.match(mainSource, /terminatorStyles\.set\(/);
+  assert.doesNotMatch(mainSource, /fillStyle\s*=\s*`rgba/);
 });
 
 test("browser loads the global label planner before the wallpaper runtime", () => {

@@ -23,7 +23,8 @@
     labelSize: "medium",
     hourFormat: "24",
     showSeconds: true,
-    showTerminator: true
+    showTerminator: true,
+    terminatorPixelSize: core.TERMINATOR_PIXEL_LEVEL_DEFAULT
   };
 
   const runtime = {
@@ -39,6 +40,7 @@
     lastCurrentWarning: "",
     terminatorGridKey: "",
     terminatorGrid: null,
+    terminatorPixels: null,
     avoidanceFieldKey: "",
     avoidanceField: null,
     animationFrame: 0,
@@ -158,6 +160,11 @@
     }
     if (properties.showterminator) {
       settings.showTerminator = Boolean(properties.showterminator.value);
+    }
+    if (properties.terminatorpixelsize) {
+      settings.terminatorPixelSize = core.normalizeTerminatorPixelLevel(
+        properties.terminatorpixelsize.value
+      );
     }
 
     runtime.language = core.resolveRuntimeLanguage(settings.language);
@@ -723,6 +730,76 @@
     return runtime.terminatorGrid;
   }
 
+  // 塗り分けは 2×256 通りしかないので、色文字列は一度作れば使い回せます。
+  const terminatorStyles = new Map();
+
+  function terminatorStyle(paintKey) {
+    let style = terminatorStyles.get(paintKey);
+    if (style === undefined) {
+      style = core.terminatorPaintStyle(paintKey);
+      terminatorStyles.set(paintKey, style);
+    }
+    return style;
+  }
+
+  // 画面の大きさが変わるまで同じ入れ物を使い回します(4K では 1 つ 33MB あるため)。
+  function terminatorPixelBuffer() {
+    const cached = runtime.terminatorPixels;
+    if (cached && cached.width === terminatorCanvas.width && cached.height === terminatorCanvas.height) {
+      return cached;
+    }
+    runtime.terminatorPixels = terminatorCtx.createImageData(terminatorCanvas.width, terminatorCanvas.height);
+    return runtime.terminatorPixels;
+  }
+
+  // セル 1 つが端末ピクセル 1 つに重なるときだけ通れる経路です。列と行がそのまま
+  // 画素の並びになるので、塗り命令を画素の数だけ出さずに 1 回の貼り付けで済みます。
+  function paintTerminatorPixels(solarFactors, fades) {
+    const image = terminatorPixelBuffer();
+    if (!core.writeTerminatorPixels(image.data, {
+      rows: solarFactors.rows,
+      columns: solarFactors.columns,
+      fades
+    })) {
+      return false;
+    }
+    // putImageData は変換行列を通らないため、端末ピクセルの座標のまま貼ります。
+    terminatorCtx.putImageData(image, 0, 0);
+    return true;
+  }
+
+  // セルが 2 端末ピクセル以上あるときの塗り方。1 つずつ塗ると命令が増えすぎるので、
+  // 同じ濃さが続く区間をひとまとめにしてから塗ります。
+  function paintTerminatorCells(solarFactors, fades, cellSize) {
+    const columns = solarFactors.columns;
+    const rightEdge = columns[columns.length - 1].x + cellSize;
+
+    terminatorCtx.save();
+    terminatorCtx.imageSmoothingEnabled = false;
+    for (const row of solarFactors.rows) {
+      let runKey = 0;
+      let runStart = 0;
+      for (let index = 0; index < columns.length; index += 1) {
+        const cosine = row.constant + row.amplitude * columns[index].hourCosine;
+        const paintKey = core.terminatorPaintKey(cosine, fades[index]);
+        if (paintKey === runKey) {
+          continue;
+        }
+        if (runKey) {
+          terminatorCtx.fillStyle = terminatorStyle(runKey);
+          terminatorCtx.fillRect(columns[runStart].x, row.y, columns[index].x - columns[runStart].x, cellSize);
+        }
+        runKey = paintKey;
+        runStart = index;
+      }
+      if (runKey) {
+        terminatorCtx.fillStyle = terminatorStyle(runKey);
+        terminatorCtx.fillRect(columns[runStart].x, row.y, rightEdge - columns[runStart].x, cellSize);
+      }
+    }
+    terminatorCtx.restore();
+  }
+
   function drawTerminatorLayer(sun) {
     terminatorCtx.clearRect(0, 0, runtime.width, runtime.height);
     if (!settings.showTerminator) {
@@ -730,34 +807,23 @@
     }
 
     // 拡大率も渡し、セル境界が端末ピクセルの途中に落ちて格子状の筋が出るのを防ぎます。
-    const cellSize = core.terminatorCellSize(runtime.height, runtime.dpr);
+    const pixelLevel = settings.terminatorPixelSize;
+    const cellSize = core.terminatorCellSize(runtime.height, runtime.dpr, pixelLevel);
     const grid = getTerminatorGrid(cellSize);
     const solarFactors = core.terminatorSolarFactors(grid, sun);
-
-    terminatorCtx.save();
-    terminatorCtx.imageSmoothingEnabled = false;
-    for (const row of solarFactors.rows) {
-      for (const column of solarFactors.columns) {
-        const fade = core.terminatorFadeAlpha(column.x + cellSize / 2, runtime.mapView, runtime.width);
-        if (fade <= 0) {
-          continue;
-        }
-        const cosine = row.constant + row.amplitude * column.hourCosine;
-        if (cosine >= 0.1) {
-          continue;
-        }
-
-        if (cosine < 0) {
-          const alpha = (cosine < -0.16 ? 0.44 : core.clamp(0.2 + Math.abs(cosine) / 0.16 * 0.24, 0.2, 0.44)) * fade;
-          terminatorCtx.fillStyle = `rgba(0, 3, 10, ${alpha})`;
-        } else {
-          const alpha = core.clamp((0.1 - cosine) / 0.1 * 0.11, 0.02, 0.11) * fade;
-          terminatorCtx.fillStyle = `rgba(251, 191, 102, ${alpha})`;
-        }
-        terminatorCtx.fillRect(column.x, row.y, cellSize, cellSize);
-      }
+    if (!solarFactors.columns.length || !solarFactors.rows.length) {
+      return;
     }
-    terminatorCtx.restore();
+    // 端の淡さは列だけで決まるため、行ごとに数え直さず先にまとめて求めます。
+    const fades = solarFactors.columns.map(
+      (column) => core.terminatorFadeAlpha(column.x + cellSize / 2, runtime.mapView, runtime.width)
+    );
+
+    const devicePixels = core.terminatorCellDevicePixels(runtime.height, runtime.dpr, pixelLevel);
+    if (devicePixels === 1 && paintTerminatorPixels(solarFactors, fades)) {
+      return;
+    }
+    paintTerminatorCells(solarFactors, fades, cellSize);
   }
 
   function composeScene() {

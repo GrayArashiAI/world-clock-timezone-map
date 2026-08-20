@@ -22,16 +22,24 @@
   // 見た目の密度を画面の大きさによらず一定に保つための基準。
   // 海岸線は 1080px の高さで従来値 1.5px になるよう合わせています。
   const DISPLAY_REFERENCE_HEIGHT = 1080;
-  // 昼夜境界は階段状の粒が目立たないよう、従来の 8px より細かい 6px を基準にします。
-  // 塗るセル数は幅×高さ÷セル幅²で増えるため、下げすぎると再描画が重くなります。
-  const TERMINATOR_CELL_BASE_PX = 6;
-  const TERMINATOR_CELL_MIN_PX = 3;
-  const TERMINATOR_CELL_MAX_PX = 10;
+  // 昼夜境界の粒の大きさは利用者が選べます。目盛りは 1080px の高さでの CSS ピクセル幅で、
+  // 0 だけは「端末ピクセル 1 つ = 1 セル」= 階段の見えない完全に滑らかな表示を指します。
+  // 塗るセル数は幅×高さ÷セル幅²で増えるため、細かい目盛りほど再描画は重くなります。
+  const TERMINATOR_PIXEL_LEVEL_SMOOTH = 0;
+  const TERMINATOR_PIXEL_LEVEL_MAX = 8;
+  const TERMINATOR_PIXEL_LEVEL_DEFAULT = 5;
+  // 極端な解像度でセルが巨大化しないための保険。通常の画面では効きません。
+  const TERMINATOR_CELL_MAX_DEVICE_PX = 32;
+  // 不透明度は 8bit で合成されるので、段階もそれに合わせて丸めます。
+  // 同じ段階が続く区間をまとめて塗れるようになり、最も細かい目盛りでも描画量が抑えられます。
+  const TERMINATOR_ALPHA_STEPS = 255;
+  // 塗り分けの種類を整数ひとつに詰めるための桁。下位が不透明度の段階です。
+  const TERMINATOR_NIGHT_FLAG = 1024;
+  const TERMINATOR_NIGHT_RGB = Object.freeze([0, 3, 10]);
+  const TERMINATOR_DAWN_RGB = Object.freeze([251, 191, 102]);
   const COASTLINE_BASE_WIDTH_PX = 1.5;
   const COASTLINE_MIN_WIDTH_PX = 1;
   const COASTLINE_MAX_WIDTH_PX = 3;
-  // 端末ピクセルへ載っているかを判定する許容差(浮動小数の丸め対策)。
-  const DEVICE_PIXEL_EPSILON = 1e-6;
   const DAY_MS = 86400000;
   const SAME_CITY_DISTANCE_KM = 15;
   const canonicalTimeZoneCache = new Map();
@@ -437,32 +445,122 @@
     return placement;
   }
 
-  // 画面の高さに対するセル比を一定にして、どの解像度でも同じ粒立ちに見せます。
-  function terminatorCellTarget(viewportHeight) {
-    const ideal = TERMINATOR_CELL_BASE_PX * viewportHeight / DISPLAY_REFERENCE_HEIGHT;
-    return clamp(Math.round(ideal), TERMINATOR_CELL_MIN_PX, TERMINATOR_CELL_MAX_PX);
-  }
-
-  function alignsToDevicePixels(cssSize, scale) {
-    const devicePixels = cssSize * scale;
-    return Math.abs(devicePixels - Math.round(devicePixels)) < DEVICE_PIXEL_EPSILON;
+  // 設定値を目盛りの範囲へ収めます。未設定や壊れた値は既定の粒度に戻します。
+  // Number() だと空文字が 0(= 完全に滑らか)になってしまうため、数値だけを受け付けます。
+  function normalizeTerminatorPixelLevel(value) {
+    const level = typeof value === "number" ? value : Number.parseFloat(value);
+    if (!Number.isFinite(level)) {
+      return TERMINATOR_PIXEL_LEVEL_DEFAULT;
+    }
+    return clamp(Math.round(level), TERMINATOR_PIXEL_LEVEL_SMOOTH, TERMINATOR_PIXEL_LEVEL_MAX);
   }
 
   // セル境界が端末ピクセルの途中に落ちると、隣り合うセルの縁が同じ物理ピクセルへ
-  // 半透明で二重に乗り、薄い夜側に格子状の筋が浮きます。そのため理想値の近くから
-  // 「セル幅×拡大率が整数になる大きさ」を選び直します。画面幅で割り切れるかどうかは
-  // 見た目に影響しない(はみ出した分はクリップされるだけ)ので条件に含めません。
-  function terminatorCellSize(height, devicePixelRatio) {
+  // 半透明で二重に乗り、薄い夜側に格子状の筋が浮きます。そこで大きさは必ず
+  // 端末ピクセルの整数個として数え、CSS 幅はそれを拡大率で割って求めます。
+  // 画面幅で割り切れるかどうかは見た目に影響しない(はみ出した分はクリップされるだけ)ので
+  // 条件に含めません。
+  function terminatorCellDevicePixels(height, devicePixelRatio, pixelLevel) {
+    const level = normalizeTerminatorPixelLevel(pixelLevel);
+    if (level <= TERMINATOR_PIXEL_LEVEL_SMOOTH) {
+      return 1;
+    }
     const viewportHeight = Math.max(1, Math.round(Number(height) || 1));
     const scale = Math.max(1, Number(devicePixelRatio) || 1);
-    const target = terminatorCellTarget(viewportHeight);
-    const candidates = [];
-    for (let size = TERMINATOR_CELL_MIN_PX; size <= TERMINATOR_CELL_MAX_PX; size += 1) {
-      candidates.push(size);
+    // 目盛りは 1080px 基準なので、実際の画面ではその比率で伸ばしてから端末ピクセルへ丸めます。
+    const ideal = level * viewportHeight / DISPLAY_REFERENCE_HEIGHT * scale;
+    return clamp(Math.round(ideal), 1, TERMINATOR_CELL_MAX_DEVICE_PX);
+  }
+
+  function terminatorCellSize(height, devicePixelRatio, pixelLevel) {
+    const scale = Math.max(1, Number(devicePixelRatio) || 1);
+    return terminatorCellDevicePixels(height, devicePixelRatio, pixelLevel) / scale;
+  }
+
+  // 1 セルの塗り方を整数ひとつで返します。最も細かい目盛りでは 1 回の描き直しで
+  // 数百万回呼ばれるため、ここでは色文字列を作らず数値だけを扱います。
+  // 0 は「塗らない」。それ以外は下位が不透明度の段階、TERMINATOR_NIGHT_FLAG が夜側の印です。
+  function terminatorPaintKey(cosine, fade) {
+    const shade = Number(cosine);
+    const strength = Number(fade);
+    if (!(strength > 0) || !(shade < 0.1)) {
+      return 0;
     }
-    // 理想値に近い順。同じ差なら描画量が軽くなる大きい方を選びます。
-    candidates.sort((a, b) => Math.abs(a - target) - Math.abs(b - target) || b - a);
-    return candidates.find((size) => alignsToDevicePixels(size, scale)) || target;
+    const night = shade < 0;
+    const alpha = night
+      ? (shade < -0.16 ? 0.44 : clamp(0.2 + Math.abs(shade) / 0.16 * 0.24, 0.2, 0.44)) * strength
+      : clamp((0.1 - shade) / 0.1 * 0.11, 0.02, 0.11) * strength;
+    const step = Math.round(clamp(alpha, 0, 1) * TERMINATOR_ALPHA_STEPS);
+    if (step <= 0) {
+      return 0;
+    }
+    return night ? step + TERMINATOR_NIGHT_FLAG : step;
+  }
+
+  // 段階は 2×256 通りしかないので、呼ぶ側で色文字列を使い回せます。
+  function terminatorPaintStyle(paintKey) {
+    const code = Math.trunc(Number(paintKey) || 0);
+    if (code <= 0) {
+      return "";
+    }
+    const night = code >= TERMINATOR_NIGHT_FLAG;
+    const step = night ? code - TERMINATOR_NIGHT_FLAG : code;
+    const alpha = clamp(step / TERMINATOR_ALPHA_STEPS, 0, 1);
+    const rgb = night ? TERMINATOR_NIGHT_RGB : TERMINATOR_DAWN_RGB;
+    return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${alpha})`;
+  }
+
+  // 一番細かい目盛りでは 1 セルが端末ピクセル 1 つになり、塗り命令が画素の数だけ必要になります。
+  // その場合だけは RGBA の並びを直接組み立てて 1 回で貼った方が 8 倍ほど速く終わります。
+  // pixels は ImageData.data と同じ「行ごとに左から右へ RGBA 4 バイト」の並びです。
+  // 大きさが合わないときは何も書かずに false を返し、呼ぶ側が通常の塗り方へ戻れるようにします。
+  function writeTerminatorPixels(pixels, options) {
+    const config = options || {};
+    const rows = Array.isArray(config.rows) ? config.rows : [];
+    const columns = Array.isArray(config.columns) ? config.columns : [];
+    const fades = Array.isArray(config.fades) ? config.fades : [];
+    if (!pixels || columns.length !== fades.length) {
+      return false;
+    }
+    if (pixels.length !== columns.length * rows.length * 4) {
+      return false;
+    }
+
+    const nightRed = TERMINATOR_NIGHT_RGB[0];
+    const nightGreen = TERMINATOR_NIGHT_RGB[1];
+    const nightBlue = TERMINATOR_NIGHT_RGB[2];
+    const dawnRed = TERMINATOR_DAWN_RGB[0];
+    const dawnGreen = TERMINATOR_DAWN_RGB[1];
+    const dawnBlue = TERMINATOR_DAWN_RGB[2];
+    let offset = 0;
+    for (let rowIndex = 0; rowIndex < rows.length; rowIndex += 1) {
+      const constant = Number(rows[rowIndex].constant) || 0;
+      const amplitude = Number(rows[rowIndex].amplitude) || 0;
+      for (let columnIndex = 0; columnIndex < columns.length; columnIndex += 1) {
+        const paintKey = terminatorPaintKey(
+          constant + amplitude * columns[columnIndex].hourCosine,
+          fades[columnIndex]
+        );
+        if (paintKey === 0) {
+          pixels[offset] = 0;
+          pixels[offset + 1] = 0;
+          pixels[offset + 2] = 0;
+          pixels[offset + 3] = 0;
+        } else if (paintKey >= TERMINATOR_NIGHT_FLAG) {
+          pixels[offset] = nightRed;
+          pixels[offset + 1] = nightGreen;
+          pixels[offset + 2] = nightBlue;
+          pixels[offset + 3] = paintKey - TERMINATOR_NIGHT_FLAG;
+        } else {
+          pixels[offset] = dawnRed;
+          pixels[offset + 1] = dawnGreen;
+          pixels[offset + 2] = dawnBlue;
+          pixels[offset + 3] = paintKey;
+        }
+        offset += 4;
+      }
+    }
+    return true;
   }
 
   // 海岸線も同じ考え方で、画面の高さに比例した太さにします。
@@ -478,13 +576,18 @@
     const config = options || {};
     const width = Math.max(1, Math.round(Number(config.width) || 1));
     const height = Math.max(1, Math.round(Number(config.height) || 1));
-    const cellSize = Math.max(1, Math.floor(Number(config.cellSize) || 1));
+    // 拡大率で割った分数の幅も受け取ります。足し込みでは誤差が溜まるので、
+    // 位置は必ず「番号×セル幅」で求めます。
+    const cellSize = Math.max(Number.EPSILON, Number(config.cellSize) || 1);
     const view = config.view || config.rect || coverMercatorRect(width, height);
     const layout = normalizeLayout(config.layout || view.layout);
     const columns = [];
     const rows = [];
 
-    for (let x = 0; x < width; x += cellSize) {
+    const columnCount = Math.ceil(width / cellSize);
+    const rowCount = Math.ceil(height / cellSize);
+    for (let index = 0; index < columnCount; index += 1) {
+      const x = index * cellSize;
       const geo = unprojectMercator({
         x: x + cellSize / 2 - (Number(view.x) || 0),
         y: cellSize / 2 - (Number(view.y) || 0),
@@ -494,7 +597,8 @@
       });
       columns.push({ x, lon: geo.lon });
     }
-    for (let y = 0; y < height; y += cellSize) {
+    for (let index = 0; index < rowCount; index += 1) {
+      const y = index * cellSize;
       const geo = unprojectMercator({
         x: cellSize / 2 - (Number(view.x) || 0),
         y: y + cellSize / 2 - (Number(view.y) || 0),
@@ -1075,6 +1179,9 @@
     CITY_PRESETS,
     MERCATOR_NORTH_LIMIT,
     MERCATOR_SOUTH_LIMIT,
+    TERMINATOR_PIXEL_LEVEL_DEFAULT,
+    TERMINATOR_PIXEL_LEVEL_MAX,
+    TERMINATOR_PIXEL_LEVEL_SMOOTH,
     canvasBackingSize,
     chooseLabelPlacement,
     clamp,
@@ -1092,6 +1199,7 @@
     mapViewForViewport,
     nextClockDelay,
     nextTerminatorDelay,
+    normalizeTerminatorPixelLevel,
     parseIso6709Coordinate,
     parseCustomCities,
     projectMercator,
@@ -1102,12 +1210,16 @@
     solarCosineFromPosition,
     solarPosition,
     shouldBreakLandSegment,
+    terminatorCellDevicePixels,
     terminatorCellSize,
     terminatorFadeAlpha,
     terminatorGridCoordinates,
+    terminatorPaintKey,
+    terminatorPaintStyle,
     terminatorSolarFactors,
     timeZoneCoordinates,
     unprojectMercator,
-    viewportFillRect
+    viewportFillRect,
+    writeTerminatorPixels
   };
 }));

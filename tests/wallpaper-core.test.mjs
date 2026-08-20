@@ -5,8 +5,12 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 const {
   CITY_PRESETS,
+  TERMINATOR_PIXEL_LEVEL_DEFAULT,
+  TERMINATOR_PIXEL_LEVEL_MAX,
+  TERMINATOR_PIXEL_LEVEL_SMOOTH,
   canvasBackingSize,
   chooseLabelPlacement,
+  clamp,
   coastlineWidth,
   coverMercatorRect,
   formatZonedTime,
@@ -19,6 +23,7 @@ const {
   mapViewForViewport,
   nextClockDelay,
   nextTerminatorDelay,
+  normalizeTerminatorPixelLevel,
   parseCustomCities,
   parseIso6709Coordinate,
   projectMercator,
@@ -29,13 +34,17 @@ const {
   solarCosine,
   solarCosineFromPosition,
   solarPosition,
+  terminatorCellDevicePixels,
   terminatorCellSize,
   terminatorFadeAlpha,
   terminatorGridCoordinates,
+  terminatorPaintKey,
+  terminatorPaintStyle,
   terminatorSolarFactors,
   timeZoneCoordinates,
   unprojectMercator,
-  viewportFillRect
+  viewportFillRect,
+  writeTerminatorPixels
 } = require("../src/wallpaper-core.js");
 
 test("custom city parsing accepts supported formats and reports invalid entries", () => {
@@ -262,32 +271,55 @@ test("adaptive map view preserves useful latitude ranges across common aspect ra
 test("viewport and terminator helpers produce stable dimensions and coordinates", () => {
   assert.deepEqual(canvasBackingSize(1919, 1.25), { css: 1919, pixels: 2399 });
   assert.deepEqual(viewportFillRect(1920, 1032), { x: 0, y: 0, width: 1920, height: 1032 });
-  // セルの大きさは画面の高さに比例し、上限と下限で頭打ちにします。
+  // 既定の目盛りでは、セルの大きさは画面の高さに比例します。
   assert.deepEqual(
     [
-      terminatorCellSize(1032, 1),
-      terminatorCellSize(1440, 1),
-      terminatorCellSize(2160, 1),
-      terminatorCellSize(844, 1)
+      terminatorCellSize(1032, 1, TERMINATOR_PIXEL_LEVEL_DEFAULT),
+      terminatorCellSize(1440, 1, TERMINATOR_PIXEL_LEVEL_DEFAULT),
+      terminatorCellSize(2160, 1, TERMINATOR_PIXEL_LEVEL_DEFAULT),
+      terminatorCellSize(844, 1, TERMINATOR_PIXEL_LEVEL_DEFAULT)
     ],
-    [6, 8, 10, 5]
+    [5, 7, 10, 4]
   );
-  // 拡大率つきの画面では、セル幅×拡大率が整数になる大きさへ寄せます。
+  // 目盛りを上げれば粗く、下げれば細かくなります。目盛りは 1080px 基準です。
   assert.deepEqual(
-    [
-      terminatorCellSize(720, 1.5),
-      terminatorCellSize(864, 1.25),
-      terminatorCellSize(1080, 2)
-    ],
-    [4, 4, 6]
+    [0, 1, 5, 8].map((level) => terminatorCellDevicePixels(1080, 1, level)),
+    [1, 1, 5, 8]
   );
+  assert.deepEqual(
+    [0, 1, 5, 8].map((level) => terminatorCellDevicePixels(2160, 1, level)),
+    [1, 2, 10, 16]
+  );
+  // 一番下の目盛りは解像度にも拡大率にも左右されず、常に端末ピクセル 1 つ = 完全に滑らかです。
+  [[1080, 1], [2160, 1], [1440, 1.5], [864, 1.25], [1600, 2]].forEach(([height, dpr]) => {
+    assert.equal(terminatorCellDevicePixels(height, dpr, TERMINATOR_PIXEL_LEVEL_SMOOTH), 1);
+  });
+  // 壊れた値は既定へ、範囲外は両端へ寄せます。
+  assert.deepEqual(
+    [undefined, "", "x", -3, 99, 4.4].map(normalizeTerminatorPixelLevel),
+    [
+      TERMINATOR_PIXEL_LEVEL_DEFAULT,
+      TERMINATOR_PIXEL_LEVEL_DEFAULT,
+      TERMINATOR_PIXEL_LEVEL_DEFAULT,
+      TERMINATOR_PIXEL_LEVEL_SMOOTH,
+      TERMINATOR_PIXEL_LEVEL_MAX,
+      4
+    ]
+  );
+  // どの目盛り・拡大率でもセル境界は端末ピクセルへ載り、格子状の筋が出ません。
   [
     [720, 1.5],
     [864, 1.25],
-    [1440, 1.75]
+    [1440, 1.75],
+    [1080, 1],
+    [2160, 2]
   ].forEach(([height, dpr]) => {
-    const cellSize = terminatorCellSize(height, dpr);
-    assert.equal(Number.isInteger(cellSize * dpr), true);
+    for (let level = TERMINATOR_PIXEL_LEVEL_SMOOTH; level <= TERMINATOR_PIXEL_LEVEL_MAX; level += 1) {
+      const devicePixels = terminatorCellSize(height, dpr, level) * dpr;
+      const label = `${height}@${dpr}x level ${level}`;
+      assert.equal(Math.abs(devicePixels - Math.round(devicePixels)) < 1e-9, true, label);
+      assert.equal(Math.round(devicePixels) >= 1, true, label);
+    }
   });
   // 海岸線も同じ基準で、1080px を 1.5px として上下限に収めます。
   assert.deepEqual(
@@ -307,6 +339,117 @@ test("viewport and terminator helpers produce stable dimensions and coordinates"
   assert.equal(grid.rows.length, 8);
   assert.equal(Number.isFinite(grid.columns[0].lon), true);
   assert.equal(Number.isFinite(grid.rows[0].lat), true);
+
+  // 拡大率で割った分数のセル幅でも、位置は足し込みの誤差なく端末ピクセルへ並びます。
+  const fine = terminatorGridCoordinates({
+    width: 100,
+    height: 80,
+    rect,
+    layout: "pacific",
+    cellSize: 1 / 1.25
+  });
+  assert.equal(fine.columns.length, 125);
+  assert.equal(fine.rows.length, 100);
+  fine.columns.forEach((column, index) => {
+    const devicePixels = column.x * 1.25;
+    assert.equal(Math.abs(devicePixels - index) < 1e-9, true, `column ${index}`);
+  });
+});
+
+test("terminator cells quantize into a small set of reusable fills", () => {
+  // 昼側と、地図の外まで薄れた余白は塗りません。
+  assert.deepEqual(
+    [terminatorPaintKey(0.5, 1), terminatorPaintKey(0.1, 1), terminatorPaintKey(-0.5, 0)],
+    [0, 0, 0]
+  );
+  assert.equal(terminatorPaintStyle(0), "");
+
+  // 夜の深いところは濃さが一定なので、長い区間をひとまとめに塗れます。
+  const deepNight = terminatorPaintKey(-0.5, 1);
+  assert.equal(deepNight, terminatorPaintKey(-0.9, 1));
+  assert.equal(terminatorPaintStyle(deepNight), `rgba(0, 3, 10, ${Math.round(0.44 * 255) / 255})`);
+
+  // 薄明側は暖色で、夜側とは必ず別の値になります。
+  const dawn = terminatorPaintKey(0.05, 1);
+  assert.equal(dawn > 0 && dawn !== deepNight, true);
+  assert.match(terminatorPaintStyle(dawn), /^rgba\(251, 191, 102, /);
+
+  // 8bit の刻みへ丸めても、従来の計算式との差は合成後に見えない範囲に収まります。
+  const cases = [
+    [-0.4, 1], [-0.16, 1], [-0.08, 1], [-0.01, 0.5], [0.02, 1], [0.09, 0.3], [-0.5, 0.72]
+  ];
+  for (const [cosine, fade] of cases) {
+    const exact = cosine < 0
+      ? (cosine < -0.16 ? 0.44 : clamp(0.2 + Math.abs(cosine) / 0.16 * 0.24, 0.2, 0.44)) * fade
+      : clamp((0.1 - cosine) / 0.1 * 0.11, 0.02, 0.11) * fade;
+    const style = terminatorPaintStyle(terminatorPaintKey(cosine, fade));
+    const painted = Number(style.slice(style.lastIndexOf(",") + 1, -1));
+    assert.equal(Math.abs(painted - exact) <= 0.5 / 255, true, `${cosine}@${fade}`);
+  }
+
+  // 段階の総数が少ないから、呼ぶ側は色文字列を一度作れば使い回せます。
+  const keys = new Set();
+  for (let cosine = -1; cosine <= 0.1; cosine += 0.0005) {
+    for (const fade of [0.18, 0.51, 1]) {
+      keys.add(terminatorPaintKey(cosine, fade));
+    }
+  }
+  assert.equal(keys.size <= 2 * 256, true, `${keys.size}`);
+});
+
+test("the per-pixel terminator path paints the same colours as the shared cells", () => {
+  const width = 48;
+  const height = 30;
+  const view = mapViewForViewport(width, height);
+  const cellSize = terminatorCellSize(height, 1, TERMINATOR_PIXEL_LEVEL_SMOOTH);
+  assert.equal(cellSize, 1);
+  const grid = terminatorGridCoordinates({ width, height, view, layout: "atlantic", cellSize });
+  const factors = terminatorSolarFactors(grid, solarPosition(new Date(Date.UTC(2026, 2, 20, 9, 30))));
+  const fades = factors.columns.map((column) => terminatorFadeAlpha(column.x + cellSize / 2, view, width));
+  const pixels = new Uint8ClampedArray(width * height * 4);
+
+  assert.equal(factors.columns.length, width);
+  assert.equal(factors.rows.length, height);
+  assert.equal(writeTerminatorPixels(pixels, { rows: factors.rows, columns: factors.columns, fades }), true);
+
+  // 画素ごとの中身が、区間をまとめて塗る経路の色と 1 つずつ一致していることを確かめます。
+  let painted = 0;
+  factors.rows.forEach((row, rowIndex) => {
+    factors.columns.forEach((column, columnIndex) => {
+      const offset = (rowIndex * width + columnIndex) * 4;
+      const at = `${rowIndex},${columnIndex}`;
+      const paintKey = terminatorPaintKey(row.constant + row.amplitude * column.hourCosine, fades[columnIndex]);
+      if (!paintKey) {
+        assert.deepEqual(Array.from(pixels.slice(offset, offset + 4)), [0, 0, 0, 0], at);
+        return;
+      }
+      const style = terminatorPaintStyle(paintKey);
+      const channels = style.slice(style.indexOf("(") + 1, -1).split(",").map((part) => Number(part));
+      assert.deepEqual(Array.from(pixels.slice(offset, offset + 3)), channels.slice(0, 3), at);
+      assert.equal(pixels[offset + 3], Math.round(channels[3] * 255), at);
+      painted += 1;
+    });
+  });
+  assert.equal(painted > 0, true);
+
+  // 「塗らない・夜・薄明」の 3 通りを決め打ちの値で通します。
+  const branches = new Uint8ClampedArray(3 * 4);
+  assert.equal(writeTerminatorPixels(branches, {
+    rows: [{ constant: 0, amplitude: 1 }],
+    columns: [{ hourCosine: 0.5 }, { hourCosine: -0.5 }, { hourCosine: 0.05 }],
+    fades: [1, 1, 1]
+  }), true);
+  assert.deepEqual(Array.from(branches.slice(0, 4)), [0, 0, 0, 0]);
+  assert.deepEqual(Array.from(branches.slice(4, 7)), [0, 3, 10]);
+  assert.deepEqual(Array.from(branches.slice(8, 11)), [251, 191, 102]);
+
+  // 大きさが合わない呼び出しは、何も書かずに断って通常の塗り方へ戻せるようにします。
+  const short = new Uint8ClampedArray(width * height * 4 - 4);
+  const request = { rows: factors.rows, columns: factors.columns, fades };
+  assert.equal(writeTerminatorPixels(short, request), false);
+  assert.equal(short.every((value) => value === 0), true);
+  assert.equal(writeTerminatorPixels(pixels, { ...request, fades: [] }), false);
+  assert.equal(writeTerminatorPixels(null, request), false);
 });
 
 test("terminator view wraps longitudes horizontally and fades through wide margins", () => {

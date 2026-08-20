@@ -206,6 +206,7 @@ function buildLocalization(language, records) {
     ui_hour_format: ui.hourFormat,
     ui_show_seconds: ui.showSeconds,
     ui_show_terminator: ui.showTerminator,
+    ui_terminator_pixel_size: ui.terminatorPixelSize,
     ui_layout_atlantic: ui.atlantic,
     ui_layout_pacific: ui.pacific,
     ui_hour_24: ui.hour24,

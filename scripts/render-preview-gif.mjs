@@ -58,7 +58,9 @@ export function previewWallpaperProperties() {
     labelsize: property("small"),
     hourformat: property("24"),
     showseconds: property(true),
-    showterminator: property(true)
+    showterminator: property(true),
+    // 既定値をそのまま書き出します。将来 既定の粒度を変えてもプレビューの見た目は動きません。
+    terminatorpixelsize: property(5)
   };
 }
 
