@@ -487,9 +487,12 @@ export function buildLocalizedCityRecords({
 }
 
 export function sortCityRecords(records) {
+  // 夏時間を含むオフセットの組が同じ都市は同一グループとみなし、切替日の違いは見ません。
+  // グループ内は北から南へ並べ、同緯度だけ名前と識別子で安定させます。
   return [...records].sort((left, right) =>
     left.firstOffset - right.firstOffset ||
     left.secondOffset - right.secondOffset ||
+    right.lat - left.lat ||
     String((left.names && left.names.en) || left.id).localeCompare(
       String((right.names && right.names.en) || right.id),
       "en"

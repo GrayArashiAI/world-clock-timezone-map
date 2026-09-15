@@ -168,7 +168,7 @@ test("localized timezone catalog is complete and preserves renamed alias locatio
   }
 });
 
-test("localized curated cities sort by offsets, English name, and timezone", () => {
+test("localized curated cities sort by offsets, then north to south", () => {
   const localizedById = Object.fromEntries(localizedRecords.map((record) => [record.id, record]));
   assert.deepEqual(
     [localizedById.tokyo.names.ja, localizedById.shanghai.names.zh, localizedById.kolkata.names.ko],
@@ -181,8 +181,18 @@ test("localized curated cities sort by offsets, English name, and timezone", () 
     const comparison =
       previous.firstOffset - current.firstOffset ||
       previous.secondOffset - current.secondOffset ||
+      current.lat - previous.lat ||
       previous.names.en.localeCompare(current.names.en, "en") ||
       previous.timeZone.localeCompare(current.timeZone, "en");
     assert.equal(comparison <= 0, true, `${previous.id} before ${current.id}`);
   }
+  // 夏時間の切替日が南北で逆でも、オフセットの組が同じなら緯度だけで並びます。
+  const groupIds = (firstOffset, secondOffset) => sortedRecords
+    .filter((record) => record.firstOffset === firstOffset && record.secondOffset === secondOffset)
+    .map((record) => record.id);
+  assert.deepEqual(groupIds(-240, -180), ["halifax", "santiago"]);
+  assert.deepEqual(
+    groupIds(480, 480),
+    ["irkutsk", "shanghai", "taipei", "hong_kong", "manila", "singapore", "makassar", "perth"]
+  );
 });

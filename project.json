@@ -43,95 +43,95 @@
 				"ui_city_honolulu": "Honolulu(-10)",
 				"ui_city_adak": "Adak(-10/-9)",
 				"ui_city_anchorage": "Anchorage(-9/-8)",
+				"ui_city_vancouver": "Vancouver(-8/-7)",
 				"ui_city_los_angeles": "Los Angeles(-8/-7)",
 				"ui_city_tijuana": "Tijuana(-8/-7)",
-				"ui_city_vancouver": "Vancouver(-8/-7)",
-				"ui_city_hermosillo": "Hermosillo(-7)",
-				"ui_city_phoenix": "Phoenix(-7)",
 				"ui_city_whitehorse": "Whitehorse(-7)",
-				"ui_city_denver": "Denver(-7/-6)",
+				"ui_city_phoenix": "Phoenix(-7)",
+				"ui_city_hermosillo": "Hermosillo(-7)",
 				"ui_city_edmonton": "Edmonton(-7/-6)",
-				"ui_city_mexico_city": "Mexico City(-6)",
+				"ui_city_denver": "Denver(-7/-6)",
 				"ui_city_regina": "Regina(-6)",
+				"ui_city_mexico_city": "Mexico City(-6)",
+				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
 				"ui_city_matamoros": "Matamoros(-6/-5)",
-				"ui_city_winnipeg": "Winnipeg(-6/-5)",
-				"ui_city_bogota": "Bogotá(-5)",
 				"ui_city_cancun": "Cancún(-5)",
+				"ui_city_bogota": "Bogotá(-5)",
 				"ui_city_guayaquil": "Guayaquil(-5)",
-				"ui_city_lima": "Lima(-5)",
 				"ui_city_rio_branco": "Rio Branco(-5)",
-				"ui_city_havana": "Havana(-5/-4)",
-				"ui_city_new_york": "New York(-5/-4)",
+				"ui_city_lima": "Lima(-5)",
 				"ui_city_toronto": "Toronto(-5/-4)",
+				"ui_city_new_york": "New York(-5/-4)",
+				"ui_city_havana": "Havana(-5/-4)",
 				"ui_city_caracas": "Caracas(-4)",
-				"ui_city_la_paz": "La Paz(-4)",
 				"ui_city_manaus": "Manaus(-4)",
+				"ui_city_la_paz": "La Paz(-4)",
 				"ui_city_halifax": "Halifax(-4/-3)",
 				"ui_city_santiago": "Santiago(-4/-3)",
 				"ui_city_st_johns": "St. John’s(-3:30/-2:30)",
+				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_asuncion": "Asunción(-3)",
 				"ui_city_buenos_aires": "Buenos Aires(-3)",
 				"ui_city_punta_arenas": "Punta Arenas(-3)",
-				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_noronha": "Fernando de Noronha(-2)",
 				"ui_city_azores": "Azores(-1/+0)",
 				"ui_city_reykjavik": "Reykjavik(+0)",
-				"ui_city_canary": "Canaries(+0/+1)",
-				"ui_city_casablanca": "Casablanca(+0/+1)",
-				"ui_city_lisbon": "Lisbon(+0/+1)",
 				"ui_city_london": "London(+0/+1)",
+				"ui_city_lisbon": "Lisbon(+0/+1)",
+				"ui_city_casablanca": "Casablanca(+0/+1)",
+				"ui_city_canary": "Canaries(+0/+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlin(+1/+2)",
-				"ui_city_madrid": "Madrid(+1/+2)",
+				"ui_city_warsaw": "Warsaw(+1/+2)",
 				"ui_city_paris": "Paris(+1/+2)",
 				"ui_city_rome": "Rome(+1/+2)",
-				"ui_city_warsaw": "Warsaw(+1/+2)",
-				"ui_city_johannesburg": "Johannesburg(+2)",
+				"ui_city_madrid": "Madrid(+1/+2)",
 				"ui_city_kaliningrad": "Kaliningrad(+2)",
+				"ui_city_johannesburg": "Johannesburg(+2)",
+				"ui_city_helsinki": "Helsinki(+2/+3)",
+				"ui_city_kyiv": "Kyiv(+2/+3)",
+				"ui_city_chisinau": "Chișinău(+2/+3)",
 				"ui_city_athens": "Athens(+2/+3)",
 				"ui_city_beirut": "Beirut(+2/+3)",
-				"ui_city_cairo": "Cairo(+2/+3)",
-				"ui_city_chisinau": "Chișinău(+2/+3)",
-				"ui_city_helsinki": "Helsinki(+2/+3)",
 				"ui_city_jerusalem": "Jerusalem(+2/+3)",
-				"ui_city_kyiv": "Kyiv(+2/+3)",
-				"ui_city_istanbul": "Istanbul(+3)",
+				"ui_city_cairo": "Cairo(+2/+3)",
 				"ui_city_moscow": "Moscow(+3)",
-				"ui_city_nairobi": "Nairobi(+3)",
+				"ui_city_istanbul": "Istanbul(+3)",
 				"ui_city_riyadh": "Riyadh(+3)",
+				"ui_city_nairobi": "Nairobi(+3)",
 				"ui_city_tehran": "Tehran(+3:30)",
-				"ui_city_dubai": "Dubai(+4)",
 				"ui_city_samara": "Samara(+4)",
+				"ui_city_dubai": "Dubai(+4)",
 				"ui_city_kabul": "Kabul(+4:30)",
-				"ui_city_karachi": "Karachi(+5)",
 				"ui_city_yekaterinburg": "Yekaterinburg(+5)",
+				"ui_city_karachi": "Karachi(+5)",
 				"ui_city_kolkata": "Kolkata(+5:30)",
 				"ui_city_kathmandu": "Kathmandu(+5:45)",
-				"ui_city_dhaka": "Dhaka(+6)",
 				"ui_city_omsk": "Omsk(+6)",
+				"ui_city_dhaka": "Dhaka(+6)",
 				"ui_city_yangon": "Yangon(+6:30)",
+				"ui_city_novosibirsk": "Novosibirsk(+7)",
 				"ui_city_bangkok": "Bangkok(+7)",
 				"ui_city_ho_chi_minh": "Ho Chi Minh City(+7)",
 				"ui_city_jakarta": "Jakarta(+7)",
-				"ui_city_novosibirsk": "Novosibirsk(+7)",
-				"ui_city_hong_kong": "Hong Kong(+8)",
 				"ui_city_irkutsk": "Irkutsk(+8)",
-				"ui_city_makassar": "Makassar(+8)",
-				"ui_city_manila": "Manila(+8)",
-				"ui_city_perth": "Perth(+8)",
 				"ui_city_shanghai": "Shanghai(+8)",
-				"ui_city_singapore": "Singapore(+8)",
 				"ui_city_taipei": "Taipei(+8)",
+				"ui_city_hong_kong": "Hong Kong(+8)",
+				"ui_city_manila": "Manila(+8)",
+				"ui_city_singapore": "Singapore(+8)",
+				"ui_city_makassar": "Makassar(+8)",
+				"ui_city_perth": "Perth(+8)",
 				"ui_city_eucla": "Eucla(+8:45)",
-				"ui_city_jayapura": "Jayapura(+9)",
+				"ui_city_yakutsk": "Yakutsk(+9)",
 				"ui_city_seoul": "Seoul(+9)",
 				"ui_city_tokyo": "Tokyo(+9)",
-				"ui_city_yakutsk": "Yakutsk(+9)",
+				"ui_city_jayapura": "Jayapura(+9)",
 				"ui_city_darwin": "Darwin(+9:30)",
 				"ui_city_adelaide": "Adelaide(+9:30/+10:30)",
-				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_vladivostok": "Vladivostok(+10)",
+				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_sydney": "Sydney(+10/+11)",
 				"ui_city_lord_howe": "Lord Howe Island(+10:30/+11)",
 				"ui_city_magadan": "Magadan(+11)",
@@ -178,95 +178,95 @@
 				"ui_city_honolulu": "檀香山(-10)",
 				"ui_city_adak": "埃达克(-10/-9)",
 				"ui_city_anchorage": "安克雷奇(-9/-8)",
+				"ui_city_vancouver": "温哥华(-8/-7)",
 				"ui_city_los_angeles": "洛杉矶(-8/-7)",
 				"ui_city_tijuana": "蒂华纳(-8/-7)",
-				"ui_city_vancouver": "温哥华(-8/-7)",
-				"ui_city_hermosillo": "埃莫西约(-7)",
-				"ui_city_phoenix": "凤凰城(-7)",
 				"ui_city_whitehorse": "怀特霍斯(-7)",
-				"ui_city_denver": "丹佛(-7/-6)",
+				"ui_city_phoenix": "凤凰城(-7)",
+				"ui_city_hermosillo": "埃莫西约(-7)",
 				"ui_city_edmonton": "埃德蒙顿(-7/-6)",
-				"ui_city_mexico_city": "墨西哥城(-6)",
+				"ui_city_denver": "丹佛(-7/-6)",
 				"ui_city_regina": "里贾纳(-6)",
+				"ui_city_mexico_city": "墨西哥城(-6)",
+				"ui_city_winnipeg": "温尼伯(-6/-5)",
 				"ui_city_chicago": "芝加哥(-6/-5)",
 				"ui_city_matamoros": "马塔莫罗斯(-6/-5)",
-				"ui_city_winnipeg": "温尼伯(-6/-5)",
-				"ui_city_bogota": "波哥大(-5)",
 				"ui_city_cancun": "坎昆(-5)",
+				"ui_city_bogota": "波哥大(-5)",
 				"ui_city_guayaquil": "瓜亚基尔(-5)",
-				"ui_city_lima": "利马(-5)",
 				"ui_city_rio_branco": "里奥布郎库(-5)",
-				"ui_city_havana": "哈瓦那(-5/-4)",
-				"ui_city_new_york": "纽约(-5/-4)",
+				"ui_city_lima": "利马(-5)",
 				"ui_city_toronto": "多伦多(-5/-4)",
+				"ui_city_new_york": "纽约(-5/-4)",
+				"ui_city_havana": "哈瓦那(-5/-4)",
 				"ui_city_caracas": "加拉加斯(-4)",
-				"ui_city_la_paz": "拉巴斯(-4)",
 				"ui_city_manaus": "马瑙斯(-4)",
+				"ui_city_la_paz": "拉巴斯(-4)",
 				"ui_city_halifax": "哈利法克斯(-4/-3)",
 				"ui_city_santiago": "圣地亚哥(-4/-3)",
 				"ui_city_st_johns": "圣约翰斯(-3:30/-2:30)",
+				"ui_city_sao_paulo": "圣保罗(-3)",
 				"ui_city_asuncion": "亚松森(-3)",
 				"ui_city_buenos_aires": "布宜诺斯艾利斯(-3)",
 				"ui_city_punta_arenas": "蓬塔阿雷纳斯(-3)",
-				"ui_city_sao_paulo": "圣保罗(-3)",
 				"ui_city_noronha": "洛罗尼亚(-2)",
 				"ui_city_azores": "亚速尔群岛(-1/+0)",
 				"ui_city_reykjavik": "雷克雅未克(+0)",
-				"ui_city_canary": "加那利(+0/+1)",
-				"ui_city_casablanca": "卡萨布兰卡(+0/+1)",
-				"ui_city_lisbon": "里斯本(+0/+1)",
 				"ui_city_london": "伦敦(+0/+1)",
+				"ui_city_lisbon": "里斯本(+0/+1)",
+				"ui_city_casablanca": "卡萨布兰卡(+0/+1)",
+				"ui_city_canary": "加那利(+0/+1)",
 				"ui_city_lagos": "拉各斯(+1)",
 				"ui_city_berlin": "柏林(+1/+2)",
-				"ui_city_madrid": "马德里(+1/+2)",
+				"ui_city_warsaw": "华沙(+1/+2)",
 				"ui_city_paris": "巴黎(+1/+2)",
 				"ui_city_rome": "罗马(+1/+2)",
-				"ui_city_warsaw": "华沙(+1/+2)",
-				"ui_city_johannesburg": "约翰内斯堡(+2)",
+				"ui_city_madrid": "马德里(+1/+2)",
 				"ui_city_kaliningrad": "加里宁格勒(+2)",
+				"ui_city_johannesburg": "约翰内斯堡(+2)",
+				"ui_city_helsinki": "赫尔辛基(+2/+3)",
+				"ui_city_kyiv": "基辅(+2/+3)",
+				"ui_city_chisinau": "基希讷乌(+2/+3)",
 				"ui_city_athens": "雅典(+2/+3)",
 				"ui_city_beirut": "贝鲁特(+2/+3)",
-				"ui_city_cairo": "开罗(+2/+3)",
-				"ui_city_chisinau": "基希讷乌(+2/+3)",
-				"ui_city_helsinki": "赫尔辛基(+2/+3)",
 				"ui_city_jerusalem": "耶路撒冷(+2/+3)",
-				"ui_city_kyiv": "基辅(+2/+3)",
-				"ui_city_istanbul": "伊斯坦布尔(+3)",
+				"ui_city_cairo": "开罗(+2/+3)",
 				"ui_city_moscow": "莫斯科(+3)",
-				"ui_city_nairobi": "内罗毕(+3)",
+				"ui_city_istanbul": "伊斯坦布尔(+3)",
 				"ui_city_riyadh": "利雅得(+3)",
+				"ui_city_nairobi": "内罗毕(+3)",
 				"ui_city_tehran": "德黑兰(+3:30)",
-				"ui_city_dubai": "迪拜(+4)",
 				"ui_city_samara": "萨马拉(+4)",
+				"ui_city_dubai": "迪拜(+4)",
 				"ui_city_kabul": "喀布尔(+4:30)",
-				"ui_city_karachi": "卡拉奇(+5)",
 				"ui_city_yekaterinburg": "叶卡捷琳堡(+5)",
+				"ui_city_karachi": "卡拉奇(+5)",
 				"ui_city_kolkata": "加尔各答(+5:30)",
 				"ui_city_kathmandu": "加德满都(+5:45)",
-				"ui_city_dhaka": "达卡(+6)",
 				"ui_city_omsk": "鄂木斯克(+6)",
+				"ui_city_dhaka": "达卡(+6)",
 				"ui_city_yangon": "仰光(+6:30)",
+				"ui_city_novosibirsk": "新西伯利亚(+7)",
 				"ui_city_bangkok": "曼谷(+7)",
 				"ui_city_ho_chi_minh": "胡志明市(+7)",
 				"ui_city_jakarta": "雅加达(+7)",
-				"ui_city_novosibirsk": "新西伯利亚(+7)",
-				"ui_city_hong_kong": "香港(+8)",
 				"ui_city_irkutsk": "伊尔库茨克(+8)",
-				"ui_city_makassar": "望加锡(+8)",
-				"ui_city_manila": "马尼拉(+8)",
-				"ui_city_perth": "珀斯(+8)",
 				"ui_city_shanghai": "上海(+8)",
-				"ui_city_singapore": "新加坡(+8)",
 				"ui_city_taipei": "台北(+8)",
+				"ui_city_hong_kong": "香港(+8)",
+				"ui_city_manila": "马尼拉(+8)",
+				"ui_city_singapore": "新加坡(+8)",
+				"ui_city_makassar": "望加锡(+8)",
+				"ui_city_perth": "珀斯(+8)",
 				"ui_city_eucla": "尤克拉(+8:45)",
-				"ui_city_jayapura": "查亚普拉(+9)",
+				"ui_city_yakutsk": "雅库茨克(+9)",
 				"ui_city_seoul": "首尔(+9)",
 				"ui_city_tokyo": "东京(+9)",
-				"ui_city_yakutsk": "雅库茨克(+9)",
+				"ui_city_jayapura": "查亚普拉(+9)",
 				"ui_city_darwin": "达尔文(+9:30)",
 				"ui_city_adelaide": "阿德莱德(+9:30/+10:30)",
-				"ui_city_brisbane": "布里斯班(+10)",
 				"ui_city_vladivostok": "海参崴(+10)",
+				"ui_city_brisbane": "布里斯班(+10)",
 				"ui_city_sydney": "悉尼(+10/+11)",
 				"ui_city_lord_howe": "豪勋爵岛(+10:30/+11)",
 				"ui_city_magadan": "马加丹(+11)",
@@ -313,95 +313,95 @@
 				"ui_city_honolulu": "檀香山(-10)",
 				"ui_city_adak": "艾達克(-10/-9)",
 				"ui_city_anchorage": "安克拉治(-9/-8)",
+				"ui_city_vancouver": "溫哥華(-8/-7)",
 				"ui_city_los_angeles": "洛杉磯(-8/-7)",
 				"ui_city_tijuana": "提華納(-8/-7)",
-				"ui_city_vancouver": "溫哥華(-8/-7)",
-				"ui_city_hermosillo": "埃莫西約(-7)",
-				"ui_city_phoenix": "鳳凰城(-7)",
 				"ui_city_whitehorse": "懷特霍斯(-7)",
-				"ui_city_denver": "丹佛(-7/-6)",
+				"ui_city_phoenix": "鳳凰城(-7)",
+				"ui_city_hermosillo": "埃莫西約(-7)",
 				"ui_city_edmonton": "艾德蒙吞(-7/-6)",
-				"ui_city_mexico_city": "墨西哥市(-6)",
+				"ui_city_denver": "丹佛(-7/-6)",
 				"ui_city_regina": "里賈納(-6)",
+				"ui_city_mexico_city": "墨西哥市(-6)",
+				"ui_city_winnipeg": "溫尼伯(-6/-5)",
 				"ui_city_chicago": "芝加哥(-6/-5)",
 				"ui_city_matamoros": "馬塔莫羅斯(-6/-5)",
-				"ui_city_winnipeg": "溫尼伯(-6/-5)",
-				"ui_city_bogota": "波哥大(-5)",
 				"ui_city_cancun": "坎昆(-5)",
+				"ui_city_bogota": "波哥大(-5)",
 				"ui_city_guayaquil": "瓜亞基爾(-5)",
-				"ui_city_lima": "利馬(-5)",
 				"ui_city_rio_branco": "里約布蘭(-5)",
-				"ui_city_havana": "哈瓦那(-5/-4)",
-				"ui_city_new_york": "紐約(-5/-4)",
+				"ui_city_lima": "利馬(-5)",
 				"ui_city_toronto": "多倫多(-5/-4)",
+				"ui_city_new_york": "紐約(-5/-4)",
+				"ui_city_havana": "哈瓦那(-5/-4)",
 				"ui_city_caracas": "卡拉卡斯(-4)",
-				"ui_city_la_paz": "拉巴斯(-4)",
 				"ui_city_manaus": "瑪瑙斯(-4)",
+				"ui_city_la_paz": "拉巴斯(-4)",
 				"ui_city_halifax": "哈里法克斯(-4/-3)",
 				"ui_city_santiago": "聖地牙哥(-4/-3)",
 				"ui_city_st_johns": "聖約翰(-3:30/-2:30)",
+				"ui_city_sao_paulo": "聖保羅(-3)",
 				"ui_city_asuncion": "亞松森(-3)",
 				"ui_city_buenos_aires": "布宜諾斯艾利斯(-3)",
 				"ui_city_punta_arenas": "蓬塔阿雷納斯(-3)",
-				"ui_city_sao_paulo": "聖保羅(-3)",
 				"ui_city_noronha": "諾倫哈(-2)",
 				"ui_city_azores": "亞速爾群島(-1/+0)",
 				"ui_city_reykjavik": "雷克雅維克(+0)",
-				"ui_city_canary": "加納利(+0/+1)",
-				"ui_city_casablanca": "卡薩布蘭卡(+0/+1)",
-				"ui_city_lisbon": "里斯本(+0/+1)",
 				"ui_city_london": "倫敦(+0/+1)",
+				"ui_city_lisbon": "里斯本(+0/+1)",
+				"ui_city_casablanca": "卡薩布蘭卡(+0/+1)",
+				"ui_city_canary": "加納利(+0/+1)",
 				"ui_city_lagos": "拉哥斯(+1)",
 				"ui_city_berlin": "柏林(+1/+2)",
-				"ui_city_madrid": "馬德里(+1/+2)",
+				"ui_city_warsaw": "華沙(+1/+2)",
 				"ui_city_paris": "巴黎(+1/+2)",
 				"ui_city_rome": "羅馬(+1/+2)",
-				"ui_city_warsaw": "華沙(+1/+2)",
-				"ui_city_johannesburg": "約翰尼斯堡(+2)",
+				"ui_city_madrid": "馬德里(+1/+2)",
 				"ui_city_kaliningrad": "加里寧格勒(+2)",
+				"ui_city_johannesburg": "約翰尼斯堡(+2)",
+				"ui_city_helsinki": "赫爾辛基(+2/+3)",
+				"ui_city_kyiv": "基輔(+2/+3)",
+				"ui_city_chisinau": "基西紐(+2/+3)",
 				"ui_city_athens": "雅典(+2/+3)",
 				"ui_city_beirut": "貝魯特(+2/+3)",
-				"ui_city_cairo": "開羅(+2/+3)",
-				"ui_city_chisinau": "基西紐(+2/+3)",
-				"ui_city_helsinki": "赫爾辛基(+2/+3)",
 				"ui_city_jerusalem": "耶路撒冷(+2/+3)",
-				"ui_city_kyiv": "基輔(+2/+3)",
-				"ui_city_istanbul": "伊斯坦堡(+3)",
+				"ui_city_cairo": "開羅(+2/+3)",
 				"ui_city_moscow": "莫斯科(+3)",
-				"ui_city_nairobi": "奈洛比(+3)",
+				"ui_city_istanbul": "伊斯坦堡(+3)",
 				"ui_city_riyadh": "利雅德(+3)",
+				"ui_city_nairobi": "奈洛比(+3)",
 				"ui_city_tehran": "德黑蘭(+3:30)",
-				"ui_city_dubai": "杜拜(+4)",
 				"ui_city_samara": "沙馬拉(+4)",
+				"ui_city_dubai": "杜拜(+4)",
 				"ui_city_kabul": "喀布爾(+4:30)",
-				"ui_city_karachi": "喀拉蚩(+5)",
 				"ui_city_yekaterinburg": "葉卡捷林堡(+5)",
+				"ui_city_karachi": "喀拉蚩(+5)",
 				"ui_city_kolkata": "加爾各答(+5:30)",
 				"ui_city_kathmandu": "加德滿都(+5:45)",
-				"ui_city_dhaka": "達卡(+6)",
 				"ui_city_omsk": "鄂木斯克(+6)",
+				"ui_city_dhaka": "達卡(+6)",
 				"ui_city_yangon": "仰光(+6:30)",
+				"ui_city_novosibirsk": "新西伯利亞(+7)",
 				"ui_city_bangkok": "曼谷(+7)",
 				"ui_city_ho_chi_minh": "胡志明市(+7)",
 				"ui_city_jakarta": "雅加達(+7)",
-				"ui_city_novosibirsk": "新西伯利亞(+7)",
-				"ui_city_hong_kong": "香港(+8)",
 				"ui_city_irkutsk": "伊爾庫次克(+8)",
-				"ui_city_makassar": "馬卡沙爾(+8)",
-				"ui_city_manila": "馬尼拉(+8)",
-				"ui_city_perth": "伯斯(+8)",
 				"ui_city_shanghai": "上海(+8)",
-				"ui_city_singapore": "新加坡(+8)",
 				"ui_city_taipei": "台北(+8)",
+				"ui_city_hong_kong": "香港(+8)",
+				"ui_city_manila": "馬尼拉(+8)",
+				"ui_city_singapore": "新加坡(+8)",
+				"ui_city_makassar": "馬卡沙爾(+8)",
+				"ui_city_perth": "伯斯(+8)",
 				"ui_city_eucla": "尤克拉(+8:45)",
-				"ui_city_jayapura": "加亞布拉(+9)",
+				"ui_city_yakutsk": "雅庫次克(+9)",
 				"ui_city_seoul": "首爾(+9)",
 				"ui_city_tokyo": "東京(+9)",
-				"ui_city_yakutsk": "雅庫次克(+9)",
+				"ui_city_jayapura": "加亞布拉(+9)",
 				"ui_city_darwin": "達爾文(+9:30)",
 				"ui_city_adelaide": "阿得雷德(+9:30/+10:30)",
-				"ui_city_brisbane": "布利斯班(+10)",
 				"ui_city_vladivostok": "海參崴(+10)",
+				"ui_city_brisbane": "布利斯班(+10)",
 				"ui_city_sydney": "雪梨(+10/+11)",
 				"ui_city_lord_howe": "豪勳爵島(+10:30/+11)",
 				"ui_city_magadan": "馬加丹(+11)",
@@ -448,95 +448,95 @@
 				"ui_city_honolulu": "ホノルル(-10)",
 				"ui_city_adak": "アダック(-10/-9)",
 				"ui_city_anchorage": "アンカレッジ(-9/-8)",
+				"ui_city_vancouver": "バンクーバー(-8/-7)",
 				"ui_city_los_angeles": "ロサンゼルス(-8/-7)",
 				"ui_city_tijuana": "ティフアナ(-8/-7)",
-				"ui_city_vancouver": "バンクーバー(-8/-7)",
-				"ui_city_hermosillo": "エルモシヨ(-7)",
-				"ui_city_phoenix": "フェニックス(-7)",
 				"ui_city_whitehorse": "ホワイトホース(-7)",
-				"ui_city_denver": "デンバー(-7/-6)",
+				"ui_city_phoenix": "フェニックス(-7)",
+				"ui_city_hermosillo": "エルモシヨ(-7)",
 				"ui_city_edmonton": "エドモントン(-7/-6)",
-				"ui_city_mexico_city": "メキシコシティー(-6)",
+				"ui_city_denver": "デンバー(-7/-6)",
 				"ui_city_regina": "レジャイナ(-6)",
+				"ui_city_mexico_city": "メキシコシティー(-6)",
+				"ui_city_winnipeg": "ウィニペグ(-6/-5)",
 				"ui_city_chicago": "シカゴ(-6/-5)",
 				"ui_city_matamoros": "マタモロス(-6/-5)",
-				"ui_city_winnipeg": "ウィニペグ(-6/-5)",
-				"ui_city_bogota": "ボゴタ(-5)",
 				"ui_city_cancun": "カンクン(-5)",
+				"ui_city_bogota": "ボゴタ(-5)",
 				"ui_city_guayaquil": "グアヤキル(-5)",
-				"ui_city_lima": "リマ(-5)",
 				"ui_city_rio_branco": "リオブランコ(-5)",
-				"ui_city_havana": "ハバナ(-5/-4)",
-				"ui_city_new_york": "ニューヨーク(-5/-4)",
+				"ui_city_lima": "リマ(-5)",
 				"ui_city_toronto": "トロント(-5/-4)",
+				"ui_city_new_york": "ニューヨーク(-5/-4)",
+				"ui_city_havana": "ハバナ(-5/-4)",
 				"ui_city_caracas": "カラカス(-4)",
-				"ui_city_la_paz": "ラパス(-4)",
 				"ui_city_manaus": "マナウス(-4)",
+				"ui_city_la_paz": "ラパス(-4)",
 				"ui_city_halifax": "ハリファクス(-4/-3)",
 				"ui_city_santiago": "サンチアゴ(-4/-3)",
 				"ui_city_st_johns": "セントジョンズ(-3:30/-2:30)",
+				"ui_city_sao_paulo": "サンパウロ(-3)",
 				"ui_city_asuncion": "アスンシオン(-3)",
 				"ui_city_buenos_aires": "ブエノスアイレス(-3)",
 				"ui_city_punta_arenas": "プンタアレナス(-3)",
-				"ui_city_sao_paulo": "サンパウロ(-3)",
 				"ui_city_noronha": "ノローニャ(-2)",
 				"ui_city_azores": "アゾレス(-1/+0)",
 				"ui_city_reykjavik": "レイキャビク(+0)",
-				"ui_city_canary": "カナリア(+0/+1)",
-				"ui_city_casablanca": "カサブランカ(+0/+1)",
-				"ui_city_lisbon": "リスボン(+0/+1)",
 				"ui_city_london": "ロンドン(+0/+1)",
+				"ui_city_lisbon": "リスボン(+0/+1)",
+				"ui_city_casablanca": "カサブランカ(+0/+1)",
+				"ui_city_canary": "カナリア(+0/+1)",
 				"ui_city_lagos": "ラゴス(+1)",
 				"ui_city_berlin": "ベルリン(+1/+2)",
-				"ui_city_madrid": "マドリード(+1/+2)",
+				"ui_city_warsaw": "ワルシャワ(+1/+2)",
 				"ui_city_paris": "パリ(+1/+2)",
 				"ui_city_rome": "ローマ(+1/+2)",
-				"ui_city_warsaw": "ワルシャワ(+1/+2)",
-				"ui_city_johannesburg": "ヨハネスブルグ(+2)",
+				"ui_city_madrid": "マドリード(+1/+2)",
 				"ui_city_kaliningrad": "カリーニングラード(+2)",
+				"ui_city_johannesburg": "ヨハネスブルグ(+2)",
+				"ui_city_helsinki": "ヘルシンキ(+2/+3)",
+				"ui_city_kyiv": "キーウ(+2/+3)",
+				"ui_city_chisinau": "キシナウ(+2/+3)",
 				"ui_city_athens": "アテネ(+2/+3)",
 				"ui_city_beirut": "ベイルート(+2/+3)",
-				"ui_city_cairo": "カイロ(+2/+3)",
-				"ui_city_chisinau": "キシナウ(+2/+3)",
-				"ui_city_helsinki": "ヘルシンキ(+2/+3)",
 				"ui_city_jerusalem": "エルサレム(+2/+3)",
-				"ui_city_kyiv": "キーウ(+2/+3)",
-				"ui_city_istanbul": "イスタンブール(+3)",
+				"ui_city_cairo": "カイロ(+2/+3)",
 				"ui_city_moscow": "モスクワ(+3)",
-				"ui_city_nairobi": "ナイロビ(+3)",
+				"ui_city_istanbul": "イスタンブール(+3)",
 				"ui_city_riyadh": "リヤド(+3)",
+				"ui_city_nairobi": "ナイロビ(+3)",
 				"ui_city_tehran": "テヘラン(+3:30)",
-				"ui_city_dubai": "ドバイ(+4)",
 				"ui_city_samara": "サマラ(+4)",
+				"ui_city_dubai": "ドバイ(+4)",
 				"ui_city_kabul": "カブール(+4:30)",
-				"ui_city_karachi": "カラチ(+5)",
 				"ui_city_yekaterinburg": "エカテリンブルグ(+5)",
+				"ui_city_karachi": "カラチ(+5)",
 				"ui_city_kolkata": "コルカタ(+5:30)",
 				"ui_city_kathmandu": "カトマンズ(+5:45)",
-				"ui_city_dhaka": "ダッカ(+6)",
 				"ui_city_omsk": "オムスク(+6)",
+				"ui_city_dhaka": "ダッカ(+6)",
 				"ui_city_yangon": "ヤンゴン(+6:30)",
+				"ui_city_novosibirsk": "ノヴォシビルスク(+7)",
 				"ui_city_bangkok": "バンコク(+7)",
 				"ui_city_ho_chi_minh": "ホーチミン(+7)",
 				"ui_city_jakarta": "ジャカルタ(+7)",
-				"ui_city_novosibirsk": "ノヴォシビルスク(+7)",
-				"ui_city_hong_kong": "香港(+8)",
 				"ui_city_irkutsk": "イルクーツク(+8)",
-				"ui_city_makassar": "マカッサル(+8)",
-				"ui_city_manila": "マニラ(+8)",
-				"ui_city_perth": "パース(+8)",
 				"ui_city_shanghai": "上海(+8)",
-				"ui_city_singapore": "シンガポール(+8)",
 				"ui_city_taipei": "台北(+8)",
+				"ui_city_hong_kong": "香港(+8)",
+				"ui_city_manila": "マニラ(+8)",
+				"ui_city_singapore": "シンガポール(+8)",
+				"ui_city_makassar": "マカッサル(+8)",
+				"ui_city_perth": "パース(+8)",
 				"ui_city_eucla": "ユークラ(+8:45)",
-				"ui_city_jayapura": "ジャヤプラ(+9)",
+				"ui_city_yakutsk": "ヤクーツク(+9)",
 				"ui_city_seoul": "ソウル(+9)",
 				"ui_city_tokyo": "東京(+9)",
-				"ui_city_yakutsk": "ヤクーツク(+9)",
+				"ui_city_jayapura": "ジャヤプラ(+9)",
 				"ui_city_darwin": "ダーウィン(+9:30)",
 				"ui_city_adelaide": "アデレード(+9:30/+10:30)",
-				"ui_city_brisbane": "ブリスベン(+10)",
 				"ui_city_vladivostok": "ウラジオストク(+10)",
+				"ui_city_brisbane": "ブリスベン(+10)",
 				"ui_city_sydney": "シドニー(+10/+11)",
 				"ui_city_lord_howe": "ロードハウ(+10:30/+11)",
 				"ui_city_magadan": "マガダン(+11)",
@@ -583,95 +583,95 @@
 				"ui_city_honolulu": "호놀룰루(-10)",
 				"ui_city_adak": "에이닥(-10/-9)",
 				"ui_city_anchorage": "앵커리지(-9/-8)",
+				"ui_city_vancouver": "벤쿠버(-8/-7)",
 				"ui_city_los_angeles": "로스앤젤레스(-8/-7)",
 				"ui_city_tijuana": "티후아나(-8/-7)",
-				"ui_city_vancouver": "벤쿠버(-8/-7)",
-				"ui_city_hermosillo": "에르모시요(-7)",
-				"ui_city_phoenix": "피닉스(-7)",
 				"ui_city_whitehorse": "화이트호스(-7)",
-				"ui_city_denver": "덴버(-7/-6)",
+				"ui_city_phoenix": "피닉스(-7)",
+				"ui_city_hermosillo": "에르모시요(-7)",
 				"ui_city_edmonton": "에드먼턴(-7/-6)",
-				"ui_city_mexico_city": "멕시코 시티(-6)",
+				"ui_city_denver": "덴버(-7/-6)",
 				"ui_city_regina": "리자이나(-6)",
+				"ui_city_mexico_city": "멕시코 시티(-6)",
+				"ui_city_winnipeg": "위니펙(-6/-5)",
 				"ui_city_chicago": "시카고(-6/-5)",
 				"ui_city_matamoros": "마타모로스(-6/-5)",
-				"ui_city_winnipeg": "위니펙(-6/-5)",
-				"ui_city_bogota": "보고타(-5)",
 				"ui_city_cancun": "칸쿤(-5)",
+				"ui_city_bogota": "보고타(-5)",
 				"ui_city_guayaquil": "과야킬(-5)",
-				"ui_city_lima": "리마(-5)",
 				"ui_city_rio_branco": "히우 브랑쿠(-5)",
-				"ui_city_havana": "하바나(-5/-4)",
-				"ui_city_new_york": "뉴욕(-5/-4)",
+				"ui_city_lima": "리마(-5)",
 				"ui_city_toronto": "토론토(-5/-4)",
+				"ui_city_new_york": "뉴욕(-5/-4)",
+				"ui_city_havana": "하바나(-5/-4)",
 				"ui_city_caracas": "카라카스(-4)",
-				"ui_city_la_paz": "라파스(-4)",
 				"ui_city_manaus": "마나우스(-4)",
+				"ui_city_la_paz": "라파스(-4)",
 				"ui_city_halifax": "핼리팩스(-4/-3)",
 				"ui_city_santiago": "산티아고(-4/-3)",
 				"ui_city_st_johns": "세인트존스(-3:30/-2:30)",
+				"ui_city_sao_paulo": "상파울루(-3)",
 				"ui_city_asuncion": "아순시온(-3)",
 				"ui_city_buenos_aires": "부에노스 아이레스(-3)",
 				"ui_city_punta_arenas": "푼타아레나스(-3)",
-				"ui_city_sao_paulo": "상파울루(-3)",
 				"ui_city_noronha": "노롱야(-2)",
 				"ui_city_azores": "아조레스(-1/+0)",
 				"ui_city_reykjavik": "레이캬비크(+0)",
-				"ui_city_canary": "카나리아 제도(+0/+1)",
-				"ui_city_casablanca": "카사블랑카(+0/+1)",
-				"ui_city_lisbon": "리스본(+0/+1)",
 				"ui_city_london": "런던(+0/+1)",
+				"ui_city_lisbon": "리스본(+0/+1)",
+				"ui_city_casablanca": "카사블랑카(+0/+1)",
+				"ui_city_canary": "카나리아 제도(+0/+1)",
 				"ui_city_lagos": "라고스(+1)",
 				"ui_city_berlin": "베를린(+1/+2)",
-				"ui_city_madrid": "마드리드(+1/+2)",
+				"ui_city_warsaw": "바르샤바(+1/+2)",
 				"ui_city_paris": "파리(+1/+2)",
 				"ui_city_rome": "로마(+1/+2)",
-				"ui_city_warsaw": "바르샤바(+1/+2)",
-				"ui_city_johannesburg": "요하네스버그(+2)",
+				"ui_city_madrid": "마드리드(+1/+2)",
 				"ui_city_kaliningrad": "칼리닌그라드(+2)",
+				"ui_city_johannesburg": "요하네스버그(+2)",
+				"ui_city_helsinki": "헬싱키(+2/+3)",
+				"ui_city_kyiv": "키예프(+2/+3)",
+				"ui_city_chisinau": "키시나우(+2/+3)",
 				"ui_city_athens": "아테네(+2/+3)",
 				"ui_city_beirut": "베이루트(+2/+3)",
-				"ui_city_cairo": "카이로(+2/+3)",
-				"ui_city_chisinau": "키시나우(+2/+3)",
-				"ui_city_helsinki": "헬싱키(+2/+3)",
 				"ui_city_jerusalem": "예루살렘(+2/+3)",
-				"ui_city_kyiv": "키예프(+2/+3)",
-				"ui_city_istanbul": "이스탄불(+3)",
+				"ui_city_cairo": "카이로(+2/+3)",
 				"ui_city_moscow": "모스크바(+3)",
-				"ui_city_nairobi": "나이로비(+3)",
+				"ui_city_istanbul": "이스탄불(+3)",
 				"ui_city_riyadh": "리야드(+3)",
+				"ui_city_nairobi": "나이로비(+3)",
 				"ui_city_tehran": "테헤란(+3:30)",
-				"ui_city_dubai": "두바이(+4)",
 				"ui_city_samara": "사마라(+4)",
+				"ui_city_dubai": "두바이(+4)",
 				"ui_city_kabul": "카불(+4:30)",
-				"ui_city_karachi": "카라치(+5)",
 				"ui_city_yekaterinburg": "예카테린부르크(+5)",
+				"ui_city_karachi": "카라치(+5)",
 				"ui_city_kolkata": "콜카타(+5:30)",
 				"ui_city_kathmandu": "카트만두(+5:45)",
-				"ui_city_dhaka": "다카(+6)",
 				"ui_city_omsk": "옴스크(+6)",
+				"ui_city_dhaka": "다카(+6)",
 				"ui_city_yangon": "랑군(+6:30)",
+				"ui_city_novosibirsk": "노보시비르스크(+7)",
 				"ui_city_bangkok": "방콕(+7)",
 				"ui_city_ho_chi_minh": "사이공(+7)",
 				"ui_city_jakarta": "자카르타(+7)",
-				"ui_city_novosibirsk": "노보시비르스크(+7)",
-				"ui_city_hong_kong": "홍콩(+8)",
 				"ui_city_irkutsk": "이르쿠츠크(+8)",
-				"ui_city_makassar": "마카사르(+8)",
-				"ui_city_manila": "마닐라(+8)",
-				"ui_city_perth": "퍼스(+8)",
 				"ui_city_shanghai": "상하이(+8)",
-				"ui_city_singapore": "싱가포르(+8)",
 				"ui_city_taipei": "타이베이(+8)",
+				"ui_city_hong_kong": "홍콩(+8)",
+				"ui_city_manila": "마닐라(+8)",
+				"ui_city_singapore": "싱가포르(+8)",
+				"ui_city_makassar": "마카사르(+8)",
+				"ui_city_perth": "퍼스(+8)",
 				"ui_city_eucla": "유클라(+8:45)",
-				"ui_city_jayapura": "자야푸라(+9)",
+				"ui_city_yakutsk": "야쿠츠크(+9)",
 				"ui_city_seoul": "서울(+9)",
 				"ui_city_tokyo": "도쿄(+9)",
-				"ui_city_yakutsk": "야쿠츠크(+9)",
+				"ui_city_jayapura": "자야푸라(+9)",
 				"ui_city_darwin": "다윈(+9:30)",
 				"ui_city_adelaide": "애들레이드(+9:30/+10:30)",
-				"ui_city_brisbane": "브리스베인(+10)",
 				"ui_city_vladivostok": "블라디보스토크(+10)",
+				"ui_city_brisbane": "브리스베인(+10)",
 				"ui_city_sydney": "시드니(+10/+11)",
 				"ui_city_lord_howe": "로드 하우(+10:30/+11)",
 				"ui_city_magadan": "마가단(+11)",
@@ -718,95 +718,95 @@
 				"ui_city_honolulu": "Honolulú(-10)",
 				"ui_city_adak": "Adak(-10/-9)",
 				"ui_city_anchorage": "Anchorage(-9/-8)",
+				"ui_city_vancouver": "Vancouver(-8/-7)",
 				"ui_city_los_angeles": "Los Ángeles(-8/-7)",
 				"ui_city_tijuana": "Tijuana(-8/-7)",
-				"ui_city_vancouver": "Vancouver(-8/-7)",
-				"ui_city_hermosillo": "Hermosillo(-7)",
-				"ui_city_phoenix": "Phoenix(-7)",
 				"ui_city_whitehorse": "Whitehorse(-7)",
-				"ui_city_denver": "Denver(-7/-6)",
+				"ui_city_phoenix": "Phoenix(-7)",
+				"ui_city_hermosillo": "Hermosillo(-7)",
 				"ui_city_edmonton": "Edmonton(-7/-6)",
-				"ui_city_mexico_city": "Ciudad de México(-6)",
+				"ui_city_denver": "Denver(-7/-6)",
 				"ui_city_regina": "Regina(-6)",
+				"ui_city_mexico_city": "Ciudad de México(-6)",
+				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
 				"ui_city_matamoros": "Matamoros(-6/-5)",
-				"ui_city_winnipeg": "Winnipeg(-6/-5)",
-				"ui_city_bogota": "Bogotá(-5)",
 				"ui_city_cancun": "Cancún(-5)",
+				"ui_city_bogota": "Bogotá(-5)",
 				"ui_city_guayaquil": "Guayaquil(-5)",
-				"ui_city_lima": "Lima(-5)",
 				"ui_city_rio_branco": "Río Branco(-5)",
-				"ui_city_havana": "La Habana(-5/-4)",
-				"ui_city_new_york": "Nueva York(-5/-4)",
+				"ui_city_lima": "Lima(-5)",
 				"ui_city_toronto": "Toronto(-5/-4)",
+				"ui_city_new_york": "Nueva York(-5/-4)",
+				"ui_city_havana": "La Habana(-5/-4)",
 				"ui_city_caracas": "Caracas(-4)",
-				"ui_city_la_paz": "La Paz(-4)",
 				"ui_city_manaus": "Manaos(-4)",
+				"ui_city_la_paz": "La Paz(-4)",
 				"ui_city_halifax": "Halifax(-4/-3)",
 				"ui_city_santiago": "Santiago de Chile(-4/-3)",
 				"ui_city_st_johns": "San Juan de Terranova(-3:30/-2:30)",
+				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_asuncion": "Asunción(-3)",
 				"ui_city_buenos_aires": "Buenos Aires(-3)",
 				"ui_city_punta_arenas": "Punta Arenas(-3)",
-				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_noronha": "Fernando de Noronha(-2)",
 				"ui_city_azores": "Azores(-1/+0)",
 				"ui_city_reykjavik": "Reikiavik(+0)",
-				"ui_city_canary": "Canarias(+0/+1)",
-				"ui_city_casablanca": "Casablanca(+0/+1)",
-				"ui_city_lisbon": "Lisboa(+0/+1)",
 				"ui_city_london": "Londres(+0/+1)",
+				"ui_city_lisbon": "Lisboa(+0/+1)",
+				"ui_city_casablanca": "Casablanca(+0/+1)",
+				"ui_city_canary": "Canarias(+0/+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlín(+1/+2)",
-				"ui_city_madrid": "Madrid(+1/+2)",
+				"ui_city_warsaw": "Varsovia(+1/+2)",
 				"ui_city_paris": "París(+1/+2)",
 				"ui_city_rome": "Roma(+1/+2)",
-				"ui_city_warsaw": "Varsovia(+1/+2)",
-				"ui_city_johannesburg": "Johannesburgo(+2)",
+				"ui_city_madrid": "Madrid(+1/+2)",
 				"ui_city_kaliningrad": "Kaliningrado(+2)",
+				"ui_city_johannesburg": "Johannesburgo(+2)",
+				"ui_city_helsinki": "Helsinki(+2/+3)",
+				"ui_city_kyiv": "Kiev(+2/+3)",
+				"ui_city_chisinau": "Chisináu(+2/+3)",
 				"ui_city_athens": "Atenas(+2/+3)",
 				"ui_city_beirut": "Beirut(+2/+3)",
-				"ui_city_cairo": "El Cairo(+2/+3)",
-				"ui_city_chisinau": "Chisináu(+2/+3)",
-				"ui_city_helsinki": "Helsinki(+2/+3)",
 				"ui_city_jerusalem": "Jerusalén(+2/+3)",
-				"ui_city_kyiv": "Kiev(+2/+3)",
-				"ui_city_istanbul": "Estambul(+3)",
+				"ui_city_cairo": "El Cairo(+2/+3)",
 				"ui_city_moscow": "Moscú(+3)",
-				"ui_city_nairobi": "Nairobi(+3)",
+				"ui_city_istanbul": "Estambul(+3)",
 				"ui_city_riyadh": "Riad(+3)",
+				"ui_city_nairobi": "Nairobi(+3)",
 				"ui_city_tehran": "Teherán(+3:30)",
-				"ui_city_dubai": "Dubái(+4)",
 				"ui_city_samara": "Samara(+4)",
+				"ui_city_dubai": "Dubái(+4)",
 				"ui_city_kabul": "Kabul(+4:30)",
-				"ui_city_karachi": "Karachi(+5)",
 				"ui_city_yekaterinburg": "Ekaterimburgo(+5)",
+				"ui_city_karachi": "Karachi(+5)",
 				"ui_city_kolkata": "Calcuta(+5:30)",
 				"ui_city_kathmandu": "Katmandú(+5:45)",
-				"ui_city_dhaka": "Daca(+6)",
 				"ui_city_omsk": "Omsk(+6)",
+				"ui_city_dhaka": "Daca(+6)",
 				"ui_city_yangon": "Yangón (Rangún)(+6:30)",
+				"ui_city_novosibirsk": "Novosibirsk(+7)",
 				"ui_city_bangkok": "Bangkok(+7)",
 				"ui_city_ho_chi_minh": "Ciudad Ho Chi Minh(+7)",
 				"ui_city_jakarta": "Yakarta(+7)",
-				"ui_city_novosibirsk": "Novosibirsk(+7)",
-				"ui_city_hong_kong": "Hong Kong(+8)",
 				"ui_city_irkutsk": "Irkutsk(+8)",
-				"ui_city_makassar": "Makasar(+8)",
-				"ui_city_manila": "Manila(+8)",
-				"ui_city_perth": "Perth(+8)",
 				"ui_city_shanghai": "Shanghái(+8)",
-				"ui_city_singapore": "Singapur(+8)",
 				"ui_city_taipei": "Taipéi(+8)",
+				"ui_city_hong_kong": "Hong Kong(+8)",
+				"ui_city_manila": "Manila(+8)",
+				"ui_city_singapore": "Singapur(+8)",
+				"ui_city_makassar": "Makasar(+8)",
+				"ui_city_perth": "Perth(+8)",
 				"ui_city_eucla": "Eucla(+8:45)",
-				"ui_city_jayapura": "Jayapura(+9)",
+				"ui_city_yakutsk": "Yakutsk(+9)",
 				"ui_city_seoul": "Seúl(+9)",
 				"ui_city_tokyo": "Tokio(+9)",
-				"ui_city_yakutsk": "Yakutsk(+9)",
+				"ui_city_jayapura": "Jayapura(+9)",
 				"ui_city_darwin": "Darwin(+9:30)",
 				"ui_city_adelaide": "Adelaida(+9:30/+10:30)",
-				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_vladivostok": "Vladivostok(+10)",
+				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_sydney": "Sídney(+10/+11)",
 				"ui_city_lord_howe": "Lord Howe Island(+10:30/+11)",
 				"ui_city_magadan": "Magadán(+11)",
@@ -853,95 +853,95 @@
 				"ui_city_honolulu": "Гонолулу(-10)",
 				"ui_city_adak": "Адак(-10/-9)",
 				"ui_city_anchorage": "Анкоридж(-9/-8)",
+				"ui_city_vancouver": "Ванкувер(-8/-7)",
 				"ui_city_los_angeles": "Лос-Анджелес(-8/-7)",
 				"ui_city_tijuana": "Тихуана(-8/-7)",
-				"ui_city_vancouver": "Ванкувер(-8/-7)",
-				"ui_city_hermosillo": "Эрмосильо(-7)",
-				"ui_city_phoenix": "Финикс(-7)",
 				"ui_city_whitehorse": "Уайтхорс(-7)",
-				"ui_city_denver": "Денвер(-7/-6)",
+				"ui_city_phoenix": "Финикс(-7)",
+				"ui_city_hermosillo": "Эрмосильо(-7)",
 				"ui_city_edmonton": "Эдмонтон(-7/-6)",
-				"ui_city_mexico_city": "Мехико(-6)",
+				"ui_city_denver": "Денвер(-7/-6)",
 				"ui_city_regina": "Реджайна(-6)",
+				"ui_city_mexico_city": "Мехико(-6)",
+				"ui_city_winnipeg": "Виннипег(-6/-5)",
 				"ui_city_chicago": "Чикаго(-6/-5)",
 				"ui_city_matamoros": "Матаморос(-6/-5)",
-				"ui_city_winnipeg": "Виннипег(-6/-5)",
-				"ui_city_bogota": "Богота(-5)",
 				"ui_city_cancun": "Канкун(-5)",
+				"ui_city_bogota": "Богота(-5)",
 				"ui_city_guayaquil": "Гуаякиль(-5)",
-				"ui_city_lima": "Лима(-5)",
 				"ui_city_rio_branco": "Риу-Бранку(-5)",
-				"ui_city_havana": "Гавана(-5/-4)",
-				"ui_city_new_york": "Нью-Йорк(-5/-4)",
+				"ui_city_lima": "Лима(-5)",
 				"ui_city_toronto": "Торонто(-5/-4)",
+				"ui_city_new_york": "Нью-Йорк(-5/-4)",
+				"ui_city_havana": "Гавана(-5/-4)",
 				"ui_city_caracas": "Каракас(-4)",
-				"ui_city_la_paz": "Ла-Пас(-4)",
 				"ui_city_manaus": "Манаус(-4)",
+				"ui_city_la_paz": "Ла-Пас(-4)",
 				"ui_city_halifax": "Галифакс(-4/-3)",
 				"ui_city_santiago": "Сантьяго(-4/-3)",
 				"ui_city_st_johns": "Сент-Джонс(-3:30/-2:30)",
+				"ui_city_sao_paulo": "Сан-Паулу(-3)",
 				"ui_city_asuncion": "Асунсьон(-3)",
 				"ui_city_buenos_aires": "Буэнос-Айрес(-3)",
 				"ui_city_punta_arenas": "Пунта-Аренас(-3)",
-				"ui_city_sao_paulo": "Сан-Паулу(-3)",
 				"ui_city_noronha": "Норонья(-2)",
 				"ui_city_azores": "Азорские о-ва(-1/+0)",
 				"ui_city_reykjavik": "Рейкьявик(+0)",
-				"ui_city_canary": "Канарские о-ва(+0/+1)",
-				"ui_city_casablanca": "Касабланка(+0/+1)",
-				"ui_city_lisbon": "Лиссабон(+0/+1)",
 				"ui_city_london": "Лондон(+0/+1)",
+				"ui_city_lisbon": "Лиссабон(+0/+1)",
+				"ui_city_casablanca": "Касабланка(+0/+1)",
+				"ui_city_canary": "Канарские о-ва(+0/+1)",
 				"ui_city_lagos": "Лагос(+1)",
 				"ui_city_berlin": "Берлин(+1/+2)",
-				"ui_city_madrid": "Мадрид(+1/+2)",
+				"ui_city_warsaw": "Варшава(+1/+2)",
 				"ui_city_paris": "Париж(+1/+2)",
 				"ui_city_rome": "Рим(+1/+2)",
-				"ui_city_warsaw": "Варшава(+1/+2)",
-				"ui_city_johannesburg": "Йоханнесбург(+2)",
+				"ui_city_madrid": "Мадрид(+1/+2)",
 				"ui_city_kaliningrad": "Калининград(+2)",
+				"ui_city_johannesburg": "Йоханнесбург(+2)",
+				"ui_city_helsinki": "Хельсинки(+2/+3)",
+				"ui_city_kyiv": "Киев(+2/+3)",
+				"ui_city_chisinau": "Кишинев(+2/+3)",
 				"ui_city_athens": "Афины(+2/+3)",
 				"ui_city_beirut": "Бейрут(+2/+3)",
-				"ui_city_cairo": "Каир(+2/+3)",
-				"ui_city_chisinau": "Кишинев(+2/+3)",
-				"ui_city_helsinki": "Хельсинки(+2/+3)",
 				"ui_city_jerusalem": "Иерусалим(+2/+3)",
-				"ui_city_kyiv": "Киев(+2/+3)",
-				"ui_city_istanbul": "Стамбул(+3)",
+				"ui_city_cairo": "Каир(+2/+3)",
 				"ui_city_moscow": "Москва(+3)",
-				"ui_city_nairobi": "Найроби(+3)",
+				"ui_city_istanbul": "Стамбул(+3)",
 				"ui_city_riyadh": "Эр-Рияд(+3)",
+				"ui_city_nairobi": "Найроби(+3)",
 				"ui_city_tehran": "Тегеран(+3:30)",
-				"ui_city_dubai": "Дубай(+4)",
 				"ui_city_samara": "Самара(+4)",
+				"ui_city_dubai": "Дубай(+4)",
 				"ui_city_kabul": "Кабул(+4:30)",
-				"ui_city_karachi": "Карачи(+5)",
 				"ui_city_yekaterinburg": "Екатеринбург(+5)",
+				"ui_city_karachi": "Карачи(+5)",
 				"ui_city_kolkata": "Калькутта(+5:30)",
 				"ui_city_kathmandu": "Катманду(+5:45)",
-				"ui_city_dhaka": "Дакка(+6)",
 				"ui_city_omsk": "Омск(+6)",
+				"ui_city_dhaka": "Дакка(+6)",
 				"ui_city_yangon": "Янгон(+6:30)",
+				"ui_city_novosibirsk": "Новосибирск(+7)",
 				"ui_city_bangkok": "Бангкок(+7)",
 				"ui_city_ho_chi_minh": "Хошимин(+7)",
 				"ui_city_jakarta": "Джакарта(+7)",
-				"ui_city_novosibirsk": "Новосибирск(+7)",
-				"ui_city_hong_kong": "Гонконг(+8)",
 				"ui_city_irkutsk": "Иркутск(+8)",
-				"ui_city_makassar": "Макасар(+8)",
-				"ui_city_manila": "Манила(+8)",
-				"ui_city_perth": "Перт(+8)",
 				"ui_city_shanghai": "Шанхай(+8)",
-				"ui_city_singapore": "Сингапур(+8)",
 				"ui_city_taipei": "Тайбэй(+8)",
+				"ui_city_hong_kong": "Гонконг(+8)",
+				"ui_city_manila": "Манила(+8)",
+				"ui_city_singapore": "Сингапур(+8)",
+				"ui_city_makassar": "Макасар(+8)",
+				"ui_city_perth": "Перт(+8)",
 				"ui_city_eucla": "Юкла(+8:45)",
-				"ui_city_jayapura": "Джаяпура(+9)",
+				"ui_city_yakutsk": "Якутск(+9)",
 				"ui_city_seoul": "Сеул(+9)",
 				"ui_city_tokyo": "Токио(+9)",
-				"ui_city_yakutsk": "Якутск(+9)",
+				"ui_city_jayapura": "Джаяпура(+9)",
 				"ui_city_darwin": "Дарвин(+9:30)",
 				"ui_city_adelaide": "Аделаида(+9:30/+10:30)",
-				"ui_city_brisbane": "Брисбен(+10)",
 				"ui_city_vladivostok": "Владивосток(+10)",
+				"ui_city_brisbane": "Брисбен(+10)",
 				"ui_city_sydney": "Сидней(+10/+11)",
 				"ui_city_lord_howe": "Лорд-Хау(+10:30/+11)",
 				"ui_city_magadan": "Магадан(+11)",
@@ -988,95 +988,95 @@
 				"ui_city_honolulu": "Honolulu(-10)",
 				"ui_city_adak": "Adak(-10/-9)",
 				"ui_city_anchorage": "Anchorage(-9/-8)",
+				"ui_city_vancouver": "Vancouver(-8/-7)",
 				"ui_city_los_angeles": "Los Angeles(-8/-7)",
 				"ui_city_tijuana": "Tijuana(-8/-7)",
-				"ui_city_vancouver": "Vancouver(-8/-7)",
-				"ui_city_hermosillo": "Hermosillo(-7)",
-				"ui_city_phoenix": "Phoenix(-7)",
 				"ui_city_whitehorse": "Whitehorse(-7)",
-				"ui_city_denver": "Denver(-7/-6)",
+				"ui_city_phoenix": "Phoenix(-7)",
+				"ui_city_hermosillo": "Hermosillo(-7)",
 				"ui_city_edmonton": "Edmonton(-7/-6)",
-				"ui_city_mexico_city": "Cidade do México(-6)",
+				"ui_city_denver": "Denver(-7/-6)",
 				"ui_city_regina": "Regina(-6)",
+				"ui_city_mexico_city": "Cidade do México(-6)",
+				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
 				"ui_city_matamoros": "Matamoros(-6/-5)",
-				"ui_city_winnipeg": "Winnipeg(-6/-5)",
-				"ui_city_bogota": "Bogotá(-5)",
 				"ui_city_cancun": "Cancún(-5)",
+				"ui_city_bogota": "Bogotá(-5)",
 				"ui_city_guayaquil": "Guaiaquil(-5)",
-				"ui_city_lima": "Lima(-5)",
 				"ui_city_rio_branco": "Rio Branco(-5)",
-				"ui_city_havana": "Havana(-5/-4)",
-				"ui_city_new_york": "Nova York(-5/-4)",
+				"ui_city_lima": "Lima(-5)",
 				"ui_city_toronto": "Toronto(-5/-4)",
+				"ui_city_new_york": "Nova York(-5/-4)",
+				"ui_city_havana": "Havana(-5/-4)",
 				"ui_city_caracas": "Caracas(-4)",
-				"ui_city_la_paz": "La Paz(-4)",
 				"ui_city_manaus": "Manaus(-4)",
+				"ui_city_la_paz": "La Paz(-4)",
 				"ui_city_halifax": "Halifax(-4/-3)",
 				"ui_city_santiago": "Santiago(-4/-3)",
 				"ui_city_st_johns": "Saint John’s(-3:30/-2:30)",
+				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_asuncion": "Assunção(-3)",
 				"ui_city_buenos_aires": "Buenos Aires(-3)",
 				"ui_city_punta_arenas": "Punta Arenas(-3)",
-				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_noronha": "Fernando de Noronha(-2)",
 				"ui_city_azores": "Açores(-1/+0)",
 				"ui_city_reykjavik": "Reykjavík(+0)",
-				"ui_city_canary": "Canárias(+0/+1)",
-				"ui_city_casablanca": "Casablanca(+0/+1)",
-				"ui_city_lisbon": "Lisboa(+0/+1)",
 				"ui_city_london": "Londres(+0/+1)",
+				"ui_city_lisbon": "Lisboa(+0/+1)",
+				"ui_city_casablanca": "Casablanca(+0/+1)",
+				"ui_city_canary": "Canárias(+0/+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlim(+1/+2)",
-				"ui_city_madrid": "Madri(+1/+2)",
+				"ui_city_warsaw": "Varsóvia(+1/+2)",
 				"ui_city_paris": "Paris(+1/+2)",
 				"ui_city_rome": "Roma(+1/+2)",
-				"ui_city_warsaw": "Varsóvia(+1/+2)",
-				"ui_city_johannesburg": "Joanesburgo(+2)",
+				"ui_city_madrid": "Madri(+1/+2)",
 				"ui_city_kaliningrad": "Kaliningrado(+2)",
+				"ui_city_johannesburg": "Joanesburgo(+2)",
+				"ui_city_helsinki": "Helsinque(+2/+3)",
+				"ui_city_kyiv": "Kiev(+2/+3)",
+				"ui_city_chisinau": "Chișinău(+2/+3)",
 				"ui_city_athens": "Atenas(+2/+3)",
 				"ui_city_beirut": "Beirute(+2/+3)",
-				"ui_city_cairo": "Cairo(+2/+3)",
-				"ui_city_chisinau": "Chișinău(+2/+3)",
-				"ui_city_helsinki": "Helsinque(+2/+3)",
 				"ui_city_jerusalem": "Jerusalém(+2/+3)",
-				"ui_city_kyiv": "Kiev(+2/+3)",
-				"ui_city_istanbul": "Istambul(+3)",
+				"ui_city_cairo": "Cairo(+2/+3)",
 				"ui_city_moscow": "Moscou(+3)",
-				"ui_city_nairobi": "Nairóbi(+3)",
+				"ui_city_istanbul": "Istambul(+3)",
 				"ui_city_riyadh": "Riade(+3)",
+				"ui_city_nairobi": "Nairóbi(+3)",
 				"ui_city_tehran": "Teerã(+3:30)",
-				"ui_city_dubai": "Dubai(+4)",
 				"ui_city_samara": "Samara(+4)",
+				"ui_city_dubai": "Dubai(+4)",
 				"ui_city_kabul": "Cabul(+4:30)",
-				"ui_city_karachi": "Karachi(+5)",
 				"ui_city_yekaterinburg": "Ecaterimburgo(+5)",
+				"ui_city_karachi": "Karachi(+5)",
 				"ui_city_kolkata": "Calcutá(+5:30)",
 				"ui_city_kathmandu": "Katmandu(+5:45)",
-				"ui_city_dhaka": "Dacca(+6)",
 				"ui_city_omsk": "Omsk(+6)",
+				"ui_city_dhaka": "Dacca(+6)",
 				"ui_city_yangon": "Rangum(+6:30)",
+				"ui_city_novosibirsk": "Novosibirsk(+7)",
 				"ui_city_bangkok": "Bangkok(+7)",
 				"ui_city_ho_chi_minh": "Cidade de Ho Chi Minh(+7)",
 				"ui_city_jakarta": "Jacarta(+7)",
-				"ui_city_novosibirsk": "Novosibirsk(+7)",
-				"ui_city_hong_kong": "Hong Kong(+8)",
 				"ui_city_irkutsk": "Irkutsk(+8)",
-				"ui_city_makassar": "Makassar(+8)",
-				"ui_city_manila": "Manila(+8)",
-				"ui_city_perth": "Perth(+8)",
 				"ui_city_shanghai": "Xangai(+8)",
-				"ui_city_singapore": "Singapura(+8)",
 				"ui_city_taipei": "Taipei(+8)",
+				"ui_city_hong_kong": "Hong Kong(+8)",
+				"ui_city_manila": "Manila(+8)",
+				"ui_city_singapore": "Singapura(+8)",
+				"ui_city_makassar": "Makassar(+8)",
+				"ui_city_perth": "Perth(+8)",
 				"ui_city_eucla": "Eucla(+8:45)",
-				"ui_city_jayapura": "Jayapura(+9)",
+				"ui_city_yakutsk": "Yakutsk(+9)",
 				"ui_city_seoul": "Seul(+9)",
 				"ui_city_tokyo": "Tóquio(+9)",
-				"ui_city_yakutsk": "Yakutsk(+9)",
+				"ui_city_jayapura": "Jayapura(+9)",
 				"ui_city_darwin": "Darwin(+9:30)",
 				"ui_city_adelaide": "Adelaide(+9:30/+10:30)",
-				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_vladivostok": "Vladivostok(+10)",
+				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_sydney": "Sydney(+10/+11)",
 				"ui_city_lord_howe": "Lord Howe Island(+10:30/+11)",
 				"ui_city_magadan": "Magadan(+11)",
@@ -1123,95 +1123,95 @@
 				"ui_city_honolulu": "Honolulu(-10)",
 				"ui_city_adak": "Adak(-10/-9)",
 				"ui_city_anchorage": "Anchorage(-9/-8)",
+				"ui_city_vancouver": "Vancouver(-8/-7)",
 				"ui_city_los_angeles": "Los Angeles(-8/-7)",
 				"ui_city_tijuana": "Tijuana(-8/-7)",
-				"ui_city_vancouver": "Vancouver(-8/-7)",
-				"ui_city_hermosillo": "Hermosillo(-7)",
-				"ui_city_phoenix": "Phoenix(-7)",
 				"ui_city_whitehorse": "Whitehorse(-7)",
-				"ui_city_denver": "Denver(-7/-6)",
+				"ui_city_phoenix": "Phoenix(-7)",
+				"ui_city_hermosillo": "Hermosillo(-7)",
 				"ui_city_edmonton": "Edmonton(-7/-6)",
-				"ui_city_mexico_city": "Cidade do México(-6)",
+				"ui_city_denver": "Denver(-7/-6)",
 				"ui_city_regina": "Regina(-6)",
+				"ui_city_mexico_city": "Cidade do México(-6)",
+				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
 				"ui_city_matamoros": "Matamoros(-6/-5)",
-				"ui_city_winnipeg": "Winnipeg(-6/-5)",
-				"ui_city_bogota": "Bogotá(-5)",
 				"ui_city_cancun": "Cancún(-5)",
+				"ui_city_bogota": "Bogotá(-5)",
 				"ui_city_guayaquil": "Guaiaquil(-5)",
-				"ui_city_lima": "Lima(-5)",
 				"ui_city_rio_branco": "Rio Branco(-5)",
-				"ui_city_havana": "Havana(-5/-4)",
-				"ui_city_new_york": "Nova York(-5/-4)",
+				"ui_city_lima": "Lima(-5)",
 				"ui_city_toronto": "Toronto(-5/-4)",
+				"ui_city_new_york": "Nova York(-5/-4)",
+				"ui_city_havana": "Havana(-5/-4)",
 				"ui_city_caracas": "Caracas(-4)",
-				"ui_city_la_paz": "La Paz(-4)",
 				"ui_city_manaus": "Manaus(-4)",
+				"ui_city_la_paz": "La Paz(-4)",
 				"ui_city_halifax": "Halifax(-4/-3)",
 				"ui_city_santiago": "Santiago(-4/-3)",
 				"ui_city_st_johns": "Saint John’s(-3:30/-2:30)",
+				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_asuncion": "Assunção(-3)",
 				"ui_city_buenos_aires": "Buenos Aires(-3)",
 				"ui_city_punta_arenas": "Punta Arenas(-3)",
-				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_noronha": "Fernando de Noronha(-2)",
 				"ui_city_azores": "Açores(-1/+0)",
 				"ui_city_reykjavik": "Reykjavík(+0)",
-				"ui_city_canary": "Canárias(+0/+1)",
-				"ui_city_casablanca": "Casablanca(+0/+1)",
-				"ui_city_lisbon": "Lisboa(+0/+1)",
 				"ui_city_london": "Londres(+0/+1)",
+				"ui_city_lisbon": "Lisboa(+0/+1)",
+				"ui_city_casablanca": "Casablanca(+0/+1)",
+				"ui_city_canary": "Canárias(+0/+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlim(+1/+2)",
-				"ui_city_madrid": "Madri(+1/+2)",
+				"ui_city_warsaw": "Varsóvia(+1/+2)",
 				"ui_city_paris": "Paris(+1/+2)",
 				"ui_city_rome": "Roma(+1/+2)",
-				"ui_city_warsaw": "Varsóvia(+1/+2)",
-				"ui_city_johannesburg": "Joanesburgo(+2)",
+				"ui_city_madrid": "Madri(+1/+2)",
 				"ui_city_kaliningrad": "Kaliningrado(+2)",
+				"ui_city_johannesburg": "Joanesburgo(+2)",
+				"ui_city_helsinki": "Helsinque(+2/+3)",
+				"ui_city_kyiv": "Kiev(+2/+3)",
+				"ui_city_chisinau": "Chișinău(+2/+3)",
 				"ui_city_athens": "Atenas(+2/+3)",
 				"ui_city_beirut": "Beirute(+2/+3)",
-				"ui_city_cairo": "Cairo(+2/+3)",
-				"ui_city_chisinau": "Chișinău(+2/+3)",
-				"ui_city_helsinki": "Helsinque(+2/+3)",
 				"ui_city_jerusalem": "Jerusalém(+2/+3)",
-				"ui_city_kyiv": "Kiev(+2/+3)",
-				"ui_city_istanbul": "Istambul(+3)",
+				"ui_city_cairo": "Cairo(+2/+3)",
 				"ui_city_moscow": "Moscou(+3)",
-				"ui_city_nairobi": "Nairóbi(+3)",
+				"ui_city_istanbul": "Istambul(+3)",
 				"ui_city_riyadh": "Riade(+3)",
+				"ui_city_nairobi": "Nairóbi(+3)",
 				"ui_city_tehran": "Teerã(+3:30)",
-				"ui_city_dubai": "Dubai(+4)",
 				"ui_city_samara": "Samara(+4)",
+				"ui_city_dubai": "Dubai(+4)",
 				"ui_city_kabul": "Cabul(+4:30)",
-				"ui_city_karachi": "Karachi(+5)",
 				"ui_city_yekaterinburg": "Ecaterimburgo(+5)",
+				"ui_city_karachi": "Karachi(+5)",
 				"ui_city_kolkata": "Calcutá(+5:30)",
 				"ui_city_kathmandu": "Katmandu(+5:45)",
-				"ui_city_dhaka": "Dacca(+6)",
 				"ui_city_omsk": "Omsk(+6)",
+				"ui_city_dhaka": "Dacca(+6)",
 				"ui_city_yangon": "Rangum(+6:30)",
+				"ui_city_novosibirsk": "Novosibirsk(+7)",
 				"ui_city_bangkok": "Bangkok(+7)",
 				"ui_city_ho_chi_minh": "Cidade de Ho Chi Minh(+7)",
 				"ui_city_jakarta": "Jacarta(+7)",
-				"ui_city_novosibirsk": "Novosibirsk(+7)",
-				"ui_city_hong_kong": "Hong Kong(+8)",
 				"ui_city_irkutsk": "Irkutsk(+8)",
-				"ui_city_makassar": "Makassar(+8)",
-				"ui_city_manila": "Manila(+8)",
-				"ui_city_perth": "Perth(+8)",
 				"ui_city_shanghai": "Xangai(+8)",
-				"ui_city_singapore": "Singapura(+8)",
 				"ui_city_taipei": "Taipei(+8)",
+				"ui_city_hong_kong": "Hong Kong(+8)",
+				"ui_city_manila": "Manila(+8)",
+				"ui_city_singapore": "Singapura(+8)",
+				"ui_city_makassar": "Makassar(+8)",
+				"ui_city_perth": "Perth(+8)",
 				"ui_city_eucla": "Eucla(+8:45)",
-				"ui_city_jayapura": "Jayapura(+9)",
+				"ui_city_yakutsk": "Yakutsk(+9)",
 				"ui_city_seoul": "Seul(+9)",
 				"ui_city_tokyo": "Tóquio(+9)",
-				"ui_city_yakutsk": "Yakutsk(+9)",
+				"ui_city_jayapura": "Jayapura(+9)",
 				"ui_city_darwin": "Darwin(+9:30)",
 				"ui_city_adelaide": "Adelaide(+9:30/+10:30)",
-				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_vladivostok": "Vladivostok(+10)",
+				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_sydney": "Sydney(+10/+11)",
 				"ui_city_lord_howe": "Lord Howe Island(+10:30/+11)",
 				"ui_city_magadan": "Magadan(+11)",
@@ -1258,95 +1258,95 @@
 				"ui_city_honolulu": "Honolulu(-10)",
 				"ui_city_adak": "Adak(-10/-9)",
 				"ui_city_anchorage": "Anchorage(-9/-8)",
+				"ui_city_vancouver": "Vancouver(-8/-7)",
 				"ui_city_los_angeles": "Los Angeles(-8/-7)",
 				"ui_city_tijuana": "Tijuana(-8/-7)",
-				"ui_city_vancouver": "Vancouver(-8/-7)",
-				"ui_city_hermosillo": "Hermosillo(-7)",
-				"ui_city_phoenix": "Phoenix(-7)",
 				"ui_city_whitehorse": "Whitehorse(-7)",
-				"ui_city_denver": "Denver(-7/-6)",
+				"ui_city_phoenix": "Phoenix(-7)",
+				"ui_city_hermosillo": "Hermosillo(-7)",
 				"ui_city_edmonton": "Edmonton(-7/-6)",
-				"ui_city_mexico_city": "Mexiko-Stadt(-6)",
+				"ui_city_denver": "Denver(-7/-6)",
 				"ui_city_regina": "Regina(-6)",
+				"ui_city_mexico_city": "Mexiko-Stadt(-6)",
+				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
 				"ui_city_matamoros": "Matamoros(-6/-5)",
-				"ui_city_winnipeg": "Winnipeg(-6/-5)",
-				"ui_city_bogota": "Bogotá(-5)",
 				"ui_city_cancun": "Cancún(-5)",
+				"ui_city_bogota": "Bogotá(-5)",
 				"ui_city_guayaquil": "Guayaquil(-5)",
-				"ui_city_lima": "Lima(-5)",
 				"ui_city_rio_branco": "Rio Branco(-5)",
-				"ui_city_havana": "Havanna(-5/-4)",
-				"ui_city_new_york": "New York(-5/-4)",
+				"ui_city_lima": "Lima(-5)",
 				"ui_city_toronto": "Toronto(-5/-4)",
+				"ui_city_new_york": "New York(-5/-4)",
+				"ui_city_havana": "Havanna(-5/-4)",
 				"ui_city_caracas": "Caracas(-4)",
-				"ui_city_la_paz": "La Paz(-4)",
 				"ui_city_manaus": "Manaus(-4)",
+				"ui_city_la_paz": "La Paz(-4)",
 				"ui_city_halifax": "Halifax(-4/-3)",
 				"ui_city_santiago": "Santiago(-4/-3)",
 				"ui_city_st_johns": "St. John’s(-3:30/-2:30)",
+				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_asuncion": "Asunción(-3)",
 				"ui_city_buenos_aires": "Buenos Aires(-3)",
 				"ui_city_punta_arenas": "Punta Arenas(-3)",
-				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_noronha": "Fernando de Noronha(-2)",
 				"ui_city_azores": "Azoren(-1/+0)",
 				"ui_city_reykjavik": "Reykjavík(+0)",
-				"ui_city_canary": "Kanaren(+0/+1)",
-				"ui_city_casablanca": "Casablanca(+0/+1)",
-				"ui_city_lisbon": "Lissabon(+0/+1)",
 				"ui_city_london": "London(+0/+1)",
+				"ui_city_lisbon": "Lissabon(+0/+1)",
+				"ui_city_casablanca": "Casablanca(+0/+1)",
+				"ui_city_canary": "Kanaren(+0/+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlin(+1/+2)",
-				"ui_city_madrid": "Madrid(+1/+2)",
+				"ui_city_warsaw": "Warschau(+1/+2)",
 				"ui_city_paris": "Paris(+1/+2)",
 				"ui_city_rome": "Rom(+1/+2)",
-				"ui_city_warsaw": "Warschau(+1/+2)",
-				"ui_city_johannesburg": "Johannesburg(+2)",
+				"ui_city_madrid": "Madrid(+1/+2)",
 				"ui_city_kaliningrad": "Kaliningrad(+2)",
+				"ui_city_johannesburg": "Johannesburg(+2)",
+				"ui_city_helsinki": "Helsinki(+2/+3)",
+				"ui_city_kyiv": "Kiew(+2/+3)",
+				"ui_city_chisinau": "Chișinău(+2/+3)",
 				"ui_city_athens": "Athen(+2/+3)",
 				"ui_city_beirut": "Beirut(+2/+3)",
-				"ui_city_cairo": "Kairo(+2/+3)",
-				"ui_city_chisinau": "Chișinău(+2/+3)",
-				"ui_city_helsinki": "Helsinki(+2/+3)",
 				"ui_city_jerusalem": "Jerusalem(+2/+3)",
-				"ui_city_kyiv": "Kiew(+2/+3)",
-				"ui_city_istanbul": "Istanbul(+3)",
+				"ui_city_cairo": "Kairo(+2/+3)",
 				"ui_city_moscow": "Moskau(+3)",
-				"ui_city_nairobi": "Nairobi(+3)",
+				"ui_city_istanbul": "Istanbul(+3)",
 				"ui_city_riyadh": "Riad(+3)",
+				"ui_city_nairobi": "Nairobi(+3)",
 				"ui_city_tehran": "Teheran(+3:30)",
-				"ui_city_dubai": "Dubai(+4)",
 				"ui_city_samara": "Samara(+4)",
+				"ui_city_dubai": "Dubai(+4)",
 				"ui_city_kabul": "Kabul(+4:30)",
-				"ui_city_karachi": "Karatschi(+5)",
 				"ui_city_yekaterinburg": "Jekaterinburg(+5)",
+				"ui_city_karachi": "Karatschi(+5)",
 				"ui_city_kolkata": "Kalkutta(+5:30)",
 				"ui_city_kathmandu": "Kathmandu(+5:45)",
-				"ui_city_dhaka": "Dhaka(+6)",
 				"ui_city_omsk": "Omsk(+6)",
+				"ui_city_dhaka": "Dhaka(+6)",
 				"ui_city_yangon": "Rangun(+6:30)",
+				"ui_city_novosibirsk": "Nowosibirsk(+7)",
 				"ui_city_bangkok": "Bangkok(+7)",
 				"ui_city_ho_chi_minh": "Ho-Chi-Minh-Stadt(+7)",
 				"ui_city_jakarta": "Jakarta(+7)",
-				"ui_city_novosibirsk": "Nowosibirsk(+7)",
-				"ui_city_hong_kong": "Hongkong(+8)",
 				"ui_city_irkutsk": "Irkutsk(+8)",
-				"ui_city_makassar": "Makassar(+8)",
-				"ui_city_manila": "Manila(+8)",
-				"ui_city_perth": "Perth(+8)",
 				"ui_city_shanghai": "Shanghai(+8)",
-				"ui_city_singapore": "Singapur(+8)",
 				"ui_city_taipei": "Taipeh(+8)",
+				"ui_city_hong_kong": "Hongkong(+8)",
+				"ui_city_manila": "Manila(+8)",
+				"ui_city_singapore": "Singapur(+8)",
+				"ui_city_makassar": "Makassar(+8)",
+				"ui_city_perth": "Perth(+8)",
 				"ui_city_eucla": "Eucla(+8:45)",
-				"ui_city_jayapura": "Jayapura(+9)",
+				"ui_city_yakutsk": "Jakutsk(+9)",
 				"ui_city_seoul": "Seoul(+9)",
 				"ui_city_tokyo": "Tokio(+9)",
-				"ui_city_yakutsk": "Jakutsk(+9)",
+				"ui_city_jayapura": "Jayapura(+9)",
 				"ui_city_darwin": "Darwin(+9:30)",
 				"ui_city_adelaide": "Adelaide(+9:30/+10:30)",
-				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_vladivostok": "Wladiwostok(+10)",
+				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_sydney": "Sydney(+10/+11)",
 				"ui_city_lord_howe": "Lord Howe Island(+10:30/+11)",
 				"ui_city_magadan": "Magadan(+11)",
@@ -1393,95 +1393,95 @@
 				"ui_city_honolulu": "Honolulu(-10)",
 				"ui_city_adak": "Adak(-10/-9)",
 				"ui_city_anchorage": "Anchorage(-9/-8)",
+				"ui_city_vancouver": "Vancouver(-8/-7)",
 				"ui_city_los_angeles": "Los Angeles(-8/-7)",
 				"ui_city_tijuana": "Tijuana(-8/-7)",
-				"ui_city_vancouver": "Vancouver(-8/-7)",
-				"ui_city_hermosillo": "Hermosillo(-7)",
-				"ui_city_phoenix": "Phoenix(-7)",
 				"ui_city_whitehorse": "Whitehorse(-7)",
-				"ui_city_denver": "Denver(-7/-6)",
+				"ui_city_phoenix": "Phoenix(-7)",
+				"ui_city_hermosillo": "Hermosillo(-7)",
 				"ui_city_edmonton": "Edmonton(-7/-6)",
-				"ui_city_mexico_city": "Mexico(-6)",
+				"ui_city_denver": "Denver(-7/-6)",
 				"ui_city_regina": "Regina(-6)",
+				"ui_city_mexico_city": "Mexico(-6)",
+				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
 				"ui_city_matamoros": "Matamoros(-6/-5)",
-				"ui_city_winnipeg": "Winnipeg(-6/-5)",
-				"ui_city_bogota": "Bogotá(-5)",
 				"ui_city_cancun": "Cancún(-5)",
+				"ui_city_bogota": "Bogotá(-5)",
 				"ui_city_guayaquil": "Guayaquil(-5)",
-				"ui_city_lima": "Lima(-5)",
 				"ui_city_rio_branco": "Rio Branco(-5)",
-				"ui_city_havana": "La Havane(-5/-4)",
-				"ui_city_new_york": "New York(-5/-4)",
+				"ui_city_lima": "Lima(-5)",
 				"ui_city_toronto": "Toronto(-5/-4)",
+				"ui_city_new_york": "New York(-5/-4)",
+				"ui_city_havana": "La Havane(-5/-4)",
 				"ui_city_caracas": "Caracas(-4)",
-				"ui_city_la_paz": "La Paz(-4)",
 				"ui_city_manaus": "Manaos(-4)",
+				"ui_city_la_paz": "La Paz(-4)",
 				"ui_city_halifax": "Halifax(-4/-3)",
 				"ui_city_santiago": "Santiago(-4/-3)",
 				"ui_city_st_johns": "Saint-Jean de Terre-Neuve(-3:30/-2:30)",
+				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_asuncion": "Asunción(-3)",
 				"ui_city_buenos_aires": "Buenos Aires(-3)",
 				"ui_city_punta_arenas": "Punta Arenas(-3)",
-				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_noronha": "Fernando de Noronha(-2)",
 				"ui_city_azores": "Açores(-1/+0)",
 				"ui_city_reykjavik": "Reykjavik(+0)",
-				"ui_city_canary": "Îles Canaries(+0/+1)",
-				"ui_city_casablanca": "Casablanca(+0/+1)",
-				"ui_city_lisbon": "Lisbonne(+0/+1)",
 				"ui_city_london": "Londres(+0/+1)",
+				"ui_city_lisbon": "Lisbonne(+0/+1)",
+				"ui_city_casablanca": "Casablanca(+0/+1)",
+				"ui_city_canary": "Îles Canaries(+0/+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlin(+1/+2)",
-				"ui_city_madrid": "Madrid(+1/+2)",
+				"ui_city_warsaw": "Varsovie(+1/+2)",
 				"ui_city_paris": "Paris(+1/+2)",
 				"ui_city_rome": "Rome(+1/+2)",
-				"ui_city_warsaw": "Varsovie(+1/+2)",
-				"ui_city_johannesburg": "Johannesburg(+2)",
+				"ui_city_madrid": "Madrid(+1/+2)",
 				"ui_city_kaliningrad": "Kaliningrad(+2)",
+				"ui_city_johannesburg": "Johannesburg(+2)",
+				"ui_city_helsinki": "Helsinki(+2/+3)",
+				"ui_city_kyiv": "Kiev(+2/+3)",
+				"ui_city_chisinau": "Chișinău(+2/+3)",
 				"ui_city_athens": "Athènes(+2/+3)",
 				"ui_city_beirut": "Beyrouth(+2/+3)",
-				"ui_city_cairo": "Le Caire(+2/+3)",
-				"ui_city_chisinau": "Chișinău(+2/+3)",
-				"ui_city_helsinki": "Helsinki(+2/+3)",
 				"ui_city_jerusalem": "Jérusalem(+2/+3)",
-				"ui_city_kyiv": "Kiev(+2/+3)",
-				"ui_city_istanbul": "Istanbul(+3)",
+				"ui_city_cairo": "Le Caire(+2/+3)",
 				"ui_city_moscow": "Moscou(+3)",
-				"ui_city_nairobi": "Nairobi(+3)",
+				"ui_city_istanbul": "Istanbul(+3)",
 				"ui_city_riyadh": "Riyad(+3)",
+				"ui_city_nairobi": "Nairobi(+3)",
 				"ui_city_tehran": "Téhéran(+3:30)",
-				"ui_city_dubai": "Dubaï(+4)",
 				"ui_city_samara": "Samara(+4)",
+				"ui_city_dubai": "Dubaï(+4)",
 				"ui_city_kabul": "Kaboul(+4:30)",
-				"ui_city_karachi": "Karachi(+5)",
 				"ui_city_yekaterinburg": "Ekaterinbourg(+5)",
+				"ui_city_karachi": "Karachi(+5)",
 				"ui_city_kolkata": "Calcutta(+5:30)",
 				"ui_city_kathmandu": "Katmandou(+5:45)",
-				"ui_city_dhaka": "Dhaka(+6)",
 				"ui_city_omsk": "Omsk(+6)",
+				"ui_city_dhaka": "Dhaka(+6)",
 				"ui_city_yangon": "Rangoun(+6:30)",
+				"ui_city_novosibirsk": "Novossibirsk(+7)",
 				"ui_city_bangkok": "Bangkok(+7)",
 				"ui_city_ho_chi_minh": "Hô-Chi-Minh-Ville(+7)",
 				"ui_city_jakarta": "Jakarta(+7)",
-				"ui_city_novosibirsk": "Novossibirsk(+7)",
-				"ui_city_hong_kong": "Hong Kong(+8)",
 				"ui_city_irkutsk": "Irkoutsk(+8)",
-				"ui_city_makassar": "Macassar(+8)",
-				"ui_city_manila": "Manille(+8)",
-				"ui_city_perth": "Perth(+8)",
 				"ui_city_shanghai": "Shanghai(+8)",
-				"ui_city_singapore": "Singapour(+8)",
 				"ui_city_taipei": "Taipei(+8)",
+				"ui_city_hong_kong": "Hong Kong(+8)",
+				"ui_city_manila": "Manille(+8)",
+				"ui_city_singapore": "Singapour(+8)",
+				"ui_city_makassar": "Macassar(+8)",
+				"ui_city_perth": "Perth(+8)",
 				"ui_city_eucla": "Eucla(+8:45)",
-				"ui_city_jayapura": "Jayapura(+9)",
+				"ui_city_yakutsk": "Iakoutsk(+9)",
 				"ui_city_seoul": "Séoul(+9)",
 				"ui_city_tokyo": "Tokyo(+9)",
-				"ui_city_yakutsk": "Iakoutsk(+9)",
+				"ui_city_jayapura": "Jayapura(+9)",
 				"ui_city_darwin": "Darwin(+9:30)",
 				"ui_city_adelaide": "Adélaïde(+9:30/+10:30)",
-				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_vladivostok": "Vladivostok(+10)",
+				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_sydney": "Sydney(+10/+11)",
 				"ui_city_lord_howe": "Lord Howe Island(+10:30/+11)",
 				"ui_city_magadan": "Magadan(+11)",
@@ -1511,6 +1511,10 @@
 						"value": "anchorage"
 					},
 					{
+						"label": "ui_city_vancouver",
+						"value": "vancouver"
+					},
+					{
 						"label": "ui_city_los_angeles",
 						"value": "los_angeles"
 					},
@@ -1519,36 +1523,36 @@
 						"value": "tijuana"
 					},
 					{
-						"label": "ui_city_vancouver",
-						"value": "vancouver"
-					},
-					{
-						"label": "ui_city_hermosillo",
-						"value": "hermosillo"
+						"label": "ui_city_whitehorse",
+						"value": "whitehorse"
 					},
 					{
 						"label": "ui_city_phoenix",
 						"value": "phoenix"
 					},
 					{
-						"label": "ui_city_whitehorse",
-						"value": "whitehorse"
-					},
-					{
-						"label": "ui_city_denver",
-						"value": "denver"
+						"label": "ui_city_hermosillo",
+						"value": "hermosillo"
 					},
 					{
 						"label": "ui_city_edmonton",
 						"value": "edmonton"
 					},
 					{
-						"label": "ui_city_mexico_city",
-						"value": "mexico_city"
+						"label": "ui_city_denver",
+						"value": "denver"
 					},
 					{
 						"label": "ui_city_regina",
 						"value": "regina"
+					},
+					{
+						"label": "ui_city_mexico_city",
+						"value": "mexico_city"
+					},
+					{
+						"label": "ui_city_winnipeg",
+						"value": "winnipeg"
 					},
 					{
 						"label": "ui_city_chicago",
@@ -1559,52 +1563,48 @@
 						"value": "matamoros"
 					},
 					{
-						"label": "ui_city_winnipeg",
-						"value": "winnipeg"
+						"label": "ui_city_cancun",
+						"value": "cancun"
 					},
 					{
 						"label": "ui_city_bogota",
 						"value": "bogota"
 					},
 					{
-						"label": "ui_city_cancun",
-						"value": "cancun"
-					},
-					{
 						"label": "ui_city_guayaquil",
 						"value": "guayaquil"
-					},
-					{
-						"label": "ui_city_lima",
-						"value": "lima"
 					},
 					{
 						"label": "ui_city_rio_branco",
 						"value": "rio_branco"
 					},
 					{
-						"label": "ui_city_havana",
-						"value": "havana"
-					},
-					{
-						"label": "ui_city_new_york",
-						"value": "new_york"
+						"label": "ui_city_lima",
+						"value": "lima"
 					},
 					{
 						"label": "ui_city_toronto",
 						"value": "toronto"
 					},
 					{
+						"label": "ui_city_new_york",
+						"value": "new_york"
+					},
+					{
+						"label": "ui_city_havana",
+						"value": "havana"
+					},
+					{
 						"label": "ui_city_caracas",
 						"value": "caracas"
 					},
 					{
-						"label": "ui_city_la_paz",
-						"value": "la_paz"
-					},
-					{
 						"label": "ui_city_manaus",
 						"value": "manaus"
+					},
+					{
+						"label": "ui_city_la_paz",
+						"value": "la_paz"
 					},
 					{
 						"label": "ui_city_halifax",
@@ -1619,6 +1619,10 @@
 						"value": "st_johns"
 					},
 					{
+						"label": "ui_city_sao_paulo",
+						"value": "sao_paulo"
+					},
+					{
 						"label": "ui_city_asuncion",
 						"value": "asuncion"
 					},
@@ -1629,10 +1633,6 @@
 					{
 						"label": "ui_city_punta_arenas",
 						"value": "punta_arenas"
-					},
-					{
-						"label": "ui_city_sao_paulo",
-						"value": "sao_paulo"
 					},
 					{
 						"label": "ui_city_noronha",
@@ -1647,20 +1647,20 @@
 						"value": "reykjavik"
 					},
 					{
-						"label": "ui_city_canary",
-						"value": "canary"
-					},
-					{
-						"label": "ui_city_casablanca",
-						"value": "casablanca"
+						"label": "ui_city_london",
+						"value": "london"
 					},
 					{
 						"label": "ui_city_lisbon",
 						"value": "lisbon"
 					},
 					{
-						"label": "ui_city_london",
-						"value": "london"
+						"label": "ui_city_casablanca",
+						"value": "casablanca"
+					},
+					{
+						"label": "ui_city_canary",
+						"value": "canary"
 					},
 					{
 						"label": "ui_city_lagos",
@@ -1671,8 +1671,8 @@
 						"value": "berlin"
 					},
 					{
-						"label": "ui_city_madrid",
-						"value": "madrid"
+						"label": "ui_city_warsaw",
+						"value": "warsaw"
 					},
 					{
 						"label": "ui_city_paris",
@@ -1683,16 +1683,28 @@
 						"value": "rome"
 					},
 					{
-						"label": "ui_city_warsaw",
-						"value": "warsaw"
+						"label": "ui_city_madrid",
+						"value": "madrid"
+					},
+					{
+						"label": "ui_city_kaliningrad",
+						"value": "kaliningrad"
 					},
 					{
 						"label": "ui_city_johannesburg",
 						"value": "johannesburg"
 					},
 					{
-						"label": "ui_city_kaliningrad",
-						"value": "kaliningrad"
+						"label": "ui_city_helsinki",
+						"value": "helsinki"
+					},
+					{
+						"label": "ui_city_kyiv",
+						"value": "kyiv"
+					},
+					{
+						"label": "ui_city_chisinau",
+						"value": "chisinau"
 					},
 					{
 						"label": "ui_city_athens",
@@ -1703,64 +1715,52 @@
 						"value": "beirut"
 					},
 					{
-						"label": "ui_city_cairo",
-						"value": "cairo"
-					},
-					{
-						"label": "ui_city_chisinau",
-						"value": "chisinau"
-					},
-					{
-						"label": "ui_city_helsinki",
-						"value": "helsinki"
-					},
-					{
 						"label": "ui_city_jerusalem",
 						"value": "jerusalem"
 					},
 					{
-						"label": "ui_city_kyiv",
-						"value": "kyiv"
-					},
-					{
-						"label": "ui_city_istanbul",
-						"value": "istanbul"
+						"label": "ui_city_cairo",
+						"value": "cairo"
 					},
 					{
 						"label": "ui_city_moscow",
 						"value": "moscow"
 					},
 					{
-						"label": "ui_city_nairobi",
-						"value": "nairobi"
+						"label": "ui_city_istanbul",
+						"value": "istanbul"
 					},
 					{
 						"label": "ui_city_riyadh",
 						"value": "riyadh"
 					},
 					{
-						"label": "ui_city_tehran",
-						"value": "tehran"
+						"label": "ui_city_nairobi",
+						"value": "nairobi"
 					},
 					{
-						"label": "ui_city_dubai",
-						"value": "dubai"
+						"label": "ui_city_tehran",
+						"value": "tehran"
 					},
 					{
 						"label": "ui_city_samara",
 						"value": "samara"
 					},
 					{
+						"label": "ui_city_dubai",
+						"value": "dubai"
+					},
+					{
 						"label": "ui_city_kabul",
 						"value": "kabul"
 					},
 					{
-						"label": "ui_city_karachi",
-						"value": "karachi"
-					},
-					{
 						"label": "ui_city_yekaterinburg",
 						"value": "yekaterinburg"
+					},
+					{
+						"label": "ui_city_karachi",
+						"value": "karachi"
 					},
 					{
 						"label": "ui_city_kolkata",
@@ -1771,16 +1771,20 @@
 						"value": "kathmandu"
 					},
 					{
-						"label": "ui_city_dhaka",
-						"value": "dhaka"
-					},
-					{
 						"label": "ui_city_omsk",
 						"value": "omsk"
 					},
 					{
+						"label": "ui_city_dhaka",
+						"value": "dhaka"
+					},
+					{
 						"label": "ui_city_yangon",
 						"value": "yangon"
+					},
+					{
+						"label": "ui_city_novosibirsk",
+						"value": "novosibirsk"
 					},
 					{
 						"label": "ui_city_bangkok",
@@ -1795,48 +1799,44 @@
 						"value": "jakarta"
 					},
 					{
-						"label": "ui_city_novosibirsk",
-						"value": "novosibirsk"
-					},
-					{
-						"label": "ui_city_hong_kong",
-						"value": "hong_kong"
-					},
-					{
 						"label": "ui_city_irkutsk",
 						"value": "irkutsk"
-					},
-					{
-						"label": "ui_city_makassar",
-						"value": "makassar"
-					},
-					{
-						"label": "ui_city_manila",
-						"value": "manila"
-					},
-					{
-						"label": "ui_city_perth",
-						"value": "perth"
 					},
 					{
 						"label": "ui_city_shanghai",
 						"value": "shanghai"
 					},
 					{
+						"label": "ui_city_taipei",
+						"value": "taipei"
+					},
+					{
+						"label": "ui_city_hong_kong",
+						"value": "hong_kong"
+					},
+					{
+						"label": "ui_city_manila",
+						"value": "manila"
+					},
+					{
 						"label": "ui_city_singapore",
 						"value": "singapore"
 					},
 					{
-						"label": "ui_city_taipei",
-						"value": "taipei"
+						"label": "ui_city_makassar",
+						"value": "makassar"
+					},
+					{
+						"label": "ui_city_perth",
+						"value": "perth"
 					},
 					{
 						"label": "ui_city_eucla",
 						"value": "eucla"
 					},
 					{
-						"label": "ui_city_jayapura",
-						"value": "jayapura"
+						"label": "ui_city_yakutsk",
+						"value": "yakutsk"
 					},
 					{
 						"label": "ui_city_seoul",
@@ -1847,8 +1847,8 @@
 						"value": "tokyo"
 					},
 					{
-						"label": "ui_city_yakutsk",
-						"value": "yakutsk"
+						"label": "ui_city_jayapura",
+						"value": "jayapura"
 					},
 					{
 						"label": "ui_city_darwin",
@@ -1859,12 +1859,12 @@
 						"value": "adelaide"
 					},
 					{
-						"label": "ui_city_brisbane",
-						"value": "brisbane"
-					},
-					{
 						"label": "ui_city_vladivostok",
 						"value": "vladivostok"
+					},
+					{
+						"label": "ui_city_brisbane",
+						"value": "brisbane"
 					},
 					{
 						"label": "ui_city_sydney",
@@ -1916,6 +1916,10 @@
 						"value": "anchorage"
 					},
 					{
+						"label": "ui_city_vancouver",
+						"value": "vancouver"
+					},
+					{
 						"label": "ui_city_los_angeles",
 						"value": "los_angeles"
 					},
@@ -1924,36 +1928,36 @@
 						"value": "tijuana"
 					},
 					{
-						"label": "ui_city_vancouver",
-						"value": "vancouver"
-					},
-					{
-						"label": "ui_city_hermosillo",
-						"value": "hermosillo"
+						"label": "ui_city_whitehorse",
+						"value": "whitehorse"
 					},
 					{
 						"label": "ui_city_phoenix",
 						"value": "phoenix"
 					},
 					{
-						"label": "ui_city_whitehorse",
-						"value": "whitehorse"
-					},
-					{
-						"label": "ui_city_denver",
-						"value": "denver"
+						"label": "ui_city_hermosillo",
+						"value": "hermosillo"
 					},
 					{
 						"label": "ui_city_edmonton",
 						"value": "edmonton"
 					},
 					{
-						"label": "ui_city_mexico_city",
-						"value": "mexico_city"
+						"label": "ui_city_denver",
+						"value": "denver"
 					},
 					{
 						"label": "ui_city_regina",
 						"value": "regina"
+					},
+					{
+						"label": "ui_city_mexico_city",
+						"value": "mexico_city"
+					},
+					{
+						"label": "ui_city_winnipeg",
+						"value": "winnipeg"
 					},
 					{
 						"label": "ui_city_chicago",
@@ -1964,52 +1968,48 @@
 						"value": "matamoros"
 					},
 					{
-						"label": "ui_city_winnipeg",
-						"value": "winnipeg"
+						"label": "ui_city_cancun",
+						"value": "cancun"
 					},
 					{
 						"label": "ui_city_bogota",
 						"value": "bogota"
 					},
 					{
-						"label": "ui_city_cancun",
-						"value": "cancun"
-					},
-					{
 						"label": "ui_city_guayaquil",
 						"value": "guayaquil"
-					},
-					{
-						"label": "ui_city_lima",
-						"value": "lima"
 					},
 					{
 						"label": "ui_city_rio_branco",
 						"value": "rio_branco"
 					},
 					{
-						"label": "ui_city_havana",
-						"value": "havana"
-					},
-					{
-						"label": "ui_city_new_york",
-						"value": "new_york"
+						"label": "ui_city_lima",
+						"value": "lima"
 					},
 					{
 						"label": "ui_city_toronto",
 						"value": "toronto"
 					},
 					{
+						"label": "ui_city_new_york",
+						"value": "new_york"
+					},
+					{
+						"label": "ui_city_havana",
+						"value": "havana"
+					},
+					{
 						"label": "ui_city_caracas",
 						"value": "caracas"
 					},
 					{
-						"label": "ui_city_la_paz",
-						"value": "la_paz"
-					},
-					{
 						"label": "ui_city_manaus",
 						"value": "manaus"
+					},
+					{
+						"label": "ui_city_la_paz",
+						"value": "la_paz"
 					},
 					{
 						"label": "ui_city_halifax",
@@ -2024,6 +2024,10 @@
 						"value": "st_johns"
 					},
 					{
+						"label": "ui_city_sao_paulo",
+						"value": "sao_paulo"
+					},
+					{
 						"label": "ui_city_asuncion",
 						"value": "asuncion"
 					},
@@ -2034,10 +2038,6 @@
 					{
 						"label": "ui_city_punta_arenas",
 						"value": "punta_arenas"
-					},
-					{
-						"label": "ui_city_sao_paulo",
-						"value": "sao_paulo"
 					},
 					{
 						"label": "ui_city_noronha",
@@ -2052,20 +2052,20 @@
 						"value": "reykjavik"
 					},
 					{
-						"label": "ui_city_canary",
-						"value": "canary"
-					},
-					{
-						"label": "ui_city_casablanca",
-						"value": "casablanca"
+						"label": "ui_city_london",
+						"value": "london"
 					},
 					{
 						"label": "ui_city_lisbon",
 						"value": "lisbon"
 					},
 					{
-						"label": "ui_city_london",
-						"value": "london"
+						"label": "ui_city_casablanca",
+						"value": "casablanca"
+					},
+					{
+						"label": "ui_city_canary",
+						"value": "canary"
 					},
 					{
 						"label": "ui_city_lagos",
@@ -2076,8 +2076,8 @@
 						"value": "berlin"
 					},
 					{
-						"label": "ui_city_madrid",
-						"value": "madrid"
+						"label": "ui_city_warsaw",
+						"value": "warsaw"
 					},
 					{
 						"label": "ui_city_paris",
@@ -2088,16 +2088,28 @@
 						"value": "rome"
 					},
 					{
-						"label": "ui_city_warsaw",
-						"value": "warsaw"
+						"label": "ui_city_madrid",
+						"value": "madrid"
+					},
+					{
+						"label": "ui_city_kaliningrad",
+						"value": "kaliningrad"
 					},
 					{
 						"label": "ui_city_johannesburg",
 						"value": "johannesburg"
 					},
 					{
-						"label": "ui_city_kaliningrad",
-						"value": "kaliningrad"
+						"label": "ui_city_helsinki",
+						"value": "helsinki"
+					},
+					{
+						"label": "ui_city_kyiv",
+						"value": "kyiv"
+					},
+					{
+						"label": "ui_city_chisinau",
+						"value": "chisinau"
 					},
 					{
 						"label": "ui_city_athens",
@@ -2108,64 +2120,52 @@
 						"value": "beirut"
 					},
 					{
-						"label": "ui_city_cairo",
-						"value": "cairo"
-					},
-					{
-						"label": "ui_city_chisinau",
-						"value": "chisinau"
-					},
-					{
-						"label": "ui_city_helsinki",
-						"value": "helsinki"
-					},
-					{
 						"label": "ui_city_jerusalem",
 						"value": "jerusalem"
 					},
 					{
-						"label": "ui_city_kyiv",
-						"value": "kyiv"
-					},
-					{
-						"label": "ui_city_istanbul",
-						"value": "istanbul"
+						"label": "ui_city_cairo",
+						"value": "cairo"
 					},
 					{
 						"label": "ui_city_moscow",
 						"value": "moscow"
 					},
 					{
-						"label": "ui_city_nairobi",
-						"value": "nairobi"
+						"label": "ui_city_istanbul",
+						"value": "istanbul"
 					},
 					{
 						"label": "ui_city_riyadh",
 						"value": "riyadh"
 					},
 					{
-						"label": "ui_city_tehran",
-						"value": "tehran"
+						"label": "ui_city_nairobi",
+						"value": "nairobi"
 					},
 					{
-						"label": "ui_city_dubai",
-						"value": "dubai"
+						"label": "ui_city_tehran",
+						"value": "tehran"
 					},
 					{
 						"label": "ui_city_samara",
 						"value": "samara"
 					},
 					{
+						"label": "ui_city_dubai",
+						"value": "dubai"
+					},
+					{
 						"label": "ui_city_kabul",
 						"value": "kabul"
 					},
 					{
-						"label": "ui_city_karachi",
-						"value": "karachi"
-					},
-					{
 						"label": "ui_city_yekaterinburg",
 						"value": "yekaterinburg"
+					},
+					{
+						"label": "ui_city_karachi",
+						"value": "karachi"
 					},
 					{
 						"label": "ui_city_kolkata",
@@ -2176,16 +2176,20 @@
 						"value": "kathmandu"
 					},
 					{
-						"label": "ui_city_dhaka",
-						"value": "dhaka"
-					},
-					{
 						"label": "ui_city_omsk",
 						"value": "omsk"
 					},
 					{
+						"label": "ui_city_dhaka",
+						"value": "dhaka"
+					},
+					{
 						"label": "ui_city_yangon",
 						"value": "yangon"
+					},
+					{
+						"label": "ui_city_novosibirsk",
+						"value": "novosibirsk"
 					},
 					{
 						"label": "ui_city_bangkok",
@@ -2200,48 +2204,44 @@
 						"value": "jakarta"
 					},
 					{
-						"label": "ui_city_novosibirsk",
-						"value": "novosibirsk"
-					},
-					{
-						"label": "ui_city_hong_kong",
-						"value": "hong_kong"
-					},
-					{
 						"label": "ui_city_irkutsk",
 						"value": "irkutsk"
-					},
-					{
-						"label": "ui_city_makassar",
-						"value": "makassar"
-					},
-					{
-						"label": "ui_city_manila",
-						"value": "manila"
-					},
-					{
-						"label": "ui_city_perth",
-						"value": "perth"
 					},
 					{
 						"label": "ui_city_shanghai",
 						"value": "shanghai"
 					},
 					{
+						"label": "ui_city_taipei",
+						"value": "taipei"
+					},
+					{
+						"label": "ui_city_hong_kong",
+						"value": "hong_kong"
+					},
+					{
+						"label": "ui_city_manila",
+						"value": "manila"
+					},
+					{
 						"label": "ui_city_singapore",
 						"value": "singapore"
 					},
 					{
-						"label": "ui_city_taipei",
-						"value": "taipei"
+						"label": "ui_city_makassar",
+						"value": "makassar"
+					},
+					{
+						"label": "ui_city_perth",
+						"value": "perth"
 					},
 					{
 						"label": "ui_city_eucla",
 						"value": "eucla"
 					},
 					{
-						"label": "ui_city_jayapura",
-						"value": "jayapura"
+						"label": "ui_city_yakutsk",
+						"value": "yakutsk"
 					},
 					{
 						"label": "ui_city_seoul",
@@ -2252,8 +2252,8 @@
 						"value": "tokyo"
 					},
 					{
-						"label": "ui_city_yakutsk",
-						"value": "yakutsk"
+						"label": "ui_city_jayapura",
+						"value": "jayapura"
 					},
 					{
 						"label": "ui_city_darwin",
@@ -2264,12 +2264,12 @@
 						"value": "adelaide"
 					},
 					{
-						"label": "ui_city_brisbane",
-						"value": "brisbane"
-					},
-					{
 						"label": "ui_city_vladivostok",
 						"value": "vladivostok"
+					},
+					{
+						"label": "ui_city_brisbane",
+						"value": "brisbane"
 					},
 					{
 						"label": "ui_city_sydney",
@@ -2321,6 +2321,10 @@
 						"value": "anchorage"
 					},
 					{
+						"label": "ui_city_vancouver",
+						"value": "vancouver"
+					},
+					{
 						"label": "ui_city_los_angeles",
 						"value": "los_angeles"
 					},
@@ -2329,36 +2333,36 @@
 						"value": "tijuana"
 					},
 					{
-						"label": "ui_city_vancouver",
-						"value": "vancouver"
-					},
-					{
-						"label": "ui_city_hermosillo",
-						"value": "hermosillo"
+						"label": "ui_city_whitehorse",
+						"value": "whitehorse"
 					},
 					{
 						"label": "ui_city_phoenix",
 						"value": "phoenix"
 					},
 					{
-						"label": "ui_city_whitehorse",
-						"value": "whitehorse"
-					},
-					{
-						"label": "ui_city_denver",
-						"value": "denver"
+						"label": "ui_city_hermosillo",
+						"value": "hermosillo"
 					},
 					{
 						"label": "ui_city_edmonton",
 						"value": "edmonton"
 					},
 					{
-						"label": "ui_city_mexico_city",
-						"value": "mexico_city"
+						"label": "ui_city_denver",
+						"value": "denver"
 					},
 					{
 						"label": "ui_city_regina",
 						"value": "regina"
+					},
+					{
+						"label": "ui_city_mexico_city",
+						"value": "mexico_city"
+					},
+					{
+						"label": "ui_city_winnipeg",
+						"value": "winnipeg"
 					},
 					{
 						"label": "ui_city_chicago",
@@ -2369,52 +2373,48 @@
 						"value": "matamoros"
 					},
 					{
-						"label": "ui_city_winnipeg",
-						"value": "winnipeg"
+						"label": "ui_city_cancun",
+						"value": "cancun"
 					},
 					{
 						"label": "ui_city_bogota",
 						"value": "bogota"
 					},
 					{
-						"label": "ui_city_cancun",
-						"value": "cancun"
-					},
-					{
 						"label": "ui_city_guayaquil",
 						"value": "guayaquil"
-					},
-					{
-						"label": "ui_city_lima",
-						"value": "lima"
 					},
 					{
 						"label": "ui_city_rio_branco",
 						"value": "rio_branco"
 					},
 					{
-						"label": "ui_city_havana",
-						"value": "havana"
-					},
-					{
-						"label": "ui_city_new_york",
-						"value": "new_york"
+						"label": "ui_city_lima",
+						"value": "lima"
 					},
 					{
 						"label": "ui_city_toronto",
 						"value": "toronto"
 					},
 					{
+						"label": "ui_city_new_york",
+						"value": "new_york"
+					},
+					{
+						"label": "ui_city_havana",
+						"value": "havana"
+					},
+					{
 						"label": "ui_city_caracas",
 						"value": "caracas"
 					},
 					{
-						"label": "ui_city_la_paz",
-						"value": "la_paz"
-					},
-					{
 						"label": "ui_city_manaus",
 						"value": "manaus"
+					},
+					{
+						"label": "ui_city_la_paz",
+						"value": "la_paz"
 					},
 					{
 						"label": "ui_city_halifax",
@@ -2429,6 +2429,10 @@
 						"value": "st_johns"
 					},
 					{
+						"label": "ui_city_sao_paulo",
+						"value": "sao_paulo"
+					},
+					{
 						"label": "ui_city_asuncion",
 						"value": "asuncion"
 					},
@@ -2439,10 +2443,6 @@
 					{
 						"label": "ui_city_punta_arenas",
 						"value": "punta_arenas"
-					},
-					{
-						"label": "ui_city_sao_paulo",
-						"value": "sao_paulo"
 					},
 					{
 						"label": "ui_city_noronha",
@@ -2457,20 +2457,20 @@
 						"value": "reykjavik"
 					},
 					{
-						"label": "ui_city_canary",
-						"value": "canary"
-					},
-					{
-						"label": "ui_city_casablanca",
-						"value": "casablanca"
+						"label": "ui_city_london",
+						"value": "london"
 					},
 					{
 						"label": "ui_city_lisbon",
 						"value": "lisbon"
 					},
 					{
-						"label": "ui_city_london",
-						"value": "london"
+						"label": "ui_city_casablanca",
+						"value": "casablanca"
+					},
+					{
+						"label": "ui_city_canary",
+						"value": "canary"
 					},
 					{
 						"label": "ui_city_lagos",
@@ -2481,8 +2481,8 @@
 						"value": "berlin"
 					},
 					{
-						"label": "ui_city_madrid",
-						"value": "madrid"
+						"label": "ui_city_warsaw",
+						"value": "warsaw"
 					},
 					{
 						"label": "ui_city_paris",
@@ -2493,16 +2493,28 @@
 						"value": "rome"
 					},
 					{
-						"label": "ui_city_warsaw",
-						"value": "warsaw"
+						"label": "ui_city_madrid",
+						"value": "madrid"
+					},
+					{
+						"label": "ui_city_kaliningrad",
+						"value": "kaliningrad"
 					},
 					{
 						"label": "ui_city_johannesburg",
 						"value": "johannesburg"
 					},
 					{
-						"label": "ui_city_kaliningrad",
-						"value": "kaliningrad"
+						"label": "ui_city_helsinki",
+						"value": "helsinki"
+					},
+					{
+						"label": "ui_city_kyiv",
+						"value": "kyiv"
+					},
+					{
+						"label": "ui_city_chisinau",
+						"value": "chisinau"
 					},
 					{
 						"label": "ui_city_athens",
@@ -2513,64 +2525,52 @@
 						"value": "beirut"
 					},
 					{
-						"label": "ui_city_cairo",
-						"value": "cairo"
-					},
-					{
-						"label": "ui_city_chisinau",
-						"value": "chisinau"
-					},
-					{
-						"label": "ui_city_helsinki",
-						"value": "helsinki"
-					},
-					{
 						"label": "ui_city_jerusalem",
 						"value": "jerusalem"
 					},
 					{
-						"label": "ui_city_kyiv",
-						"value": "kyiv"
-					},
-					{
-						"label": "ui_city_istanbul",
-						"value": "istanbul"
+						"label": "ui_city_cairo",
+						"value": "cairo"
 					},
 					{
 						"label": "ui_city_moscow",
 						"value": "moscow"
 					},
 					{
-						"label": "ui_city_nairobi",
-						"value": "nairobi"
+						"label": "ui_city_istanbul",
+						"value": "istanbul"
 					},
 					{
 						"label": "ui_city_riyadh",
 						"value": "riyadh"
 					},
 					{
-						"label": "ui_city_tehran",
-						"value": "tehran"
+						"label": "ui_city_nairobi",
+						"value": "nairobi"
 					},
 					{
-						"label": "ui_city_dubai",
-						"value": "dubai"
+						"label": "ui_city_tehran",
+						"value": "tehran"
 					},
 					{
 						"label": "ui_city_samara",
 						"value": "samara"
 					},
 					{
+						"label": "ui_city_dubai",
+						"value": "dubai"
+					},
+					{
 						"label": "ui_city_kabul",
 						"value": "kabul"
 					},
 					{
-						"label": "ui_city_karachi",
-						"value": "karachi"
-					},
-					{
 						"label": "ui_city_yekaterinburg",
 						"value": "yekaterinburg"
+					},
+					{
+						"label": "ui_city_karachi",
+						"value": "karachi"
 					},
 					{
 						"label": "ui_city_kolkata",
@@ -2581,16 +2581,20 @@
 						"value": "kathmandu"
 					},
 					{
-						"label": "ui_city_dhaka",
-						"value": "dhaka"
-					},
-					{
 						"label": "ui_city_omsk",
 						"value": "omsk"
 					},
 					{
+						"label": "ui_city_dhaka",
+						"value": "dhaka"
+					},
+					{
 						"label": "ui_city_yangon",
 						"value": "yangon"
+					},
+					{
+						"label": "ui_city_novosibirsk",
+						"value": "novosibirsk"
 					},
 					{
 						"label": "ui_city_bangkok",
@@ -2605,48 +2609,44 @@
 						"value": "jakarta"
 					},
 					{
-						"label": "ui_city_novosibirsk",
-						"value": "novosibirsk"
-					},
-					{
-						"label": "ui_city_hong_kong",
-						"value": "hong_kong"
-					},
-					{
 						"label": "ui_city_irkutsk",
 						"value": "irkutsk"
-					},
-					{
-						"label": "ui_city_makassar",
-						"value": "makassar"
-					},
-					{
-						"label": "ui_city_manila",
-						"value": "manila"
-					},
-					{
-						"label": "ui_city_perth",
-						"value": "perth"
 					},
 					{
 						"label": "ui_city_shanghai",
 						"value": "shanghai"
 					},
 					{
+						"label": "ui_city_taipei",
+						"value": "taipei"
+					},
+					{
+						"label": "ui_city_hong_kong",
+						"value": "hong_kong"
+					},
+					{
+						"label": "ui_city_manila",
+						"value": "manila"
+					},
+					{
 						"label": "ui_city_singapore",
 						"value": "singapore"
 					},
 					{
-						"label": "ui_city_taipei",
-						"value": "taipei"
+						"label": "ui_city_makassar",
+						"value": "makassar"
+					},
+					{
+						"label": "ui_city_perth",
+						"value": "perth"
 					},
 					{
 						"label": "ui_city_eucla",
 						"value": "eucla"
 					},
 					{
-						"label": "ui_city_jayapura",
-						"value": "jayapura"
+						"label": "ui_city_yakutsk",
+						"value": "yakutsk"
 					},
 					{
 						"label": "ui_city_seoul",
@@ -2657,8 +2657,8 @@
 						"value": "tokyo"
 					},
 					{
-						"label": "ui_city_yakutsk",
-						"value": "yakutsk"
+						"label": "ui_city_jayapura",
+						"value": "jayapura"
 					},
 					{
 						"label": "ui_city_darwin",
@@ -2669,12 +2669,12 @@
 						"value": "adelaide"
 					},
 					{
-						"label": "ui_city_brisbane",
-						"value": "brisbane"
-					},
-					{
 						"label": "ui_city_vladivostok",
 						"value": "vladivostok"
+					},
+					{
+						"label": "ui_city_brisbane",
+						"value": "brisbane"
 					},
 					{
 						"label": "ui_city_sydney",
@@ -2726,6 +2726,10 @@
 						"value": "anchorage"
 					},
 					{
+						"label": "ui_city_vancouver",
+						"value": "vancouver"
+					},
+					{
 						"label": "ui_city_los_angeles",
 						"value": "los_angeles"
 					},
@@ -2734,36 +2738,36 @@
 						"value": "tijuana"
 					},
 					{
-						"label": "ui_city_vancouver",
-						"value": "vancouver"
-					},
-					{
-						"label": "ui_city_hermosillo",
-						"value": "hermosillo"
+						"label": "ui_city_whitehorse",
+						"value": "whitehorse"
 					},
 					{
 						"label": "ui_city_phoenix",
 						"value": "phoenix"
 					},
 					{
-						"label": "ui_city_whitehorse",
-						"value": "whitehorse"
-					},
-					{
-						"label": "ui_city_denver",
-						"value": "denver"
+						"label": "ui_city_hermosillo",
+						"value": "hermosillo"
 					},
 					{
 						"label": "ui_city_edmonton",
 						"value": "edmonton"
 					},
 					{
-						"label": "ui_city_mexico_city",
-						"value": "mexico_city"
+						"label": "ui_city_denver",
+						"value": "denver"
 					},
 					{
 						"label": "ui_city_regina",
 						"value": "regina"
+					},
+					{
+						"label": "ui_city_mexico_city",
+						"value": "mexico_city"
+					},
+					{
+						"label": "ui_city_winnipeg",
+						"value": "winnipeg"
 					},
 					{
 						"label": "ui_city_chicago",
@@ -2774,52 +2778,48 @@
 						"value": "matamoros"
 					},
 					{
-						"label": "ui_city_winnipeg",
-						"value": "winnipeg"
+						"label": "ui_city_cancun",
+						"value": "cancun"
 					},
 					{
 						"label": "ui_city_bogota",
 						"value": "bogota"
 					},
 					{
-						"label": "ui_city_cancun",
-						"value": "cancun"
-					},
-					{
 						"label": "ui_city_guayaquil",
 						"value": "guayaquil"
-					},
-					{
-						"label": "ui_city_lima",
-						"value": "lima"
 					},
 					{
 						"label": "ui_city_rio_branco",
 						"value": "rio_branco"
 					},
 					{
-						"label": "ui_city_havana",
-						"value": "havana"
-					},
-					{
-						"label": "ui_city_new_york",
-						"value": "new_york"
+						"label": "ui_city_lima",
+						"value": "lima"
 					},
 					{
 						"label": "ui_city_toronto",
 						"value": "toronto"
 					},
 					{
+						"label": "ui_city_new_york",
+						"value": "new_york"
+					},
+					{
+						"label": "ui_city_havana",
+						"value": "havana"
+					},
+					{
 						"label": "ui_city_caracas",
 						"value": "caracas"
 					},
 					{
-						"label": "ui_city_la_paz",
-						"value": "la_paz"
-					},
-					{
 						"label": "ui_city_manaus",
 						"value": "manaus"
+					},
+					{
+						"label": "ui_city_la_paz",
+						"value": "la_paz"
 					},
 					{
 						"label": "ui_city_halifax",
@@ -2834,6 +2834,10 @@
 						"value": "st_johns"
 					},
 					{
+						"label": "ui_city_sao_paulo",
+						"value": "sao_paulo"
+					},
+					{
 						"label": "ui_city_asuncion",
 						"value": "asuncion"
 					},
@@ -2844,10 +2848,6 @@
 					{
 						"label": "ui_city_punta_arenas",
 						"value": "punta_arenas"
-					},
-					{
-						"label": "ui_city_sao_paulo",
-						"value": "sao_paulo"
 					},
 					{
 						"label": "ui_city_noronha",
@@ -2862,20 +2862,20 @@
 						"value": "reykjavik"
 					},
 					{
-						"label": "ui_city_canary",
-						"value": "canary"
-					},
-					{
-						"label": "ui_city_casablanca",
-						"value": "casablanca"
+						"label": "ui_city_london",
+						"value": "london"
 					},
 					{
 						"label": "ui_city_lisbon",
 						"value": "lisbon"
 					},
 					{
-						"label": "ui_city_london",
-						"value": "london"
+						"label": "ui_city_casablanca",
+						"value": "casablanca"
+					},
+					{
+						"label": "ui_city_canary",
+						"value": "canary"
 					},
 					{
 						"label": "ui_city_lagos",
@@ -2886,8 +2886,8 @@
 						"value": "berlin"
 					},
 					{
-						"label": "ui_city_madrid",
-						"value": "madrid"
+						"label": "ui_city_warsaw",
+						"value": "warsaw"
 					},
 					{
 						"label": "ui_city_paris",
@@ -2898,16 +2898,28 @@
 						"value": "rome"
 					},
 					{
-						"label": "ui_city_warsaw",
-						"value": "warsaw"
+						"label": "ui_city_madrid",
+						"value": "madrid"
+					},
+					{
+						"label": "ui_city_kaliningrad",
+						"value": "kaliningrad"
 					},
 					{
 						"label": "ui_city_johannesburg",
 						"value": "johannesburg"
 					},
 					{
-						"label": "ui_city_kaliningrad",
-						"value": "kaliningrad"
+						"label": "ui_city_helsinki",
+						"value": "helsinki"
+					},
+					{
+						"label": "ui_city_kyiv",
+						"value": "kyiv"
+					},
+					{
+						"label": "ui_city_chisinau",
+						"value": "chisinau"
 					},
 					{
 						"label": "ui_city_athens",
@@ -2918,64 +2930,52 @@
 						"value": "beirut"
 					},
 					{
-						"label": "ui_city_cairo",
-						"value": "cairo"
-					},
-					{
-						"label": "ui_city_chisinau",
-						"value": "chisinau"
-					},
-					{
-						"label": "ui_city_helsinki",
-						"value": "helsinki"
-					},
-					{
 						"label": "ui_city_jerusalem",
 						"value": "jerusalem"
 					},
 					{
-						"label": "ui_city_kyiv",
-						"value": "kyiv"
-					},
-					{
-						"label": "ui_city_istanbul",
-						"value": "istanbul"
+						"label": "ui_city_cairo",
+						"value": "cairo"
 					},
 					{
 						"label": "ui_city_moscow",
 						"value": "moscow"
 					},
 					{
-						"label": "ui_city_nairobi",
-						"value": "nairobi"
+						"label": "ui_city_istanbul",
+						"value": "istanbul"
 					},
 					{
 						"label": "ui_city_riyadh",
 						"value": "riyadh"
 					},
 					{
-						"label": "ui_city_tehran",
-						"value": "tehran"
+						"label": "ui_city_nairobi",
+						"value": "nairobi"
 					},
 					{
-						"label": "ui_city_dubai",
-						"value": "dubai"
+						"label": "ui_city_tehran",
+						"value": "tehran"
 					},
 					{
 						"label": "ui_city_samara",
 						"value": "samara"
 					},
 					{
+						"label": "ui_city_dubai",
+						"value": "dubai"
+					},
+					{
 						"label": "ui_city_kabul",
 						"value": "kabul"
 					},
 					{
-						"label": "ui_city_karachi",
-						"value": "karachi"
-					},
-					{
 						"label": "ui_city_yekaterinburg",
 						"value": "yekaterinburg"
+					},
+					{
+						"label": "ui_city_karachi",
+						"value": "karachi"
 					},
 					{
 						"label": "ui_city_kolkata",
@@ -2986,16 +2986,20 @@
 						"value": "kathmandu"
 					},
 					{
-						"label": "ui_city_dhaka",
-						"value": "dhaka"
-					},
-					{
 						"label": "ui_city_omsk",
 						"value": "omsk"
 					},
 					{
+						"label": "ui_city_dhaka",
+						"value": "dhaka"
+					},
+					{
 						"label": "ui_city_yangon",
 						"value": "yangon"
+					},
+					{
+						"label": "ui_city_novosibirsk",
+						"value": "novosibirsk"
 					},
 					{
 						"label": "ui_city_bangkok",
@@ -3010,48 +3014,44 @@
 						"value": "jakarta"
 					},
 					{
-						"label": "ui_city_novosibirsk",
-						"value": "novosibirsk"
-					},
-					{
-						"label": "ui_city_hong_kong",
-						"value": "hong_kong"
-					},
-					{
 						"label": "ui_city_irkutsk",
 						"value": "irkutsk"
-					},
-					{
-						"label": "ui_city_makassar",
-						"value": "makassar"
-					},
-					{
-						"label": "ui_city_manila",
-						"value": "manila"
-					},
-					{
-						"label": "ui_city_perth",
-						"value": "perth"
 					},
 					{
 						"label": "ui_city_shanghai",
 						"value": "shanghai"
 					},
 					{
+						"label": "ui_city_taipei",
+						"value": "taipei"
+					},
+					{
+						"label": "ui_city_hong_kong",
+						"value": "hong_kong"
+					},
+					{
+						"label": "ui_city_manila",
+						"value": "manila"
+					},
+					{
 						"label": "ui_city_singapore",
 						"value": "singapore"
 					},
 					{
-						"label": "ui_city_taipei",
-						"value": "taipei"
+						"label": "ui_city_makassar",
+						"value": "makassar"
+					},
+					{
+						"label": "ui_city_perth",
+						"value": "perth"
 					},
 					{
 						"label": "ui_city_eucla",
 						"value": "eucla"
 					},
 					{
-						"label": "ui_city_jayapura",
-						"value": "jayapura"
+						"label": "ui_city_yakutsk",
+						"value": "yakutsk"
 					},
 					{
 						"label": "ui_city_seoul",
@@ -3062,8 +3062,8 @@
 						"value": "tokyo"
 					},
 					{
-						"label": "ui_city_yakutsk",
-						"value": "yakutsk"
+						"label": "ui_city_jayapura",
+						"value": "jayapura"
 					},
 					{
 						"label": "ui_city_darwin",
@@ -3074,12 +3074,12 @@
 						"value": "adelaide"
 					},
 					{
-						"label": "ui_city_brisbane",
-						"value": "brisbane"
-					},
-					{
 						"label": "ui_city_vladivostok",
 						"value": "vladivostok"
+					},
+					{
+						"label": "ui_city_brisbane",
+						"value": "brisbane"
 					},
 					{
 						"label": "ui_city_sydney",
@@ -3131,6 +3131,10 @@
 						"value": "anchorage"
 					},
 					{
+						"label": "ui_city_vancouver",
+						"value": "vancouver"
+					},
+					{
 						"label": "ui_city_los_angeles",
 						"value": "los_angeles"
 					},
@@ -3139,36 +3143,36 @@
 						"value": "tijuana"
 					},
 					{
-						"label": "ui_city_vancouver",
-						"value": "vancouver"
-					},
-					{
-						"label": "ui_city_hermosillo",
-						"value": "hermosillo"
+						"label": "ui_city_whitehorse",
+						"value": "whitehorse"
 					},
 					{
 						"label": "ui_city_phoenix",
 						"value": "phoenix"
 					},
 					{
-						"label": "ui_city_whitehorse",
-						"value": "whitehorse"
-					},
-					{
-						"label": "ui_city_denver",
-						"value": "denver"
+						"label": "ui_city_hermosillo",
+						"value": "hermosillo"
 					},
 					{
 						"label": "ui_city_edmonton",
 						"value": "edmonton"
 					},
 					{
-						"label": "ui_city_mexico_city",
-						"value": "mexico_city"
+						"label": "ui_city_denver",
+						"value": "denver"
 					},
 					{
 						"label": "ui_city_regina",
 						"value": "regina"
+					},
+					{
+						"label": "ui_city_mexico_city",
+						"value": "mexico_city"
+					},
+					{
+						"label": "ui_city_winnipeg",
+						"value": "winnipeg"
 					},
 					{
 						"label": "ui_city_chicago",
@@ -3179,52 +3183,48 @@
 						"value": "matamoros"
 					},
 					{
-						"label": "ui_city_winnipeg",
-						"value": "winnipeg"
+						"label": "ui_city_cancun",
+						"value": "cancun"
 					},
 					{
 						"label": "ui_city_bogota",
 						"value": "bogota"
 					},
 					{
-						"label": "ui_city_cancun",
-						"value": "cancun"
-					},
-					{
 						"label": "ui_city_guayaquil",
 						"value": "guayaquil"
-					},
-					{
-						"label": "ui_city_lima",
-						"value": "lima"
 					},
 					{
 						"label": "ui_city_rio_branco",
 						"value": "rio_branco"
 					},
 					{
-						"label": "ui_city_havana",
-						"value": "havana"
-					},
-					{
-						"label": "ui_city_new_york",
-						"value": "new_york"
+						"label": "ui_city_lima",
+						"value": "lima"
 					},
 					{
 						"label": "ui_city_toronto",
 						"value": "toronto"
 					},
 					{
+						"label": "ui_city_new_york",
+						"value": "new_york"
+					},
+					{
+						"label": "ui_city_havana",
+						"value": "havana"
+					},
+					{
 						"label": "ui_city_caracas",
 						"value": "caracas"
 					},
 					{
-						"label": "ui_city_la_paz",
-						"value": "la_paz"
-					},
-					{
 						"label": "ui_city_manaus",
 						"value": "manaus"
+					},
+					{
+						"label": "ui_city_la_paz",
+						"value": "la_paz"
 					},
 					{
 						"label": "ui_city_halifax",
@@ -3239,6 +3239,10 @@
 						"value": "st_johns"
 					},
 					{
+						"label": "ui_city_sao_paulo",
+						"value": "sao_paulo"
+					},
+					{
 						"label": "ui_city_asuncion",
 						"value": "asuncion"
 					},
@@ -3249,10 +3253,6 @@
 					{
 						"label": "ui_city_punta_arenas",
 						"value": "punta_arenas"
-					},
-					{
-						"label": "ui_city_sao_paulo",
-						"value": "sao_paulo"
 					},
 					{
 						"label": "ui_city_noronha",
@@ -3267,20 +3267,20 @@
 						"value": "reykjavik"
 					},
 					{
-						"label": "ui_city_canary",
-						"value": "canary"
-					},
-					{
-						"label": "ui_city_casablanca",
-						"value": "casablanca"
+						"label": "ui_city_london",
+						"value": "london"
 					},
 					{
 						"label": "ui_city_lisbon",
 						"value": "lisbon"
 					},
 					{
-						"label": "ui_city_london",
-						"value": "london"
+						"label": "ui_city_casablanca",
+						"value": "casablanca"
+					},
+					{
+						"label": "ui_city_canary",
+						"value": "canary"
 					},
 					{
 						"label": "ui_city_lagos",
@@ -3291,8 +3291,8 @@
 						"value": "berlin"
 					},
 					{
-						"label": "ui_city_madrid",
-						"value": "madrid"
+						"label": "ui_city_warsaw",
+						"value": "warsaw"
 					},
 					{
 						"label": "ui_city_paris",
@@ -3303,16 +3303,28 @@
 						"value": "rome"
 					},
 					{
-						"label": "ui_city_warsaw",
-						"value": "warsaw"
+						"label": "ui_city_madrid",
+						"value": "madrid"
+					},
+					{
+						"label": "ui_city_kaliningrad",
+						"value": "kaliningrad"
 					},
 					{
 						"label": "ui_city_johannesburg",
 						"value": "johannesburg"
 					},
 					{
-						"label": "ui_city_kaliningrad",
-						"value": "kaliningrad"
+						"label": "ui_city_helsinki",
+						"value": "helsinki"
+					},
+					{
+						"label": "ui_city_kyiv",
+						"value": "kyiv"
+					},
+					{
+						"label": "ui_city_chisinau",
+						"value": "chisinau"
 					},
 					{
 						"label": "ui_city_athens",
@@ -3323,64 +3335,52 @@
 						"value": "beirut"
 					},
 					{
-						"label": "ui_city_cairo",
-						"value": "cairo"
-					},
-					{
-						"label": "ui_city_chisinau",
-						"value": "chisinau"
-					},
-					{
-						"label": "ui_city_helsinki",
-						"value": "helsinki"
-					},
-					{
 						"label": "ui_city_jerusalem",
 						"value": "jerusalem"
 					},
 					{
-						"label": "ui_city_kyiv",
-						"value": "kyiv"
-					},
-					{
-						"label": "ui_city_istanbul",
-						"value": "istanbul"
+						"label": "ui_city_cairo",
+						"value": "cairo"
 					},
 					{
 						"label": "ui_city_moscow",
 						"value": "moscow"
 					},
 					{
-						"label": "ui_city_nairobi",
-						"value": "nairobi"
+						"label": "ui_city_istanbul",
+						"value": "istanbul"
 					},
 					{
 						"label": "ui_city_riyadh",
 						"value": "riyadh"
 					},
 					{
-						"label": "ui_city_tehran",
-						"value": "tehran"
+						"label": "ui_city_nairobi",
+						"value": "nairobi"
 					},
 					{
-						"label": "ui_city_dubai",
-						"value": "dubai"
+						"label": "ui_city_tehran",
+						"value": "tehran"
 					},
 					{
 						"label": "ui_city_samara",
 						"value": "samara"
 					},
 					{
+						"label": "ui_city_dubai",
+						"value": "dubai"
+					},
+					{
 						"label": "ui_city_kabul",
 						"value": "kabul"
 					},
 					{
-						"label": "ui_city_karachi",
-						"value": "karachi"
-					},
-					{
 						"label": "ui_city_yekaterinburg",
 						"value": "yekaterinburg"
+					},
+					{
+						"label": "ui_city_karachi",
+						"value": "karachi"
 					},
 					{
 						"label": "ui_city_kolkata",
@@ -3391,16 +3391,20 @@
 						"value": "kathmandu"
 					},
 					{
-						"label": "ui_city_dhaka",
-						"value": "dhaka"
-					},
-					{
 						"label": "ui_city_omsk",
 						"value": "omsk"
 					},
 					{
+						"label": "ui_city_dhaka",
+						"value": "dhaka"
+					},
+					{
 						"label": "ui_city_yangon",
 						"value": "yangon"
+					},
+					{
+						"label": "ui_city_novosibirsk",
+						"value": "novosibirsk"
 					},
 					{
 						"label": "ui_city_bangkok",
@@ -3415,48 +3419,44 @@
 						"value": "jakarta"
 					},
 					{
-						"label": "ui_city_novosibirsk",
-						"value": "novosibirsk"
-					},
-					{
-						"label": "ui_city_hong_kong",
-						"value": "hong_kong"
-					},
-					{
 						"label": "ui_city_irkutsk",
 						"value": "irkutsk"
-					},
-					{
-						"label": "ui_city_makassar",
-						"value": "makassar"
-					},
-					{
-						"label": "ui_city_manila",
-						"value": "manila"
-					},
-					{
-						"label": "ui_city_perth",
-						"value": "perth"
 					},
 					{
 						"label": "ui_city_shanghai",
 						"value": "shanghai"
 					},
 					{
+						"label": "ui_city_taipei",
+						"value": "taipei"
+					},
+					{
+						"label": "ui_city_hong_kong",
+						"value": "hong_kong"
+					},
+					{
+						"label": "ui_city_manila",
+						"value": "manila"
+					},
+					{
 						"label": "ui_city_singapore",
 						"value": "singapore"
 					},
 					{
-						"label": "ui_city_taipei",
-						"value": "taipei"
+						"label": "ui_city_makassar",
+						"value": "makassar"
+					},
+					{
+						"label": "ui_city_perth",
+						"value": "perth"
 					},
 					{
 						"label": "ui_city_eucla",
 						"value": "eucla"
 					},
 					{
-						"label": "ui_city_jayapura",
-						"value": "jayapura"
+						"label": "ui_city_yakutsk",
+						"value": "yakutsk"
 					},
 					{
 						"label": "ui_city_seoul",
@@ -3467,8 +3467,8 @@
 						"value": "tokyo"
 					},
 					{
-						"label": "ui_city_yakutsk",
-						"value": "yakutsk"
+						"label": "ui_city_jayapura",
+						"value": "jayapura"
 					},
 					{
 						"label": "ui_city_darwin",
@@ -3479,12 +3479,12 @@
 						"value": "adelaide"
 					},
 					{
-						"label": "ui_city_brisbane",
-						"value": "brisbane"
-					},
-					{
 						"label": "ui_city_vladivostok",
 						"value": "vladivostok"
+					},
+					{
+						"label": "ui_city_brisbane",
+						"value": "brisbane"
 					},
 					{
 						"label": "ui_city_sydney",
@@ -3536,6 +3536,10 @@
 						"value": "anchorage"
 					},
 					{
+						"label": "ui_city_vancouver",
+						"value": "vancouver"
+					},
+					{
 						"label": "ui_city_los_angeles",
 						"value": "los_angeles"
 					},
@@ -3544,36 +3548,36 @@
 						"value": "tijuana"
 					},
 					{
-						"label": "ui_city_vancouver",
-						"value": "vancouver"
-					},
-					{
-						"label": "ui_city_hermosillo",
-						"value": "hermosillo"
+						"label": "ui_city_whitehorse",
+						"value": "whitehorse"
 					},
 					{
 						"label": "ui_city_phoenix",
 						"value": "phoenix"
 					},
 					{
-						"label": "ui_city_whitehorse",
-						"value": "whitehorse"
-					},
-					{
-						"label": "ui_city_denver",
-						"value": "denver"
+						"label": "ui_city_hermosillo",
+						"value": "hermosillo"
 					},
 					{
 						"label": "ui_city_edmonton",
 						"value": "edmonton"
 					},
 					{
-						"label": "ui_city_mexico_city",
-						"value": "mexico_city"
+						"label": "ui_city_denver",
+						"value": "denver"
 					},
 					{
 						"label": "ui_city_regina",
 						"value": "regina"
+					},
+					{
+						"label": "ui_city_mexico_city",
+						"value": "mexico_city"
+					},
+					{
+						"label": "ui_city_winnipeg",
+						"value": "winnipeg"
 					},
 					{
 						"label": "ui_city_chicago",
@@ -3584,52 +3588,48 @@
 						"value": "matamoros"
 					},
 					{
-						"label": "ui_city_winnipeg",
-						"value": "winnipeg"
+						"label": "ui_city_cancun",
+						"value": "cancun"
 					},
 					{
 						"label": "ui_city_bogota",
 						"value": "bogota"
 					},
 					{
-						"label": "ui_city_cancun",
-						"value": "cancun"
-					},
-					{
 						"label": "ui_city_guayaquil",
 						"value": "guayaquil"
-					},
-					{
-						"label": "ui_city_lima",
-						"value": "lima"
 					},
 					{
 						"label": "ui_city_rio_branco",
 						"value": "rio_branco"
 					},
 					{
-						"label": "ui_city_havana",
-						"value": "havana"
-					},
-					{
-						"label": "ui_city_new_york",
-						"value": "new_york"
+						"label": "ui_city_lima",
+						"value": "lima"
 					},
 					{
 						"label": "ui_city_toronto",
 						"value": "toronto"
 					},
 					{
+						"label": "ui_city_new_york",
+						"value": "new_york"
+					},
+					{
+						"label": "ui_city_havana",
+						"value": "havana"
+					},
+					{
 						"label": "ui_city_caracas",
 						"value": "caracas"
 					},
 					{
-						"label": "ui_city_la_paz",
-						"value": "la_paz"
-					},
-					{
 						"label": "ui_city_manaus",
 						"value": "manaus"
+					},
+					{
+						"label": "ui_city_la_paz",
+						"value": "la_paz"
 					},
 					{
 						"label": "ui_city_halifax",
@@ -3644,6 +3644,10 @@
 						"value": "st_johns"
 					},
 					{
+						"label": "ui_city_sao_paulo",
+						"value": "sao_paulo"
+					},
+					{
 						"label": "ui_city_asuncion",
 						"value": "asuncion"
 					},
@@ -3654,10 +3658,6 @@
 					{
 						"label": "ui_city_punta_arenas",
 						"value": "punta_arenas"
-					},
-					{
-						"label": "ui_city_sao_paulo",
-						"value": "sao_paulo"
 					},
 					{
 						"label": "ui_city_noronha",
@@ -3672,20 +3672,20 @@
 						"value": "reykjavik"
 					},
 					{
-						"label": "ui_city_canary",
-						"value": "canary"
-					},
-					{
-						"label": "ui_city_casablanca",
-						"value": "casablanca"
+						"label": "ui_city_london",
+						"value": "london"
 					},
 					{
 						"label": "ui_city_lisbon",
 						"value": "lisbon"
 					},
 					{
-						"label": "ui_city_london",
-						"value": "london"
+						"label": "ui_city_casablanca",
+						"value": "casablanca"
+					},
+					{
+						"label": "ui_city_canary",
+						"value": "canary"
 					},
 					{
 						"label": "ui_city_lagos",
@@ -3696,8 +3696,8 @@
 						"value": "berlin"
 					},
 					{
-						"label": "ui_city_madrid",
-						"value": "madrid"
+						"label": "ui_city_warsaw",
+						"value": "warsaw"
 					},
 					{
 						"label": "ui_city_paris",
@@ -3708,16 +3708,28 @@
 						"value": "rome"
 					},
 					{
-						"label": "ui_city_warsaw",
-						"value": "warsaw"
+						"label": "ui_city_madrid",
+						"value": "madrid"
+					},
+					{
+						"label": "ui_city_kaliningrad",
+						"value": "kaliningrad"
 					},
 					{
 						"label": "ui_city_johannesburg",
 						"value": "johannesburg"
 					},
 					{
-						"label": "ui_city_kaliningrad",
-						"value": "kaliningrad"
+						"label": "ui_city_helsinki",
+						"value": "helsinki"
+					},
+					{
+						"label": "ui_city_kyiv",
+						"value": "kyiv"
+					},
+					{
+						"label": "ui_city_chisinau",
+						"value": "chisinau"
 					},
 					{
 						"label": "ui_city_athens",
@@ -3728,64 +3740,52 @@
 						"value": "beirut"
 					},
 					{
-						"label": "ui_city_cairo",
-						"value": "cairo"
-					},
-					{
-						"label": "ui_city_chisinau",
-						"value": "chisinau"
-					},
-					{
-						"label": "ui_city_helsinki",
-						"value": "helsinki"
-					},
-					{
 						"label": "ui_city_jerusalem",
 						"value": "jerusalem"
 					},
 					{
-						"label": "ui_city_kyiv",
-						"value": "kyiv"
-					},
-					{
-						"label": "ui_city_istanbul",
-						"value": "istanbul"
+						"label": "ui_city_cairo",
+						"value": "cairo"
 					},
 					{
 						"label": "ui_city_moscow",
 						"value": "moscow"
 					},
 					{
-						"label": "ui_city_nairobi",
-						"value": "nairobi"
+						"label": "ui_city_istanbul",
+						"value": "istanbul"
 					},
 					{
 						"label": "ui_city_riyadh",
 						"value": "riyadh"
 					},
 					{
-						"label": "ui_city_tehran",
-						"value": "tehran"
+						"label": "ui_city_nairobi",
+						"value": "nairobi"
 					},
 					{
-						"label": "ui_city_dubai",
-						"value": "dubai"
+						"label": "ui_city_tehran",
+						"value": "tehran"
 					},
 					{
 						"label": "ui_city_samara",
 						"value": "samara"
 					},
 					{
+						"label": "ui_city_dubai",
+						"value": "dubai"
+					},
+					{
 						"label": "ui_city_kabul",
 						"value": "kabul"
 					},
 					{
-						"label": "ui_city_karachi",
-						"value": "karachi"
-					},
-					{
 						"label": "ui_city_yekaterinburg",
 						"value": "yekaterinburg"
+					},
+					{
+						"label": "ui_city_karachi",
+						"value": "karachi"
 					},
 					{
 						"label": "ui_city_kolkata",
@@ -3796,16 +3796,20 @@
 						"value": "kathmandu"
 					},
 					{
-						"label": "ui_city_dhaka",
-						"value": "dhaka"
-					},
-					{
 						"label": "ui_city_omsk",
 						"value": "omsk"
 					},
 					{
+						"label": "ui_city_dhaka",
+						"value": "dhaka"
+					},
+					{
 						"label": "ui_city_yangon",
 						"value": "yangon"
+					},
+					{
+						"label": "ui_city_novosibirsk",
+						"value": "novosibirsk"
 					},
 					{
 						"label": "ui_city_bangkok",
@@ -3820,48 +3824,44 @@
 						"value": "jakarta"
 					},
 					{
-						"label": "ui_city_novosibirsk",
-						"value": "novosibirsk"
-					},
-					{
-						"label": "ui_city_hong_kong",
-						"value": "hong_kong"
-					},
-					{
 						"label": "ui_city_irkutsk",
 						"value": "irkutsk"
-					},
-					{
-						"label": "ui_city_makassar",
-						"value": "makassar"
-					},
-					{
-						"label": "ui_city_manila",
-						"value": "manila"
-					},
-					{
-						"label": "ui_city_perth",
-						"value": "perth"
 					},
 					{
 						"label": "ui_city_shanghai",
 						"value": "shanghai"
 					},
 					{
+						"label": "ui_city_taipei",
+						"value": "taipei"
+					},
+					{
+						"label": "ui_city_hong_kong",
+						"value": "hong_kong"
+					},
+					{
+						"label": "ui_city_manila",
+						"value": "manila"
+					},
+					{
 						"label": "ui_city_singapore",
 						"value": "singapore"
 					},
 					{
-						"label": "ui_city_taipei",
-						"value": "taipei"
+						"label": "ui_city_makassar",
+						"value": "makassar"
+					},
+					{
+						"label": "ui_city_perth",
+						"value": "perth"
 					},
 					{
 						"label": "ui_city_eucla",
 						"value": "eucla"
 					},
 					{
-						"label": "ui_city_jayapura",
-						"value": "jayapura"
+						"label": "ui_city_yakutsk",
+						"value": "yakutsk"
 					},
 					{
 						"label": "ui_city_seoul",
@@ -3872,8 +3872,8 @@
 						"value": "tokyo"
 					},
 					{
-						"label": "ui_city_yakutsk",
-						"value": "yakutsk"
+						"label": "ui_city_jayapura",
+						"value": "jayapura"
 					},
 					{
 						"label": "ui_city_darwin",
@@ -3884,12 +3884,12 @@
 						"value": "adelaide"
 					},
 					{
-						"label": "ui_city_brisbane",
-						"value": "brisbane"
-					},
-					{
 						"label": "ui_city_vladivostok",
 						"value": "vladivostok"
+					},
+					{
+						"label": "ui_city_brisbane",
+						"value": "brisbane"
 					},
 					{
 						"label": "ui_city_sydney",
