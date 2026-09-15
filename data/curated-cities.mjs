@@ -27,9 +27,6 @@ export default [
   "matamoros",
   "cancun",
 
-  // カリブ
-  "havana",
-
   // ブラジル
   "rio_branco",
   "manaus",
@@ -60,42 +57,46 @@ export default [
   "auckland",
   "chatham",
 
-  // 南アメリカ
-  "santiago",
-  "punta_arenas",
-  "buenos_aires",
-  "asuncion",
-  "la_paz",
-  "caracas",
+  // ラテンアメリカ
+  "easter",
   "bogota",
   "lima",
-  "guayaquil",
+  "havana",
+  "caracas",
+  "la_paz",
+  "santiago",
+  "asuncion",
+  "cayenne",
+  "buenos_aires",
+  "punta_arenas",
 
   // ヨーロッパ
+  "azores",
   "reykjavik",
   "london",
   "lisbon",
-  "azores",
   "madrid",
-  "canary",
   "paris",
   "berlin",
   "rome",
   "warsaw",
+  "belgrade",
   "helsinki",
-  "athens",
   "kyiv",
-  "chisinau",
+  "bucharest",
+  "athens",
   "istanbul",
 
   // アフリカ
-  "casablanca",
+  "abidjan",
   "lagos",
-  "cairo",
   "johannesburg",
   "nairobi",
 
   // 中東
+  "casablanca",
+  "algiers",
+  "cairo",
   "jerusalem",
   "beirut",
   "riyadh",

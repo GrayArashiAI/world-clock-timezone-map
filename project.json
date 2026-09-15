@@ -54,9 +54,9 @@
 				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
 				"ui_city_matamoros": "Matamoros(-6/-5)",
+				"ui_city_easter": "Easter Island(-6/-5)",
 				"ui_city_cancun": "Cancún(-5)",
 				"ui_city_bogota": "Bogotá(-5)",
-				"ui_city_guayaquil": "Guayaquil(-5)",
 				"ui_city_rio_branco": "Rio Branco(-5)",
 				"ui_city_lima": "Lima(-5)",
 				"ui_city_toronto": "Toronto(-5/-4)",
@@ -68,6 +68,7 @@
 				"ui_city_halifax": "Halifax(-4/-3)",
 				"ui_city_santiago": "Santiago(-4/-3)",
 				"ui_city_st_johns": "St. John’s(-3:30/-2:30)",
+				"ui_city_cayenne": "Cayenne(-3)",
 				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_asuncion": "Asunción(-3)",
 				"ui_city_buenos_aires": "Buenos Aires(-3)",
@@ -76,20 +77,22 @@
 				"ui_city_azores": "Azores(-1/+0)",
 				"ui_city_reykjavik": "Reykjavik(+0)",
 				"ui_city_casablanca": "Casablanca(+0)",
+				"ui_city_abidjan": "Abidjan(+0)",
 				"ui_city_london": "London(+0/+1)",
 				"ui_city_lisbon": "Lisbon(+0/+1)",
-				"ui_city_canary": "Canaries(+0/+1)",
+				"ui_city_algiers": "Algiers(+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlin(+1/+2)",
 				"ui_city_warsaw": "Warsaw(+1/+2)",
 				"ui_city_paris": "Paris(+1/+2)",
+				"ui_city_belgrade": "Belgrade(+1/+2)",
 				"ui_city_rome": "Rome(+1/+2)",
 				"ui_city_madrid": "Madrid(+1/+2)",
 				"ui_city_kaliningrad": "Kaliningrad(+2)",
 				"ui_city_johannesburg": "Johannesburg(+2)",
 				"ui_city_helsinki": "Helsinki(+2/+3)",
 				"ui_city_kyiv": "Kyiv(+2/+3)",
-				"ui_city_chisinau": "Chișinău(+2/+3)",
+				"ui_city_bucharest": "Bucharest(+2/+3)",
 				"ui_city_athens": "Athens(+2/+3)",
 				"ui_city_beirut": "Beirut(+2/+3)",
 				"ui_city_jerusalem": "Jerusalem(+2/+3)",
@@ -188,9 +191,9 @@
 				"ui_city_winnipeg": "温尼伯(-6/-5)",
 				"ui_city_chicago": "芝加哥(-6/-5)",
 				"ui_city_matamoros": "马塔莫罗斯(-6/-5)",
+				"ui_city_easter": "复活节岛(-6/-5)",
 				"ui_city_cancun": "坎昆(-5)",
 				"ui_city_bogota": "波哥大(-5)",
-				"ui_city_guayaquil": "瓜亚基尔(-5)",
 				"ui_city_rio_branco": "里奥布郎库(-5)",
 				"ui_city_lima": "利马(-5)",
 				"ui_city_toronto": "多伦多(-5/-4)",
@@ -202,6 +205,7 @@
 				"ui_city_halifax": "哈利法克斯(-4/-3)",
 				"ui_city_santiago": "圣地亚哥(-4/-3)",
 				"ui_city_st_johns": "圣约翰斯(-3:30/-2:30)",
+				"ui_city_cayenne": "卡宴(-3)",
 				"ui_city_sao_paulo": "圣保罗(-3)",
 				"ui_city_asuncion": "亚松森(-3)",
 				"ui_city_buenos_aires": "布宜诺斯艾利斯(-3)",
@@ -210,20 +214,22 @@
 				"ui_city_azores": "亚速尔群岛(-1/+0)",
 				"ui_city_reykjavik": "雷克雅未克(+0)",
 				"ui_city_casablanca": "卡萨布兰卡(+0)",
+				"ui_city_abidjan": "阿比让(+0)",
 				"ui_city_london": "伦敦(+0/+1)",
 				"ui_city_lisbon": "里斯本(+0/+1)",
-				"ui_city_canary": "加那利(+0/+1)",
+				"ui_city_algiers": "阿尔及尔(+1)",
 				"ui_city_lagos": "拉各斯(+1)",
 				"ui_city_berlin": "柏林(+1/+2)",
 				"ui_city_warsaw": "华沙(+1/+2)",
 				"ui_city_paris": "巴黎(+1/+2)",
+				"ui_city_belgrade": "贝尔格莱德(+1/+2)",
 				"ui_city_rome": "罗马(+1/+2)",
 				"ui_city_madrid": "马德里(+1/+2)",
 				"ui_city_kaliningrad": "加里宁格勒(+2)",
 				"ui_city_johannesburg": "约翰内斯堡(+2)",
 				"ui_city_helsinki": "赫尔辛基(+2/+3)",
 				"ui_city_kyiv": "基辅(+2/+3)",
-				"ui_city_chisinau": "基希讷乌(+2/+3)",
+				"ui_city_bucharest": "布加勒斯特(+2/+3)",
 				"ui_city_athens": "雅典(+2/+3)",
 				"ui_city_beirut": "贝鲁特(+2/+3)",
 				"ui_city_jerusalem": "耶路撒冷(+2/+3)",
@@ -322,9 +328,9 @@
 				"ui_city_winnipeg": "溫尼伯(-6/-5)",
 				"ui_city_chicago": "芝加哥(-6/-5)",
 				"ui_city_matamoros": "馬塔莫羅斯(-6/-5)",
+				"ui_city_easter": "復活島(-6/-5)",
 				"ui_city_cancun": "坎昆(-5)",
 				"ui_city_bogota": "波哥大(-5)",
-				"ui_city_guayaquil": "瓜亞基爾(-5)",
 				"ui_city_rio_branco": "里約布蘭(-5)",
 				"ui_city_lima": "利馬(-5)",
 				"ui_city_toronto": "多倫多(-5/-4)",
@@ -336,6 +342,7 @@
 				"ui_city_halifax": "哈里法克斯(-4/-3)",
 				"ui_city_santiago": "聖地牙哥(-4/-3)",
 				"ui_city_st_johns": "聖約翰(-3:30/-2:30)",
+				"ui_city_cayenne": "開雲(-3)",
 				"ui_city_sao_paulo": "聖保羅(-3)",
 				"ui_city_asuncion": "亞松森(-3)",
 				"ui_city_buenos_aires": "布宜諾斯艾利斯(-3)",
@@ -344,20 +351,22 @@
 				"ui_city_azores": "亞速爾群島(-1/+0)",
 				"ui_city_reykjavik": "雷克雅維克(+0)",
 				"ui_city_casablanca": "卡薩布蘭卡(+0)",
+				"ui_city_abidjan": "阿比讓(+0)",
 				"ui_city_london": "倫敦(+0/+1)",
 				"ui_city_lisbon": "里斯本(+0/+1)",
-				"ui_city_canary": "加納利(+0/+1)",
+				"ui_city_algiers": "阿爾及爾(+1)",
 				"ui_city_lagos": "拉哥斯(+1)",
 				"ui_city_berlin": "柏林(+1/+2)",
 				"ui_city_warsaw": "華沙(+1/+2)",
 				"ui_city_paris": "巴黎(+1/+2)",
+				"ui_city_belgrade": "貝爾格勒(+1/+2)",
 				"ui_city_rome": "羅馬(+1/+2)",
 				"ui_city_madrid": "馬德里(+1/+2)",
 				"ui_city_kaliningrad": "加里寧格勒(+2)",
 				"ui_city_johannesburg": "約翰尼斯堡(+2)",
 				"ui_city_helsinki": "赫爾辛基(+2/+3)",
 				"ui_city_kyiv": "基輔(+2/+3)",
-				"ui_city_chisinau": "基西紐(+2/+3)",
+				"ui_city_bucharest": "布加勒斯特(+2/+3)",
 				"ui_city_athens": "雅典(+2/+3)",
 				"ui_city_beirut": "貝魯特(+2/+3)",
 				"ui_city_jerusalem": "耶路撒冷(+2/+3)",
@@ -456,9 +465,9 @@
 				"ui_city_winnipeg": "ウィニペグ(-6/-5)",
 				"ui_city_chicago": "シカゴ(-6/-5)",
 				"ui_city_matamoros": "マタモロス(-6/-5)",
+				"ui_city_easter": "イースター島(-6/-5)",
 				"ui_city_cancun": "カンクン(-5)",
 				"ui_city_bogota": "ボゴタ(-5)",
-				"ui_city_guayaquil": "グアヤキル(-5)",
 				"ui_city_rio_branco": "リオブランコ(-5)",
 				"ui_city_lima": "リマ(-5)",
 				"ui_city_toronto": "トロント(-5/-4)",
@@ -470,6 +479,7 @@
 				"ui_city_halifax": "ハリファクス(-4/-3)",
 				"ui_city_santiago": "サンチアゴ(-4/-3)",
 				"ui_city_st_johns": "セントジョンズ(-3:30/-2:30)",
+				"ui_city_cayenne": "カイエンヌ(-3)",
 				"ui_city_sao_paulo": "サンパウロ(-3)",
 				"ui_city_asuncion": "アスンシオン(-3)",
 				"ui_city_buenos_aires": "ブエノスアイレス(-3)",
@@ -478,20 +488,22 @@
 				"ui_city_azores": "アゾレス(-1/+0)",
 				"ui_city_reykjavik": "レイキャビク(+0)",
 				"ui_city_casablanca": "カサブランカ(+0)",
+				"ui_city_abidjan": "アビジャン(+0)",
 				"ui_city_london": "ロンドン(+0/+1)",
 				"ui_city_lisbon": "リスボン(+0/+1)",
-				"ui_city_canary": "カナリア(+0/+1)",
+				"ui_city_algiers": "アルジェ(+1)",
 				"ui_city_lagos": "ラゴス(+1)",
 				"ui_city_berlin": "ベルリン(+1/+2)",
 				"ui_city_warsaw": "ワルシャワ(+1/+2)",
 				"ui_city_paris": "パリ(+1/+2)",
+				"ui_city_belgrade": "ベオグラード(+1/+2)",
 				"ui_city_rome": "ローマ(+1/+2)",
 				"ui_city_madrid": "マドリード(+1/+2)",
 				"ui_city_kaliningrad": "カリーニングラード(+2)",
 				"ui_city_johannesburg": "ヨハネスブルグ(+2)",
 				"ui_city_helsinki": "ヘルシンキ(+2/+3)",
 				"ui_city_kyiv": "キーウ(+2/+3)",
-				"ui_city_chisinau": "キシナウ(+2/+3)",
+				"ui_city_bucharest": "ブカレスト(+2/+3)",
 				"ui_city_athens": "アテネ(+2/+3)",
 				"ui_city_beirut": "ベイルート(+2/+3)",
 				"ui_city_jerusalem": "エルサレム(+2/+3)",
@@ -590,9 +602,9 @@
 				"ui_city_winnipeg": "위니펙(-6/-5)",
 				"ui_city_chicago": "시카고(-6/-5)",
 				"ui_city_matamoros": "마타모로스(-6/-5)",
+				"ui_city_easter": "이스터 섬(-6/-5)",
 				"ui_city_cancun": "칸쿤(-5)",
 				"ui_city_bogota": "보고타(-5)",
-				"ui_city_guayaquil": "과야킬(-5)",
 				"ui_city_rio_branco": "히우 브랑쿠(-5)",
 				"ui_city_lima": "리마(-5)",
 				"ui_city_toronto": "토론토(-5/-4)",
@@ -604,6 +616,7 @@
 				"ui_city_halifax": "핼리팩스(-4/-3)",
 				"ui_city_santiago": "산티아고(-4/-3)",
 				"ui_city_st_johns": "세인트존스(-3:30/-2:30)",
+				"ui_city_cayenne": "카옌(-3)",
 				"ui_city_sao_paulo": "상파울루(-3)",
 				"ui_city_asuncion": "아순시온(-3)",
 				"ui_city_buenos_aires": "부에노스 아이레스(-3)",
@@ -612,20 +625,22 @@
 				"ui_city_azores": "아조레스(-1/+0)",
 				"ui_city_reykjavik": "레이캬비크(+0)",
 				"ui_city_casablanca": "카사블랑카(+0)",
+				"ui_city_abidjan": "아비장(+0)",
 				"ui_city_london": "런던(+0/+1)",
 				"ui_city_lisbon": "리스본(+0/+1)",
-				"ui_city_canary": "카나리아 제도(+0/+1)",
+				"ui_city_algiers": "알제(+1)",
 				"ui_city_lagos": "라고스(+1)",
 				"ui_city_berlin": "베를린(+1/+2)",
 				"ui_city_warsaw": "바르샤바(+1/+2)",
 				"ui_city_paris": "파리(+1/+2)",
+				"ui_city_belgrade": "베오그라드(+1/+2)",
 				"ui_city_rome": "로마(+1/+2)",
 				"ui_city_madrid": "마드리드(+1/+2)",
 				"ui_city_kaliningrad": "칼리닌그라드(+2)",
 				"ui_city_johannesburg": "요하네스버그(+2)",
 				"ui_city_helsinki": "헬싱키(+2/+3)",
 				"ui_city_kyiv": "키예프(+2/+3)",
-				"ui_city_chisinau": "키시나우(+2/+3)",
+				"ui_city_bucharest": "부쿠레슈티(+2/+3)",
 				"ui_city_athens": "아테네(+2/+3)",
 				"ui_city_beirut": "베이루트(+2/+3)",
 				"ui_city_jerusalem": "예루살렘(+2/+3)",
@@ -724,9 +739,9 @@
 				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
 				"ui_city_matamoros": "Matamoros(-6/-5)",
+				"ui_city_easter": "Isla de Pascua(-6/-5)",
 				"ui_city_cancun": "Cancún(-5)",
 				"ui_city_bogota": "Bogotá(-5)",
-				"ui_city_guayaquil": "Guayaquil(-5)",
 				"ui_city_rio_branco": "Río Branco(-5)",
 				"ui_city_lima": "Lima(-5)",
 				"ui_city_toronto": "Toronto(-5/-4)",
@@ -738,6 +753,7 @@
 				"ui_city_halifax": "Halifax(-4/-3)",
 				"ui_city_santiago": "Santiago de Chile(-4/-3)",
 				"ui_city_st_johns": "San Juan de Terranova(-3:30/-2:30)",
+				"ui_city_cayenne": "Cayena(-3)",
 				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_asuncion": "Asunción(-3)",
 				"ui_city_buenos_aires": "Buenos Aires(-3)",
@@ -746,20 +762,22 @@
 				"ui_city_azores": "Azores(-1/+0)",
 				"ui_city_reykjavik": "Reikiavik(+0)",
 				"ui_city_casablanca": "Casablanca(+0)",
+				"ui_city_abidjan": "Abiyán(+0)",
 				"ui_city_london": "Londres(+0/+1)",
 				"ui_city_lisbon": "Lisboa(+0/+1)",
-				"ui_city_canary": "Canarias(+0/+1)",
+				"ui_city_algiers": "Argel(+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlín(+1/+2)",
 				"ui_city_warsaw": "Varsovia(+1/+2)",
 				"ui_city_paris": "París(+1/+2)",
+				"ui_city_belgrade": "Belgrado(+1/+2)",
 				"ui_city_rome": "Roma(+1/+2)",
 				"ui_city_madrid": "Madrid(+1/+2)",
 				"ui_city_kaliningrad": "Kaliningrado(+2)",
 				"ui_city_johannesburg": "Johannesburgo(+2)",
 				"ui_city_helsinki": "Helsinki(+2/+3)",
 				"ui_city_kyiv": "Kiev(+2/+3)",
-				"ui_city_chisinau": "Chisináu(+2/+3)",
+				"ui_city_bucharest": "Bucarest(+2/+3)",
 				"ui_city_athens": "Atenas(+2/+3)",
 				"ui_city_beirut": "Beirut(+2/+3)",
 				"ui_city_jerusalem": "Jerusalén(+2/+3)",
@@ -858,9 +876,9 @@
 				"ui_city_winnipeg": "Виннипег(-6/-5)",
 				"ui_city_chicago": "Чикаго(-6/-5)",
 				"ui_city_matamoros": "Матаморос(-6/-5)",
+				"ui_city_easter": "о-в Пасхи(-6/-5)",
 				"ui_city_cancun": "Канкун(-5)",
 				"ui_city_bogota": "Богота(-5)",
-				"ui_city_guayaquil": "Гуаякиль(-5)",
 				"ui_city_rio_branco": "Риу-Бранку(-5)",
 				"ui_city_lima": "Лима(-5)",
 				"ui_city_toronto": "Торонто(-5/-4)",
@@ -872,6 +890,7 @@
 				"ui_city_halifax": "Галифакс(-4/-3)",
 				"ui_city_santiago": "Сантьяго(-4/-3)",
 				"ui_city_st_johns": "Сент-Джонс(-3:30/-2:30)",
+				"ui_city_cayenne": "Кайенна(-3)",
 				"ui_city_sao_paulo": "Сан-Паулу(-3)",
 				"ui_city_asuncion": "Асунсьон(-3)",
 				"ui_city_buenos_aires": "Буэнос-Айрес(-3)",
@@ -880,20 +899,22 @@
 				"ui_city_azores": "Азорские о-ва(-1/+0)",
 				"ui_city_reykjavik": "Рейкьявик(+0)",
 				"ui_city_casablanca": "Касабланка(+0)",
+				"ui_city_abidjan": "Абиджан(+0)",
 				"ui_city_london": "Лондон(+0/+1)",
 				"ui_city_lisbon": "Лиссабон(+0/+1)",
-				"ui_city_canary": "Канарские о-ва(+0/+1)",
+				"ui_city_algiers": "Алжир(+1)",
 				"ui_city_lagos": "Лагос(+1)",
 				"ui_city_berlin": "Берлин(+1/+2)",
 				"ui_city_warsaw": "Варшава(+1/+2)",
 				"ui_city_paris": "Париж(+1/+2)",
+				"ui_city_belgrade": "Белград(+1/+2)",
 				"ui_city_rome": "Рим(+1/+2)",
 				"ui_city_madrid": "Мадрид(+1/+2)",
 				"ui_city_kaliningrad": "Калининград(+2)",
 				"ui_city_johannesburg": "Йоханнесбург(+2)",
 				"ui_city_helsinki": "Хельсинки(+2/+3)",
 				"ui_city_kyiv": "Киев(+2/+3)",
-				"ui_city_chisinau": "Кишинев(+2/+3)",
+				"ui_city_bucharest": "Бухарест(+2/+3)",
 				"ui_city_athens": "Афины(+2/+3)",
 				"ui_city_beirut": "Бейрут(+2/+3)",
 				"ui_city_jerusalem": "Иерусалим(+2/+3)",
@@ -992,9 +1013,9 @@
 				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
 				"ui_city_matamoros": "Matamoros(-6/-5)",
+				"ui_city_easter": "Ilha de Páscoa(-6/-5)",
 				"ui_city_cancun": "Cancún(-5)",
 				"ui_city_bogota": "Bogotá(-5)",
-				"ui_city_guayaquil": "Guaiaquil(-5)",
 				"ui_city_rio_branco": "Rio Branco(-5)",
 				"ui_city_lima": "Lima(-5)",
 				"ui_city_toronto": "Toronto(-5/-4)",
@@ -1006,6 +1027,7 @@
 				"ui_city_halifax": "Halifax(-4/-3)",
 				"ui_city_santiago": "Santiago(-4/-3)",
 				"ui_city_st_johns": "Saint John’s(-3:30/-2:30)",
+				"ui_city_cayenne": "Caiena(-3)",
 				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_asuncion": "Assunção(-3)",
 				"ui_city_buenos_aires": "Buenos Aires(-3)",
@@ -1014,20 +1036,22 @@
 				"ui_city_azores": "Açores(-1/+0)",
 				"ui_city_reykjavik": "Reykjavík(+0)",
 				"ui_city_casablanca": "Casablanca(+0)",
+				"ui_city_abidjan": "Abidjan(+0)",
 				"ui_city_london": "Londres(+0/+1)",
 				"ui_city_lisbon": "Lisboa(+0/+1)",
-				"ui_city_canary": "Canárias(+0/+1)",
+				"ui_city_algiers": "Argel(+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlim(+1/+2)",
 				"ui_city_warsaw": "Varsóvia(+1/+2)",
 				"ui_city_paris": "Paris(+1/+2)",
+				"ui_city_belgrade": "Belgrado(+1/+2)",
 				"ui_city_rome": "Roma(+1/+2)",
 				"ui_city_madrid": "Madri(+1/+2)",
 				"ui_city_kaliningrad": "Kaliningrado(+2)",
 				"ui_city_johannesburg": "Joanesburgo(+2)",
 				"ui_city_helsinki": "Helsinque(+2/+3)",
 				"ui_city_kyiv": "Kiev(+2/+3)",
-				"ui_city_chisinau": "Chișinău(+2/+3)",
+				"ui_city_bucharest": "Bucareste(+2/+3)",
 				"ui_city_athens": "Atenas(+2/+3)",
 				"ui_city_beirut": "Beirute(+2/+3)",
 				"ui_city_jerusalem": "Jerusalém(+2/+3)",
@@ -1126,9 +1150,9 @@
 				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
 				"ui_city_matamoros": "Matamoros(-6/-5)",
+				"ui_city_easter": "Ilha de Páscoa(-6/-5)",
 				"ui_city_cancun": "Cancún(-5)",
 				"ui_city_bogota": "Bogotá(-5)",
-				"ui_city_guayaquil": "Guaiaquil(-5)",
 				"ui_city_rio_branco": "Rio Branco(-5)",
 				"ui_city_lima": "Lima(-5)",
 				"ui_city_toronto": "Toronto(-5/-4)",
@@ -1140,6 +1164,7 @@
 				"ui_city_halifax": "Halifax(-4/-3)",
 				"ui_city_santiago": "Santiago(-4/-3)",
 				"ui_city_st_johns": "Saint John’s(-3:30/-2:30)",
+				"ui_city_cayenne": "Caiena(-3)",
 				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_asuncion": "Assunção(-3)",
 				"ui_city_buenos_aires": "Buenos Aires(-3)",
@@ -1148,20 +1173,22 @@
 				"ui_city_azores": "Açores(-1/+0)",
 				"ui_city_reykjavik": "Reykjavík(+0)",
 				"ui_city_casablanca": "Casablanca(+0)",
+				"ui_city_abidjan": "Abidjan(+0)",
 				"ui_city_london": "Londres(+0/+1)",
 				"ui_city_lisbon": "Lisboa(+0/+1)",
-				"ui_city_canary": "Canárias(+0/+1)",
+				"ui_city_algiers": "Argel(+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlim(+1/+2)",
 				"ui_city_warsaw": "Varsóvia(+1/+2)",
 				"ui_city_paris": "Paris(+1/+2)",
+				"ui_city_belgrade": "Belgrado(+1/+2)",
 				"ui_city_rome": "Roma(+1/+2)",
 				"ui_city_madrid": "Madri(+1/+2)",
 				"ui_city_kaliningrad": "Kaliningrado(+2)",
 				"ui_city_johannesburg": "Joanesburgo(+2)",
 				"ui_city_helsinki": "Helsinque(+2/+3)",
 				"ui_city_kyiv": "Kiev(+2/+3)",
-				"ui_city_chisinau": "Chișinău(+2/+3)",
+				"ui_city_bucharest": "Bucareste(+2/+3)",
 				"ui_city_athens": "Atenas(+2/+3)",
 				"ui_city_beirut": "Beirute(+2/+3)",
 				"ui_city_jerusalem": "Jerusalém(+2/+3)",
@@ -1260,9 +1287,9 @@
 				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
 				"ui_city_matamoros": "Matamoros(-6/-5)",
+				"ui_city_easter": "Osterinsel(-6/-5)",
 				"ui_city_cancun": "Cancún(-5)",
 				"ui_city_bogota": "Bogotá(-5)",
-				"ui_city_guayaquil": "Guayaquil(-5)",
 				"ui_city_rio_branco": "Rio Branco(-5)",
 				"ui_city_lima": "Lima(-5)",
 				"ui_city_toronto": "Toronto(-5/-4)",
@@ -1274,6 +1301,7 @@
 				"ui_city_halifax": "Halifax(-4/-3)",
 				"ui_city_santiago": "Santiago(-4/-3)",
 				"ui_city_st_johns": "St. John’s(-3:30/-2:30)",
+				"ui_city_cayenne": "Cayenne(-3)",
 				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_asuncion": "Asunción(-3)",
 				"ui_city_buenos_aires": "Buenos Aires(-3)",
@@ -1282,20 +1310,22 @@
 				"ui_city_azores": "Azoren(-1/+0)",
 				"ui_city_reykjavik": "Reykjavík(+0)",
 				"ui_city_casablanca": "Casablanca(+0)",
+				"ui_city_abidjan": "Abidjan(+0)",
 				"ui_city_london": "London(+0/+1)",
 				"ui_city_lisbon": "Lissabon(+0/+1)",
-				"ui_city_canary": "Kanaren(+0/+1)",
+				"ui_city_algiers": "Algier(+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlin(+1/+2)",
 				"ui_city_warsaw": "Warschau(+1/+2)",
 				"ui_city_paris": "Paris(+1/+2)",
+				"ui_city_belgrade": "Belgrad(+1/+2)",
 				"ui_city_rome": "Rom(+1/+2)",
 				"ui_city_madrid": "Madrid(+1/+2)",
 				"ui_city_kaliningrad": "Kaliningrad(+2)",
 				"ui_city_johannesburg": "Johannesburg(+2)",
 				"ui_city_helsinki": "Helsinki(+2/+3)",
 				"ui_city_kyiv": "Kiew(+2/+3)",
-				"ui_city_chisinau": "Chișinău(+2/+3)",
+				"ui_city_bucharest": "Bukarest(+2/+3)",
 				"ui_city_athens": "Athen(+2/+3)",
 				"ui_city_beirut": "Beirut(+2/+3)",
 				"ui_city_jerusalem": "Jerusalem(+2/+3)",
@@ -1394,9 +1424,9 @@
 				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
 				"ui_city_matamoros": "Matamoros(-6/-5)",
+				"ui_city_easter": "Île de Pâques(-6/-5)",
 				"ui_city_cancun": "Cancún(-5)",
 				"ui_city_bogota": "Bogotá(-5)",
-				"ui_city_guayaquil": "Guayaquil(-5)",
 				"ui_city_rio_branco": "Rio Branco(-5)",
 				"ui_city_lima": "Lima(-5)",
 				"ui_city_toronto": "Toronto(-5/-4)",
@@ -1408,6 +1438,7 @@
 				"ui_city_halifax": "Halifax(-4/-3)",
 				"ui_city_santiago": "Santiago(-4/-3)",
 				"ui_city_st_johns": "Saint-Jean de Terre-Neuve(-3:30/-2:30)",
+				"ui_city_cayenne": "Cayenne(-3)",
 				"ui_city_sao_paulo": "São Paulo(-3)",
 				"ui_city_asuncion": "Asunción(-3)",
 				"ui_city_buenos_aires": "Buenos Aires(-3)",
@@ -1416,20 +1447,22 @@
 				"ui_city_azores": "Açores(-1/+0)",
 				"ui_city_reykjavik": "Reykjavik(+0)",
 				"ui_city_casablanca": "Casablanca(+0)",
+				"ui_city_abidjan": "Abidjan(+0)",
 				"ui_city_london": "Londres(+0/+1)",
 				"ui_city_lisbon": "Lisbonne(+0/+1)",
-				"ui_city_canary": "Îles Canaries(+0/+1)",
+				"ui_city_algiers": "Alger(+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlin(+1/+2)",
 				"ui_city_warsaw": "Varsovie(+1/+2)",
 				"ui_city_paris": "Paris(+1/+2)",
+				"ui_city_belgrade": "Belgrade(+1/+2)",
 				"ui_city_rome": "Rome(+1/+2)",
 				"ui_city_madrid": "Madrid(+1/+2)",
 				"ui_city_kaliningrad": "Kaliningrad(+2)",
 				"ui_city_johannesburg": "Johannesburg(+2)",
 				"ui_city_helsinki": "Helsinki(+2/+3)",
 				"ui_city_kyiv": "Kiev(+2/+3)",
-				"ui_city_chisinau": "Chișinău(+2/+3)",
+				"ui_city_bucharest": "Bucarest(+2/+3)",
 				"ui_city_athens": "Athènes(+2/+3)",
 				"ui_city_beirut": "Beyrouth(+2/+3)",
 				"ui_city_jerusalem": "Jérusalem(+2/+3)",
@@ -1544,16 +1577,16 @@
 						"value": "matamoros"
 					},
 					{
+						"label": "ui_city_easter",
+						"value": "easter"
+					},
+					{
 						"label": "ui_city_cancun",
 						"value": "cancun"
 					},
 					{
 						"label": "ui_city_bogota",
 						"value": "bogota"
-					},
-					{
-						"label": "ui_city_guayaquil",
-						"value": "guayaquil"
 					},
 					{
 						"label": "ui_city_rio_branco",
@@ -1600,6 +1633,10 @@
 						"value": "st_johns"
 					},
 					{
+						"label": "ui_city_cayenne",
+						"value": "cayenne"
+					},
+					{
 						"label": "ui_city_sao_paulo",
 						"value": "sao_paulo"
 					},
@@ -1632,6 +1669,10 @@
 						"value": "casablanca"
 					},
 					{
+						"label": "ui_city_abidjan",
+						"value": "abidjan"
+					},
+					{
 						"label": "ui_city_london",
 						"value": "london"
 					},
@@ -1640,8 +1681,8 @@
 						"value": "lisbon"
 					},
 					{
-						"label": "ui_city_canary",
-						"value": "canary"
+						"label": "ui_city_algiers",
+						"value": "algiers"
 					},
 					{
 						"label": "ui_city_lagos",
@@ -1658,6 +1699,10 @@
 					{
 						"label": "ui_city_paris",
 						"value": "paris"
+					},
+					{
+						"label": "ui_city_belgrade",
+						"value": "belgrade"
 					},
 					{
 						"label": "ui_city_rome",
@@ -1684,8 +1729,8 @@
 						"value": "kyiv"
 					},
 					{
-						"label": "ui_city_chisinau",
-						"value": "chisinau"
+						"label": "ui_city_bucharest",
+						"value": "bucharest"
 					},
 					{
 						"label": "ui_city_athens",
@@ -1945,16 +1990,16 @@
 						"value": "matamoros"
 					},
 					{
+						"label": "ui_city_easter",
+						"value": "easter"
+					},
+					{
 						"label": "ui_city_cancun",
 						"value": "cancun"
 					},
 					{
 						"label": "ui_city_bogota",
 						"value": "bogota"
-					},
-					{
-						"label": "ui_city_guayaquil",
-						"value": "guayaquil"
 					},
 					{
 						"label": "ui_city_rio_branco",
@@ -2001,6 +2046,10 @@
 						"value": "st_johns"
 					},
 					{
+						"label": "ui_city_cayenne",
+						"value": "cayenne"
+					},
+					{
 						"label": "ui_city_sao_paulo",
 						"value": "sao_paulo"
 					},
@@ -2033,6 +2082,10 @@
 						"value": "casablanca"
 					},
 					{
+						"label": "ui_city_abidjan",
+						"value": "abidjan"
+					},
+					{
 						"label": "ui_city_london",
 						"value": "london"
 					},
@@ -2041,8 +2094,8 @@
 						"value": "lisbon"
 					},
 					{
-						"label": "ui_city_canary",
-						"value": "canary"
+						"label": "ui_city_algiers",
+						"value": "algiers"
 					},
 					{
 						"label": "ui_city_lagos",
@@ -2059,6 +2112,10 @@
 					{
 						"label": "ui_city_paris",
 						"value": "paris"
+					},
+					{
+						"label": "ui_city_belgrade",
+						"value": "belgrade"
 					},
 					{
 						"label": "ui_city_rome",
@@ -2085,8 +2142,8 @@
 						"value": "kyiv"
 					},
 					{
-						"label": "ui_city_chisinau",
-						"value": "chisinau"
+						"label": "ui_city_bucharest",
+						"value": "bucharest"
 					},
 					{
 						"label": "ui_city_athens",
@@ -2346,16 +2403,16 @@
 						"value": "matamoros"
 					},
 					{
+						"label": "ui_city_easter",
+						"value": "easter"
+					},
+					{
 						"label": "ui_city_cancun",
 						"value": "cancun"
 					},
 					{
 						"label": "ui_city_bogota",
 						"value": "bogota"
-					},
-					{
-						"label": "ui_city_guayaquil",
-						"value": "guayaquil"
 					},
 					{
 						"label": "ui_city_rio_branco",
@@ -2402,6 +2459,10 @@
 						"value": "st_johns"
 					},
 					{
+						"label": "ui_city_cayenne",
+						"value": "cayenne"
+					},
+					{
 						"label": "ui_city_sao_paulo",
 						"value": "sao_paulo"
 					},
@@ -2434,6 +2495,10 @@
 						"value": "casablanca"
 					},
 					{
+						"label": "ui_city_abidjan",
+						"value": "abidjan"
+					},
+					{
 						"label": "ui_city_london",
 						"value": "london"
 					},
@@ -2442,8 +2507,8 @@
 						"value": "lisbon"
 					},
 					{
-						"label": "ui_city_canary",
-						"value": "canary"
+						"label": "ui_city_algiers",
+						"value": "algiers"
 					},
 					{
 						"label": "ui_city_lagos",
@@ -2460,6 +2525,10 @@
 					{
 						"label": "ui_city_paris",
 						"value": "paris"
+					},
+					{
+						"label": "ui_city_belgrade",
+						"value": "belgrade"
 					},
 					{
 						"label": "ui_city_rome",
@@ -2486,8 +2555,8 @@
 						"value": "kyiv"
 					},
 					{
-						"label": "ui_city_chisinau",
-						"value": "chisinau"
+						"label": "ui_city_bucharest",
+						"value": "bucharest"
 					},
 					{
 						"label": "ui_city_athens",
@@ -2747,16 +2816,16 @@
 						"value": "matamoros"
 					},
 					{
+						"label": "ui_city_easter",
+						"value": "easter"
+					},
+					{
 						"label": "ui_city_cancun",
 						"value": "cancun"
 					},
 					{
 						"label": "ui_city_bogota",
 						"value": "bogota"
-					},
-					{
-						"label": "ui_city_guayaquil",
-						"value": "guayaquil"
 					},
 					{
 						"label": "ui_city_rio_branco",
@@ -2803,6 +2872,10 @@
 						"value": "st_johns"
 					},
 					{
+						"label": "ui_city_cayenne",
+						"value": "cayenne"
+					},
+					{
 						"label": "ui_city_sao_paulo",
 						"value": "sao_paulo"
 					},
@@ -2835,6 +2908,10 @@
 						"value": "casablanca"
 					},
 					{
+						"label": "ui_city_abidjan",
+						"value": "abidjan"
+					},
+					{
 						"label": "ui_city_london",
 						"value": "london"
 					},
@@ -2843,8 +2920,8 @@
 						"value": "lisbon"
 					},
 					{
-						"label": "ui_city_canary",
-						"value": "canary"
+						"label": "ui_city_algiers",
+						"value": "algiers"
 					},
 					{
 						"label": "ui_city_lagos",
@@ -2861,6 +2938,10 @@
 					{
 						"label": "ui_city_paris",
 						"value": "paris"
+					},
+					{
+						"label": "ui_city_belgrade",
+						"value": "belgrade"
 					},
 					{
 						"label": "ui_city_rome",
@@ -2887,8 +2968,8 @@
 						"value": "kyiv"
 					},
 					{
-						"label": "ui_city_chisinau",
-						"value": "chisinau"
+						"label": "ui_city_bucharest",
+						"value": "bucharest"
 					},
 					{
 						"label": "ui_city_athens",
@@ -3148,16 +3229,16 @@
 						"value": "matamoros"
 					},
 					{
+						"label": "ui_city_easter",
+						"value": "easter"
+					},
+					{
 						"label": "ui_city_cancun",
 						"value": "cancun"
 					},
 					{
 						"label": "ui_city_bogota",
 						"value": "bogota"
-					},
-					{
-						"label": "ui_city_guayaquil",
-						"value": "guayaquil"
 					},
 					{
 						"label": "ui_city_rio_branco",
@@ -3204,6 +3285,10 @@
 						"value": "st_johns"
 					},
 					{
+						"label": "ui_city_cayenne",
+						"value": "cayenne"
+					},
+					{
 						"label": "ui_city_sao_paulo",
 						"value": "sao_paulo"
 					},
@@ -3236,6 +3321,10 @@
 						"value": "casablanca"
 					},
 					{
+						"label": "ui_city_abidjan",
+						"value": "abidjan"
+					},
+					{
 						"label": "ui_city_london",
 						"value": "london"
 					},
@@ -3244,8 +3333,8 @@
 						"value": "lisbon"
 					},
 					{
-						"label": "ui_city_canary",
-						"value": "canary"
+						"label": "ui_city_algiers",
+						"value": "algiers"
 					},
 					{
 						"label": "ui_city_lagos",
@@ -3262,6 +3351,10 @@
 					{
 						"label": "ui_city_paris",
 						"value": "paris"
+					},
+					{
+						"label": "ui_city_belgrade",
+						"value": "belgrade"
 					},
 					{
 						"label": "ui_city_rome",
@@ -3288,8 +3381,8 @@
 						"value": "kyiv"
 					},
 					{
-						"label": "ui_city_chisinau",
-						"value": "chisinau"
+						"label": "ui_city_bucharest",
+						"value": "bucharest"
 					},
 					{
 						"label": "ui_city_athens",
@@ -3549,16 +3642,16 @@
 						"value": "matamoros"
 					},
 					{
+						"label": "ui_city_easter",
+						"value": "easter"
+					},
+					{
 						"label": "ui_city_cancun",
 						"value": "cancun"
 					},
 					{
 						"label": "ui_city_bogota",
 						"value": "bogota"
-					},
-					{
-						"label": "ui_city_guayaquil",
-						"value": "guayaquil"
 					},
 					{
 						"label": "ui_city_rio_branco",
@@ -3605,6 +3698,10 @@
 						"value": "st_johns"
 					},
 					{
+						"label": "ui_city_cayenne",
+						"value": "cayenne"
+					},
+					{
 						"label": "ui_city_sao_paulo",
 						"value": "sao_paulo"
 					},
@@ -3637,6 +3734,10 @@
 						"value": "casablanca"
 					},
 					{
+						"label": "ui_city_abidjan",
+						"value": "abidjan"
+					},
+					{
 						"label": "ui_city_london",
 						"value": "london"
 					},
@@ -3645,8 +3746,8 @@
 						"value": "lisbon"
 					},
 					{
-						"label": "ui_city_canary",
-						"value": "canary"
+						"label": "ui_city_algiers",
+						"value": "algiers"
 					},
 					{
 						"label": "ui_city_lagos",
@@ -3663,6 +3764,10 @@
 					{
 						"label": "ui_city_paris",
 						"value": "paris"
+					},
+					{
+						"label": "ui_city_belgrade",
+						"value": "belgrade"
 					},
 					{
 						"label": "ui_city_rome",
@@ -3689,8 +3794,8 @@
 						"value": "kyiv"
 					},
 					{
-						"label": "ui_city_chisinau",
-						"value": "chisinau"
+						"label": "ui_city_bucharest",
+						"value": "bucharest"
 					},
 					{
 						"label": "ui_city_athens",
