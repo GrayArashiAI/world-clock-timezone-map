@@ -20,9 +20,9 @@
 
 ## 사용 방법
 
-IANA 도시 목록은 수동으로 입력하는 시간대를 고르는 기준입니다. 표시할 도시가 반드시 이 목록에 있을 필요는 없습니다. 별도 IANA 항목이 없으면 같은 시간대의 IANA 도시를 선택하세요. 이 프로젝트에서 사용하는 IANA 버전은 2026b입니다.
+IANA 도시 목록은 수동으로 입력하는 시간대를 고르는 기준입니다. 표시할 도시가 반드시 이 목록에 있을 필요는 없습니다. 별도 IANA 항목이 없으면 같은 시간대의 IANA 도시를 선택하세요. 이 프로젝트에서 사용하는 IANA 버전은 2026c입니다.
 
-IANA 도시 목록: [IANA 도시 목록](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)
+IANA 도시 목록: [IANA 도시 목록](https://data.iana.org/time-zones/tzdb-2026c/zone.tab)
 
 ### 내 도시 설정
 

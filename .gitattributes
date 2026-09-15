@@ -3,3 +3,4 @@
 *.gif -text
 *.jpg -text
 *.png -text
+*.res -text

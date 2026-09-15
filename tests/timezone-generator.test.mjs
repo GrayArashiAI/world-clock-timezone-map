@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import curatedCityIds from "../data/curated-cities.mjs";
 import {
+  assertRuntimeTzdb,
   buildCityRecords,
   buildLocalizedCityRecords,
   buildTimeZoneCityRecords,
@@ -17,6 +18,10 @@ import {
   validateCuratedCityList
 } from "../scripts/timezone-generator-lib.mjs";
 
+const ianaVersion = readFileSync(new URL("../data/iana/version.txt", import.meta.url), "utf8").trim();
+assertRuntimeTzdb(ianaVersion);
+// 生成スクリプトと同じく、恒久時制への移行後に固定されるオフセットだけを見るため翌年を基準にします。
+const profileYear = Number(ianaVersion.slice(0, 4)) + 1;
 const zone1970Text = readFileSync(new URL("../data/iana/zone1970.tab", import.meta.url), "utf8");
 const zoneText = readFileSync(new URL("../data/iana/zone.tab", import.meta.url), "utf8");
 const backwardText = readFileSync(new URL("../data/iana/backward", import.meta.url), "utf8");
@@ -44,7 +49,7 @@ const curatedRecords = buildCityRecords({
   cityIds: curatedCityIds,
   zone1970Text,
   zoneText,
-  year: 2026
+  year: profileYear
 });
 const localizedRecords = buildLocalizedCityRecords({
   records: curatedRecords,
@@ -87,14 +92,19 @@ test("curated cities are valid, distinct by rule, and retain representative offs
   assert.deepEqual(validateCuratedCityList(curatedCityIds), []);
   assert.deepEqual(
     {
-      regina: [byId.regina.country, byId.regina.timeZone, byId.regina.offsetLabel],
+      // 恒久時制へ移行した3都市。実行時ICUのtzdbが古いと夏時間付きのラベルになって失敗します。
+      vancouver: [byId.vancouver.country, byId.vancouver.timeZone, byId.vancouver.offsetLabel],
+      edmonton: [byId.edmonton.country, byId.edmonton.timeZone, byId.edmonton.offsetLabel],
+      casablanca: [byId.casablanca.country, byId.casablanca.offsetLabel],
       eucla: byId.eucla.offsetLabel,
       chatham: byId.chatham.offsetLabel,
       havana: [byId.havana.country, byId.havana.offsetLabel],
       kabul: [byId.kabul.country, byId.kabul.offsetLabel]
     },
     {
-      regina: ["CA", "America/Regina", "-6"],
+      vancouver: ["CA", "America/Vancouver", "-7"],
+      edmonton: ["CA", "America/Edmonton", "-6"],
+      casablanca: ["MA", "+0"],
       eucla: "+8:45",
       chatham: "+12:45/+13:45",
       havana: ["CU", "-5/-4"],
@@ -108,8 +118,8 @@ test("curated cities are valid, distinct by rule, and retain representative offs
       .replace(/^_|_$/g, "");
     assert.equal(record.id, expectedId, record.timeZone);
   }
-  assert.deepEqual(findDuplicateCountryRules(curatedRecords, { startYear: 2026, years: 5 }), []);
-  assert.deepEqual(offsetProfile("America/New_York", 2026).offsets, [-300, -240]);
+  assert.deepEqual(findDuplicateCountryRules(curatedRecords, { startYear: profileYear, years: 5 }), []);
+  assert.deepEqual(offsetProfile("America/New_York", profileYear).offsets, [-300, -240]);
 });
 
 test("combined timezone catalog resolves aliases and fixed-offset zones", () => {
@@ -190,6 +200,8 @@ test("localized curated cities sort by offsets, then north to south", () => {
   const groupIds = (firstOffset, secondOffset) => sortedRecords
     .filter((record) => record.firstOffset === firstOffset && record.secondOffset === secondOffset)
     .map((record) => record.id);
+  // バンクーバーは恒久-07になり、夏時間を持たない-07グループの最北の都市として並びます。
+  assert.deepEqual(groupIds(-420, -420), ["vancouver", "phoenix", "hermosillo"]);
   assert.deepEqual(groupIds(-240, -180), ["halifax", "santiago"]);
   assert.deepEqual(
     groupIds(480, 480),

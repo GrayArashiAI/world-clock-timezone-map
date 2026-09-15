@@ -5,6 +5,7 @@ import curatedCityIds from "../data/curated-cities.mjs";
 import languages, { LANGUAGE_ORDER } from "../data/languages.mjs";
 
 import {
+  assertRuntimeTzdb,
   buildCityRecords,
   buildLocalizedCityRecords,
   buildTimeZoneCityRecords,
@@ -17,7 +18,10 @@ import {
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const readText = (path) => readFileSync(join(root, path), "utf8");
 const version = readText("data/iana/version.txt").trim();
-const sourceYear = Number(version.slice(0, 4));
+assertRuntimeTzdb(version);
+// tzdbは北米の恒久時制への移行を11月1日に置くため、版の年内には移行前後のオフセットが混ざります。
+// 翌年を基準にすると移行後に固定されるオフセットだけが残り、表示と並び順が将来の実態に揃います。
+const profileYear = Number(version.slice(0, 4)) + 1;
 const zone1970Text = readText("data/iana/zone1970.tab");
 const zoneText = readText("data/iana/zone.tab");
 const backwardText = readText("data/iana/backward");
@@ -42,13 +46,13 @@ const cities = sortCityRecords(buildLocalizedCityRecords({
     cityIds: curatedCityIds,
     zone1970Text,
     zoneText,
-    year: sourceYear
+    year: profileYear
   }),
   timeZoneCities,
   languages: LANGUAGE_ORDER
 }));
 
-const duplicates = findDuplicateCountryRules(cities, { startYear: sourceYear, years: 5 });
+const duplicates = findDuplicateCountryRules(cities, { startYear: profileYear, years: 5 });
 if (duplicates.length) {
   throw new Error(`Duplicate country rules: ${JSON.stringify(duplicates)}`);
 }

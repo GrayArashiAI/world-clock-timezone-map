@@ -20,9 +20,9 @@
 
 ## 使用方法
 
-IANA 城市列表用於選擇手動填寫的時區。要顯示的城市不必出現在列表中；如果沒有對應條目，請選擇同一時區的 IANA 城市。本專案使用的 IANA 版本為 2026b。
+IANA 城市列表用於選擇手動填寫的時區。要顯示的城市不必出現在列表中；如果沒有對應條目，請選擇同一時區的 IANA 城市。本專案使用的 IANA 版本為 2026c。
 
-IANA 城市列表：[IANA 城市列表](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)
+IANA 城市列表：[IANA 城市列表](https://data.iana.org/time-zones/tzdb-2026c/zone.tab)
 
 ### 設定我的城市
 

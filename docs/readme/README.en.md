@@ -20,9 +20,9 @@ A Wallpaper Engine world clock that displays local city times, day-night states,
 
 ## Usage
 
-The IANA city list is used for manually entered time zones. The city you display does not have to appear in that list; if it has no separate IANA entry, choose an IANA city in the same time zone. This project uses IANA version 2026b.
+The IANA city list is used for manually entered time zones. The city you display does not have to appear in that list; if it has no separate IANA entry, choose an IANA city in the same time zone. This project uses IANA version 2026c.
 
-IANA city list: [IANA city list](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)
+IANA city list: [IANA city list](https://data.iana.org/time-zones/tzdb-2026c/zone.tab)
 
 ### Set Your City
 

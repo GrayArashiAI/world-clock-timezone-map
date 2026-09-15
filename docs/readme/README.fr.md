@@ -20,9 +20,9 @@ Une horloge mondiale pour Wallpaper Engine qui affiche les heures locales des vi
 
 ## Utilisation
 
-La liste des villes IANA sert à choisir les fuseaux horaires saisis manuellement. La ville affichée n'a pas besoin de figurer dans cette liste ; si elle n'a pas d'entrée IANA dédiée, choisissez une ville IANA du même fuseau horaire. Ce projet utilise la version IANA 2026b.
+La liste des villes IANA sert à choisir les fuseaux horaires saisis manuellement. La ville affichée n'a pas besoin de figurer dans cette liste ; si elle n'a pas d'entrée IANA dédiée, choisissez une ville IANA du même fuseau horaire. Ce projet utilise la version IANA 2026c.
 
-Liste des villes IANA : [liste des villes IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)
+Liste des villes IANA : [liste des villes IANA](https://data.iana.org/time-zones/tzdb-2026c/zone.tab)
 
 ### Définir ma ville
 

@@ -20,9 +20,9 @@ Eine Weltzeituhr für Wallpaper Engine, die Ortszeiten, Tag und Nacht sowie den 
 
 ## Verwendung
 
-Die IANA-Städteliste dient zur Auswahl manuell eingetragener Zeitzonen. Die angezeigte Stadt muss nicht in dieser Liste stehen; wenn es keinen eigenen IANA-Eintrag gibt, wählen Sie eine IANA-Stadt in derselben Zeitzone. Dieses Projekt verwendet die IANA-Version 2026b.
+Die IANA-Städteliste dient zur Auswahl manuell eingetragener Zeitzonen. Die angezeigte Stadt muss nicht in dieser Liste stehen; wenn es keinen eigenen IANA-Eintrag gibt, wählen Sie eine IANA-Stadt in derselben Zeitzone. Dieses Projekt verwendet die IANA-Version 2026c.
 
-IANA-Städteliste: [IANA-Städteliste](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)
+IANA-Städteliste: [IANA-Städteliste](https://data.iana.org/time-zones/tzdb-2026c/zone.tab)
 
 ### Eigene Stadt einstellen
 

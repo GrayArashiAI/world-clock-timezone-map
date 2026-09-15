@@ -20,9 +20,9 @@ Un reloj mundial para Wallpaper Engine que muestra la hora local, el estado de d
 
 ## Uso
 
-La lista de ciudades de IANA se usa para elegir las zonas horarias introducidas manualmente. La ciudad que se muestra no tiene que aparecer en esa lista; si no tiene una entrada IANA propia, elige una ciudad IANA de la misma zona horaria. Este proyecto utiliza la versión 2026b de IANA.
+La lista de ciudades de IANA se usa para elegir las zonas horarias introducidas manualmente. La ciudad que se muestra no tiene que aparecer en esa lista; si no tiene una entrada IANA propia, elige una ciudad IANA de la misma zona horaria. Este proyecto utiliza la versión 2026c de IANA.
 
-Lista de ciudades de IANA: [lista de ciudades de IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)
+Lista de ciudades de IANA: [lista de ciudades de IANA](https://data.iana.org/time-zones/tzdb-2026c/zone.tab)
 
 ### Configurar mi ciudad
 

@@ -93,6 +93,18 @@ export function formatOffsetMinutes(minutes) {
   return `${sign}${hours}${remainder ? `:${String(remainder).padStart(2, "0")}` : ""}`;
 }
 
+// オフセットは実行時ICUのtzdbで決まるため、生成前にIANAデータと版が揃っていることを確かめます。
+export function assertRuntimeTzdb(expected) {
+  const actual = process.versions.tz;
+  if (actual === expected) {
+    return;
+  }
+  throw new Error(
+    `Runtime tzdb is ${actual}, expected ${expected}. ` +
+    "Run via scripts/with-tzdata.mjs so that ICU loads data/icu-tz."
+  );
+}
+
 function offsetMinutesAt(timeZone, date) {
   let formatter = offsetFormatterCache.get(timeZone);
   if (!formatter) {

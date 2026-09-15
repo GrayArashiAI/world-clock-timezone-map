@@ -20,9 +20,9 @@ The wallpaper source code is open source on GitHub: [url=https://github.com/Gray
 
 [h2]Usage[/h2]
 
-The IANA city list is used for manually entered time zones. The city you display does not have to appear in that list; if it has no separate IANA entry, choose an IANA city in the same time zone. This project uses IANA version 2026b.
+The IANA city list is used for manually entered time zones. The city you display does not have to appear in that list; if it has no separate IANA entry, choose an IANA city in the same time zone. This project uses IANA version 2026c.
 
-IANA city list: [url=https://data.iana.org/time-zones/tzdb-2026b/zone.tab]IANA city list[/url]
+IANA city list: [url=https://data.iana.org/time-zones/tzdb-2026c/zone.tab]IANA city list[/url]
 
 [h3]Set Your City[/h3]
 

@@ -12,10 +12,11 @@ export default [
   "new_york",
 
   // カナダ
+  // 2026年11月1日以降、ブリティッシュコロンビア州は恒久-07、アルバータ州は恒久-06になります。
+  // ホワイトホースはバンクーバーと、リジャイナはエドモントンと規則が完全に一致するため、
+  // 各オフセットの代表都市を1つに絞っています。
   "vancouver",
-  "whitehorse",
   "edmonton",
-  "regina",
   "winnipeg",
   "toronto",
   "halifax",

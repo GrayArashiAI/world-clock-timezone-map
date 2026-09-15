@@ -43,15 +43,13 @@
 				"ui_city_honolulu": "Honolulu(-10)",
 				"ui_city_adak": "Adak(-10/-9)",
 				"ui_city_anchorage": "Anchorage(-9/-8)",
-				"ui_city_vancouver": "Vancouver(-8/-7)",
 				"ui_city_los_angeles": "Los Angeles(-8/-7)",
 				"ui_city_tijuana": "Tijuana(-8/-7)",
-				"ui_city_whitehorse": "Whitehorse(-7)",
+				"ui_city_vancouver": "Vancouver(-7)",
 				"ui_city_phoenix": "Phoenix(-7)",
 				"ui_city_hermosillo": "Hermosillo(-7)",
-				"ui_city_edmonton": "Edmonton(-7/-6)",
 				"ui_city_denver": "Denver(-7/-6)",
-				"ui_city_regina": "Regina(-6)",
+				"ui_city_edmonton": "Edmonton(-6)",
 				"ui_city_mexico_city": "Mexico City(-6)",
 				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
@@ -77,9 +75,9 @@
 				"ui_city_noronha": "Fernando de Noronha(-2)",
 				"ui_city_azores": "Azores(-1/+0)",
 				"ui_city_reykjavik": "Reykjavik(+0)",
+				"ui_city_casablanca": "Casablanca(+0)",
 				"ui_city_london": "London(+0/+1)",
 				"ui_city_lisbon": "Lisbon(+0/+1)",
-				"ui_city_casablanca": "Casablanca(+0/+1)",
 				"ui_city_canary": "Canaries(+0/+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlin(+1/+2)",
@@ -178,15 +176,13 @@
 				"ui_city_honolulu": "檀香山(-10)",
 				"ui_city_adak": "埃达克(-10/-9)",
 				"ui_city_anchorage": "安克雷奇(-9/-8)",
-				"ui_city_vancouver": "温哥华(-8/-7)",
 				"ui_city_los_angeles": "洛杉矶(-8/-7)",
 				"ui_city_tijuana": "蒂华纳(-8/-7)",
-				"ui_city_whitehorse": "怀特霍斯(-7)",
+				"ui_city_vancouver": "温哥华(-7)",
 				"ui_city_phoenix": "凤凰城(-7)",
 				"ui_city_hermosillo": "埃莫西约(-7)",
-				"ui_city_edmonton": "埃德蒙顿(-7/-6)",
 				"ui_city_denver": "丹佛(-7/-6)",
-				"ui_city_regina": "里贾纳(-6)",
+				"ui_city_edmonton": "埃德蒙顿(-6)",
 				"ui_city_mexico_city": "墨西哥城(-6)",
 				"ui_city_winnipeg": "温尼伯(-6/-5)",
 				"ui_city_chicago": "芝加哥(-6/-5)",
@@ -212,9 +208,9 @@
 				"ui_city_noronha": "洛罗尼亚(-2)",
 				"ui_city_azores": "亚速尔群岛(-1/+0)",
 				"ui_city_reykjavik": "雷克雅未克(+0)",
+				"ui_city_casablanca": "卡萨布兰卡(+0)",
 				"ui_city_london": "伦敦(+0/+1)",
 				"ui_city_lisbon": "里斯本(+0/+1)",
-				"ui_city_casablanca": "卡萨布兰卡(+0/+1)",
 				"ui_city_canary": "加那利(+0/+1)",
 				"ui_city_lagos": "拉各斯(+1)",
 				"ui_city_berlin": "柏林(+1/+2)",
@@ -313,15 +309,13 @@
 				"ui_city_honolulu": "檀香山(-10)",
 				"ui_city_adak": "艾達克(-10/-9)",
 				"ui_city_anchorage": "安克拉治(-9/-8)",
-				"ui_city_vancouver": "溫哥華(-8/-7)",
 				"ui_city_los_angeles": "洛杉磯(-8/-7)",
 				"ui_city_tijuana": "提華納(-8/-7)",
-				"ui_city_whitehorse": "懷特霍斯(-7)",
+				"ui_city_vancouver": "溫哥華(-7)",
 				"ui_city_phoenix": "鳳凰城(-7)",
 				"ui_city_hermosillo": "埃莫西約(-7)",
-				"ui_city_edmonton": "艾德蒙吞(-7/-6)",
 				"ui_city_denver": "丹佛(-7/-6)",
-				"ui_city_regina": "里賈納(-6)",
+				"ui_city_edmonton": "艾德蒙吞(-6)",
 				"ui_city_mexico_city": "墨西哥市(-6)",
 				"ui_city_winnipeg": "溫尼伯(-6/-5)",
 				"ui_city_chicago": "芝加哥(-6/-5)",
@@ -347,9 +341,9 @@
 				"ui_city_noronha": "諾倫哈(-2)",
 				"ui_city_azores": "亞速爾群島(-1/+0)",
 				"ui_city_reykjavik": "雷克雅維克(+0)",
+				"ui_city_casablanca": "卡薩布蘭卡(+0)",
 				"ui_city_london": "倫敦(+0/+1)",
 				"ui_city_lisbon": "里斯本(+0/+1)",
-				"ui_city_casablanca": "卡薩布蘭卡(+0/+1)",
 				"ui_city_canary": "加納利(+0/+1)",
 				"ui_city_lagos": "拉哥斯(+1)",
 				"ui_city_berlin": "柏林(+1/+2)",
@@ -448,15 +442,13 @@
 				"ui_city_honolulu": "ホノルル(-10)",
 				"ui_city_adak": "アダック(-10/-9)",
 				"ui_city_anchorage": "アンカレッジ(-9/-8)",
-				"ui_city_vancouver": "バンクーバー(-8/-7)",
 				"ui_city_los_angeles": "ロサンゼルス(-8/-7)",
 				"ui_city_tijuana": "ティフアナ(-8/-7)",
-				"ui_city_whitehorse": "ホワイトホース(-7)",
+				"ui_city_vancouver": "バンクーバー(-7)",
 				"ui_city_phoenix": "フェニックス(-7)",
 				"ui_city_hermosillo": "エルモシヨ(-7)",
-				"ui_city_edmonton": "エドモントン(-7/-6)",
 				"ui_city_denver": "デンバー(-7/-6)",
-				"ui_city_regina": "レジャイナ(-6)",
+				"ui_city_edmonton": "エドモントン(-6)",
 				"ui_city_mexico_city": "メキシコシティー(-6)",
 				"ui_city_winnipeg": "ウィニペグ(-6/-5)",
 				"ui_city_chicago": "シカゴ(-6/-5)",
@@ -482,9 +474,9 @@
 				"ui_city_noronha": "ノローニャ(-2)",
 				"ui_city_azores": "アゾレス(-1/+0)",
 				"ui_city_reykjavik": "レイキャビク(+0)",
+				"ui_city_casablanca": "カサブランカ(+0)",
 				"ui_city_london": "ロンドン(+0/+1)",
 				"ui_city_lisbon": "リスボン(+0/+1)",
-				"ui_city_casablanca": "カサブランカ(+0/+1)",
 				"ui_city_canary": "カナリア(+0/+1)",
 				"ui_city_lagos": "ラゴス(+1)",
 				"ui_city_berlin": "ベルリン(+1/+2)",
@@ -583,15 +575,13 @@
 				"ui_city_honolulu": "호놀룰루(-10)",
 				"ui_city_adak": "에이닥(-10/-9)",
 				"ui_city_anchorage": "앵커리지(-9/-8)",
-				"ui_city_vancouver": "벤쿠버(-8/-7)",
 				"ui_city_los_angeles": "로스앤젤레스(-8/-7)",
 				"ui_city_tijuana": "티후아나(-8/-7)",
-				"ui_city_whitehorse": "화이트호스(-7)",
+				"ui_city_vancouver": "벤쿠버(-7)",
 				"ui_city_phoenix": "피닉스(-7)",
 				"ui_city_hermosillo": "에르모시요(-7)",
-				"ui_city_edmonton": "에드먼턴(-7/-6)",
 				"ui_city_denver": "덴버(-7/-6)",
-				"ui_city_regina": "리자이나(-6)",
+				"ui_city_edmonton": "에드먼턴(-6)",
 				"ui_city_mexico_city": "멕시코 시티(-6)",
 				"ui_city_winnipeg": "위니펙(-6/-5)",
 				"ui_city_chicago": "시카고(-6/-5)",
@@ -617,9 +607,9 @@
 				"ui_city_noronha": "노롱야(-2)",
 				"ui_city_azores": "아조레스(-1/+0)",
 				"ui_city_reykjavik": "레이캬비크(+0)",
+				"ui_city_casablanca": "카사블랑카(+0)",
 				"ui_city_london": "런던(+0/+1)",
 				"ui_city_lisbon": "리스본(+0/+1)",
-				"ui_city_casablanca": "카사블랑카(+0/+1)",
 				"ui_city_canary": "카나리아 제도(+0/+1)",
 				"ui_city_lagos": "라고스(+1)",
 				"ui_city_berlin": "베를린(+1/+2)",
@@ -718,15 +708,13 @@
 				"ui_city_honolulu": "Honolulú(-10)",
 				"ui_city_adak": "Adak(-10/-9)",
 				"ui_city_anchorage": "Anchorage(-9/-8)",
-				"ui_city_vancouver": "Vancouver(-8/-7)",
 				"ui_city_los_angeles": "Los Ángeles(-8/-7)",
 				"ui_city_tijuana": "Tijuana(-8/-7)",
-				"ui_city_whitehorse": "Whitehorse(-7)",
+				"ui_city_vancouver": "Vancouver(-7)",
 				"ui_city_phoenix": "Phoenix(-7)",
 				"ui_city_hermosillo": "Hermosillo(-7)",
-				"ui_city_edmonton": "Edmonton(-7/-6)",
 				"ui_city_denver": "Denver(-7/-6)",
-				"ui_city_regina": "Regina(-6)",
+				"ui_city_edmonton": "Edmonton(-6)",
 				"ui_city_mexico_city": "Ciudad de México(-6)",
 				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
@@ -752,9 +740,9 @@
 				"ui_city_noronha": "Fernando de Noronha(-2)",
 				"ui_city_azores": "Azores(-1/+0)",
 				"ui_city_reykjavik": "Reikiavik(+0)",
+				"ui_city_casablanca": "Casablanca(+0)",
 				"ui_city_london": "Londres(+0/+1)",
 				"ui_city_lisbon": "Lisboa(+0/+1)",
-				"ui_city_casablanca": "Casablanca(+0/+1)",
 				"ui_city_canary": "Canarias(+0/+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlín(+1/+2)",
@@ -853,15 +841,13 @@
 				"ui_city_honolulu": "Гонолулу(-10)",
 				"ui_city_adak": "Адак(-10/-9)",
 				"ui_city_anchorage": "Анкоридж(-9/-8)",
-				"ui_city_vancouver": "Ванкувер(-8/-7)",
 				"ui_city_los_angeles": "Лос-Анджелес(-8/-7)",
 				"ui_city_tijuana": "Тихуана(-8/-7)",
-				"ui_city_whitehorse": "Уайтхорс(-7)",
+				"ui_city_vancouver": "Ванкувер(-7)",
 				"ui_city_phoenix": "Финикс(-7)",
 				"ui_city_hermosillo": "Эрмосильо(-7)",
-				"ui_city_edmonton": "Эдмонтон(-7/-6)",
 				"ui_city_denver": "Денвер(-7/-6)",
-				"ui_city_regina": "Реджайна(-6)",
+				"ui_city_edmonton": "Эдмонтон(-6)",
 				"ui_city_mexico_city": "Мехико(-6)",
 				"ui_city_winnipeg": "Виннипег(-6/-5)",
 				"ui_city_chicago": "Чикаго(-6/-5)",
@@ -887,9 +873,9 @@
 				"ui_city_noronha": "Норонья(-2)",
 				"ui_city_azores": "Азорские о-ва(-1/+0)",
 				"ui_city_reykjavik": "Рейкьявик(+0)",
+				"ui_city_casablanca": "Касабланка(+0)",
 				"ui_city_london": "Лондон(+0/+1)",
 				"ui_city_lisbon": "Лиссабон(+0/+1)",
-				"ui_city_casablanca": "Касабланка(+0/+1)",
 				"ui_city_canary": "Канарские о-ва(+0/+1)",
 				"ui_city_lagos": "Лагос(+1)",
 				"ui_city_berlin": "Берлин(+1/+2)",
@@ -988,15 +974,13 @@
 				"ui_city_honolulu": "Honolulu(-10)",
 				"ui_city_adak": "Adak(-10/-9)",
 				"ui_city_anchorage": "Anchorage(-9/-8)",
-				"ui_city_vancouver": "Vancouver(-8/-7)",
 				"ui_city_los_angeles": "Los Angeles(-8/-7)",
 				"ui_city_tijuana": "Tijuana(-8/-7)",
-				"ui_city_whitehorse": "Whitehorse(-7)",
+				"ui_city_vancouver": "Vancouver(-7)",
 				"ui_city_phoenix": "Phoenix(-7)",
 				"ui_city_hermosillo": "Hermosillo(-7)",
-				"ui_city_edmonton": "Edmonton(-7/-6)",
 				"ui_city_denver": "Denver(-7/-6)",
-				"ui_city_regina": "Regina(-6)",
+				"ui_city_edmonton": "Edmonton(-6)",
 				"ui_city_mexico_city": "Cidade do México(-6)",
 				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
@@ -1022,9 +1006,9 @@
 				"ui_city_noronha": "Fernando de Noronha(-2)",
 				"ui_city_azores": "Açores(-1/+0)",
 				"ui_city_reykjavik": "Reykjavík(+0)",
+				"ui_city_casablanca": "Casablanca(+0)",
 				"ui_city_london": "Londres(+0/+1)",
 				"ui_city_lisbon": "Lisboa(+0/+1)",
-				"ui_city_casablanca": "Casablanca(+0/+1)",
 				"ui_city_canary": "Canárias(+0/+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlim(+1/+2)",
@@ -1123,15 +1107,13 @@
 				"ui_city_honolulu": "Honolulu(-10)",
 				"ui_city_adak": "Adak(-10/-9)",
 				"ui_city_anchorage": "Anchorage(-9/-8)",
-				"ui_city_vancouver": "Vancouver(-8/-7)",
 				"ui_city_los_angeles": "Los Angeles(-8/-7)",
 				"ui_city_tijuana": "Tijuana(-8/-7)",
-				"ui_city_whitehorse": "Whitehorse(-7)",
+				"ui_city_vancouver": "Vancouver(-7)",
 				"ui_city_phoenix": "Phoenix(-7)",
 				"ui_city_hermosillo": "Hermosillo(-7)",
-				"ui_city_edmonton": "Edmonton(-7/-6)",
 				"ui_city_denver": "Denver(-7/-6)",
-				"ui_city_regina": "Regina(-6)",
+				"ui_city_edmonton": "Edmonton(-6)",
 				"ui_city_mexico_city": "Cidade do México(-6)",
 				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
@@ -1157,9 +1139,9 @@
 				"ui_city_noronha": "Fernando de Noronha(-2)",
 				"ui_city_azores": "Açores(-1/+0)",
 				"ui_city_reykjavik": "Reykjavík(+0)",
+				"ui_city_casablanca": "Casablanca(+0)",
 				"ui_city_london": "Londres(+0/+1)",
 				"ui_city_lisbon": "Lisboa(+0/+1)",
-				"ui_city_casablanca": "Casablanca(+0/+1)",
 				"ui_city_canary": "Canárias(+0/+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlim(+1/+2)",
@@ -1258,15 +1240,13 @@
 				"ui_city_honolulu": "Honolulu(-10)",
 				"ui_city_adak": "Adak(-10/-9)",
 				"ui_city_anchorage": "Anchorage(-9/-8)",
-				"ui_city_vancouver": "Vancouver(-8/-7)",
 				"ui_city_los_angeles": "Los Angeles(-8/-7)",
 				"ui_city_tijuana": "Tijuana(-8/-7)",
-				"ui_city_whitehorse": "Whitehorse(-7)",
+				"ui_city_vancouver": "Vancouver(-7)",
 				"ui_city_phoenix": "Phoenix(-7)",
 				"ui_city_hermosillo": "Hermosillo(-7)",
-				"ui_city_edmonton": "Edmonton(-7/-6)",
 				"ui_city_denver": "Denver(-7/-6)",
-				"ui_city_regina": "Regina(-6)",
+				"ui_city_edmonton": "Edmonton(-6)",
 				"ui_city_mexico_city": "Mexiko-Stadt(-6)",
 				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
@@ -1292,9 +1272,9 @@
 				"ui_city_noronha": "Fernando de Noronha(-2)",
 				"ui_city_azores": "Azoren(-1/+0)",
 				"ui_city_reykjavik": "Reykjavík(+0)",
+				"ui_city_casablanca": "Casablanca(+0)",
 				"ui_city_london": "London(+0/+1)",
 				"ui_city_lisbon": "Lissabon(+0/+1)",
-				"ui_city_casablanca": "Casablanca(+0/+1)",
 				"ui_city_canary": "Kanaren(+0/+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlin(+1/+2)",
@@ -1393,15 +1373,13 @@
 				"ui_city_honolulu": "Honolulu(-10)",
 				"ui_city_adak": "Adak(-10/-9)",
 				"ui_city_anchorage": "Anchorage(-9/-8)",
-				"ui_city_vancouver": "Vancouver(-8/-7)",
 				"ui_city_los_angeles": "Los Angeles(-8/-7)",
 				"ui_city_tijuana": "Tijuana(-8/-7)",
-				"ui_city_whitehorse": "Whitehorse(-7)",
+				"ui_city_vancouver": "Vancouver(-7)",
 				"ui_city_phoenix": "Phoenix(-7)",
 				"ui_city_hermosillo": "Hermosillo(-7)",
-				"ui_city_edmonton": "Edmonton(-7/-6)",
 				"ui_city_denver": "Denver(-7/-6)",
-				"ui_city_regina": "Regina(-6)",
+				"ui_city_edmonton": "Edmonton(-6)",
 				"ui_city_mexico_city": "Mexico(-6)",
 				"ui_city_winnipeg": "Winnipeg(-6/-5)",
 				"ui_city_chicago": "Chicago(-6/-5)",
@@ -1427,9 +1405,9 @@
 				"ui_city_noronha": "Fernando de Noronha(-2)",
 				"ui_city_azores": "Açores(-1/+0)",
 				"ui_city_reykjavik": "Reykjavik(+0)",
+				"ui_city_casablanca": "Casablanca(+0)",
 				"ui_city_london": "Londres(+0/+1)",
 				"ui_city_lisbon": "Lisbonne(+0/+1)",
-				"ui_city_casablanca": "Casablanca(+0/+1)",
 				"ui_city_canary": "Îles Canaries(+0/+1)",
 				"ui_city_lagos": "Lagos(+1)",
 				"ui_city_berlin": "Berlin(+1/+2)",
@@ -1511,10 +1489,6 @@
 						"value": "anchorage"
 					},
 					{
-						"label": "ui_city_vancouver",
-						"value": "vancouver"
-					},
-					{
 						"label": "ui_city_los_angeles",
 						"value": "los_angeles"
 					},
@@ -1523,8 +1497,8 @@
 						"value": "tijuana"
 					},
 					{
-						"label": "ui_city_whitehorse",
-						"value": "whitehorse"
+						"label": "ui_city_vancouver",
+						"value": "vancouver"
 					},
 					{
 						"label": "ui_city_phoenix",
@@ -1535,16 +1509,12 @@
 						"value": "hermosillo"
 					},
 					{
-						"label": "ui_city_edmonton",
-						"value": "edmonton"
-					},
-					{
 						"label": "ui_city_denver",
 						"value": "denver"
 					},
 					{
-						"label": "ui_city_regina",
-						"value": "regina"
+						"label": "ui_city_edmonton",
+						"value": "edmonton"
 					},
 					{
 						"label": "ui_city_mexico_city",
@@ -1647,16 +1617,16 @@
 						"value": "reykjavik"
 					},
 					{
+						"label": "ui_city_casablanca",
+						"value": "casablanca"
+					},
+					{
 						"label": "ui_city_london",
 						"value": "london"
 					},
 					{
 						"label": "ui_city_lisbon",
 						"value": "lisbon"
-					},
-					{
-						"label": "ui_city_casablanca",
-						"value": "casablanca"
 					},
 					{
 						"label": "ui_city_canary",
@@ -1916,10 +1886,6 @@
 						"value": "anchorage"
 					},
 					{
-						"label": "ui_city_vancouver",
-						"value": "vancouver"
-					},
-					{
 						"label": "ui_city_los_angeles",
 						"value": "los_angeles"
 					},
@@ -1928,8 +1894,8 @@
 						"value": "tijuana"
 					},
 					{
-						"label": "ui_city_whitehorse",
-						"value": "whitehorse"
+						"label": "ui_city_vancouver",
+						"value": "vancouver"
 					},
 					{
 						"label": "ui_city_phoenix",
@@ -1940,16 +1906,12 @@
 						"value": "hermosillo"
 					},
 					{
-						"label": "ui_city_edmonton",
-						"value": "edmonton"
-					},
-					{
 						"label": "ui_city_denver",
 						"value": "denver"
 					},
 					{
-						"label": "ui_city_regina",
-						"value": "regina"
+						"label": "ui_city_edmonton",
+						"value": "edmonton"
 					},
 					{
 						"label": "ui_city_mexico_city",
@@ -2052,16 +2014,16 @@
 						"value": "reykjavik"
 					},
 					{
+						"label": "ui_city_casablanca",
+						"value": "casablanca"
+					},
+					{
 						"label": "ui_city_london",
 						"value": "london"
 					},
 					{
 						"label": "ui_city_lisbon",
 						"value": "lisbon"
-					},
-					{
-						"label": "ui_city_casablanca",
-						"value": "casablanca"
 					},
 					{
 						"label": "ui_city_canary",
@@ -2321,10 +2283,6 @@
 						"value": "anchorage"
 					},
 					{
-						"label": "ui_city_vancouver",
-						"value": "vancouver"
-					},
-					{
 						"label": "ui_city_los_angeles",
 						"value": "los_angeles"
 					},
@@ -2333,8 +2291,8 @@
 						"value": "tijuana"
 					},
 					{
-						"label": "ui_city_whitehorse",
-						"value": "whitehorse"
+						"label": "ui_city_vancouver",
+						"value": "vancouver"
 					},
 					{
 						"label": "ui_city_phoenix",
@@ -2345,16 +2303,12 @@
 						"value": "hermosillo"
 					},
 					{
-						"label": "ui_city_edmonton",
-						"value": "edmonton"
-					},
-					{
 						"label": "ui_city_denver",
 						"value": "denver"
 					},
 					{
-						"label": "ui_city_regina",
-						"value": "regina"
+						"label": "ui_city_edmonton",
+						"value": "edmonton"
 					},
 					{
 						"label": "ui_city_mexico_city",
@@ -2457,16 +2411,16 @@
 						"value": "reykjavik"
 					},
 					{
+						"label": "ui_city_casablanca",
+						"value": "casablanca"
+					},
+					{
 						"label": "ui_city_london",
 						"value": "london"
 					},
 					{
 						"label": "ui_city_lisbon",
 						"value": "lisbon"
-					},
-					{
-						"label": "ui_city_casablanca",
-						"value": "casablanca"
 					},
 					{
 						"label": "ui_city_canary",
@@ -2726,10 +2680,6 @@
 						"value": "anchorage"
 					},
 					{
-						"label": "ui_city_vancouver",
-						"value": "vancouver"
-					},
-					{
 						"label": "ui_city_los_angeles",
 						"value": "los_angeles"
 					},
@@ -2738,8 +2688,8 @@
 						"value": "tijuana"
 					},
 					{
-						"label": "ui_city_whitehorse",
-						"value": "whitehorse"
+						"label": "ui_city_vancouver",
+						"value": "vancouver"
 					},
 					{
 						"label": "ui_city_phoenix",
@@ -2750,16 +2700,12 @@
 						"value": "hermosillo"
 					},
 					{
-						"label": "ui_city_edmonton",
-						"value": "edmonton"
-					},
-					{
 						"label": "ui_city_denver",
 						"value": "denver"
 					},
 					{
-						"label": "ui_city_regina",
-						"value": "regina"
+						"label": "ui_city_edmonton",
+						"value": "edmonton"
 					},
 					{
 						"label": "ui_city_mexico_city",
@@ -2862,16 +2808,16 @@
 						"value": "reykjavik"
 					},
 					{
+						"label": "ui_city_casablanca",
+						"value": "casablanca"
+					},
+					{
 						"label": "ui_city_london",
 						"value": "london"
 					},
 					{
 						"label": "ui_city_lisbon",
 						"value": "lisbon"
-					},
-					{
-						"label": "ui_city_casablanca",
-						"value": "casablanca"
 					},
 					{
 						"label": "ui_city_canary",
@@ -3131,10 +3077,6 @@
 						"value": "anchorage"
 					},
 					{
-						"label": "ui_city_vancouver",
-						"value": "vancouver"
-					},
-					{
 						"label": "ui_city_los_angeles",
 						"value": "los_angeles"
 					},
@@ -3143,8 +3085,8 @@
 						"value": "tijuana"
 					},
 					{
-						"label": "ui_city_whitehorse",
-						"value": "whitehorse"
+						"label": "ui_city_vancouver",
+						"value": "vancouver"
 					},
 					{
 						"label": "ui_city_phoenix",
@@ -3155,16 +3097,12 @@
 						"value": "hermosillo"
 					},
 					{
-						"label": "ui_city_edmonton",
-						"value": "edmonton"
-					},
-					{
 						"label": "ui_city_denver",
 						"value": "denver"
 					},
 					{
-						"label": "ui_city_regina",
-						"value": "regina"
+						"label": "ui_city_edmonton",
+						"value": "edmonton"
 					},
 					{
 						"label": "ui_city_mexico_city",
@@ -3267,16 +3205,16 @@
 						"value": "reykjavik"
 					},
 					{
+						"label": "ui_city_casablanca",
+						"value": "casablanca"
+					},
+					{
 						"label": "ui_city_london",
 						"value": "london"
 					},
 					{
 						"label": "ui_city_lisbon",
 						"value": "lisbon"
-					},
-					{
-						"label": "ui_city_casablanca",
-						"value": "casablanca"
 					},
 					{
 						"label": "ui_city_canary",
@@ -3536,10 +3474,6 @@
 						"value": "anchorage"
 					},
 					{
-						"label": "ui_city_vancouver",
-						"value": "vancouver"
-					},
-					{
 						"label": "ui_city_los_angeles",
 						"value": "los_angeles"
 					},
@@ -3548,8 +3482,8 @@
 						"value": "tijuana"
 					},
 					{
-						"label": "ui_city_whitehorse",
-						"value": "whitehorse"
+						"label": "ui_city_vancouver",
+						"value": "vancouver"
 					},
 					{
 						"label": "ui_city_phoenix",
@@ -3560,16 +3494,12 @@
 						"value": "hermosillo"
 					},
 					{
-						"label": "ui_city_edmonton",
-						"value": "edmonton"
-					},
-					{
 						"label": "ui_city_denver",
 						"value": "denver"
 					},
 					{
-						"label": "ui_city_regina",
-						"value": "regina"
+						"label": "ui_city_edmonton",
+						"value": "edmonton"
 					},
 					{
 						"label": "ui_city_mexico_city",
@@ -3672,16 +3602,16 @@
 						"value": "reykjavik"
 					},
 					{
+						"label": "ui_city_casablanca",
+						"value": "casablanca"
+					},
+					{
 						"label": "ui_city_london",
 						"value": "london"
 					},
 					{
 						"label": "ui_city_lisbon",
 						"value": "lisbon"
-					},
-					{
-						"label": "ui_city_casablanca",
-						"value": "casablanca"
 					},
 					{
 						"label": "ui_city_canary",

@@ -16,7 +16,7 @@ const cityPresetSource = readFileSync(new URL("../src/city-presets.js", import.m
 const mainSource = readFileSync(new URL("../src/main.js", import.meta.url), "utf8");
 const properties = project.general.properties;
 const workshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=3747734053";
-const ianaUrl = "https://data.iana.org/time-zones/tzdb-2026b/zone.tab";
+const ianaUrl = "https://data.iana.org/time-zones/tzdb-2026c/zone.tab";
 const readmeUrls = [
   new URL("../README.md", import.meta.url),
   ...["zh-Hant", "en", "ja", "ko", "es", "ru", "pt", "de", "fr"].map(

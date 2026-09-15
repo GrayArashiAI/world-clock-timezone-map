@@ -20,9 +20,9 @@ Um relógio mundial para o Wallpaper Engine que mostra horários locais, estados
 
 ## Como usar
 
-Use a lista de cidades do IANA para escolher fusos horários inseridos manualmente. A cidade exibida não precisa estar nessa lista; se ela não tiver uma entrada IANA própria, escolha uma cidade IANA no mesmo fuso horário. Este projeto usa a versão 2026b do IANA.
+Use a lista de cidades do IANA para escolher fusos horários inseridos manualmente. A cidade exibida não precisa estar nessa lista; se ela não tiver uma entrada IANA própria, escolha uma cidade IANA no mesmo fuso horário. Este projeto usa a versão 2026c do IANA.
 
-Lista de cidades do IANA: [lista de cidades do IANA](https://data.iana.org/time-zones/tzdb-2026b/zone.tab)
+Lista de cidades do IANA: [lista de cidades do IANA](https://data.iana.org/time-zones/tzdb-2026c/zone.tab)
 
 ### Configurar minha cidade
 
