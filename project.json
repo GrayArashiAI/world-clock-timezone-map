@@ -129,6 +129,7 @@
 				"ui_city_darwin": "Darwin(+9:30)",
 				"ui_city_adelaide": "Adelaide(+9:30/+10:30)",
 				"ui_city_vladivostok": "Vladivostok(+10)",
+				"ui_city_guam": "Guam(+10)",
 				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_sydney": "Sydney(+10/+11)",
 				"ui_city_lord_howe": "Lord Howe Island(+10:30/+11)",
@@ -262,6 +263,7 @@
 				"ui_city_darwin": "达尔文(+9:30)",
 				"ui_city_adelaide": "阿德莱德(+9:30/+10:30)",
 				"ui_city_vladivostok": "海参崴(+10)",
+				"ui_city_guam": "关岛(+10)",
 				"ui_city_brisbane": "布里斯班(+10)",
 				"ui_city_sydney": "悉尼(+10/+11)",
 				"ui_city_lord_howe": "豪勋爵岛(+10:30/+11)",
@@ -395,6 +397,7 @@
 				"ui_city_darwin": "達爾文(+9:30)",
 				"ui_city_adelaide": "阿得雷德(+9:30/+10:30)",
 				"ui_city_vladivostok": "海參崴(+10)",
+				"ui_city_guam": "關島(+10)",
 				"ui_city_brisbane": "布利斯班(+10)",
 				"ui_city_sydney": "雪梨(+10/+11)",
 				"ui_city_lord_howe": "豪勳爵島(+10:30/+11)",
@@ -528,6 +531,7 @@
 				"ui_city_darwin": "ダーウィン(+9:30)",
 				"ui_city_adelaide": "アデレード(+9:30/+10:30)",
 				"ui_city_vladivostok": "ウラジオストク(+10)",
+				"ui_city_guam": "グアム(+10)",
 				"ui_city_brisbane": "ブリスベン(+10)",
 				"ui_city_sydney": "シドニー(+10/+11)",
 				"ui_city_lord_howe": "ロードハウ(+10:30/+11)",
@@ -661,6 +665,7 @@
 				"ui_city_darwin": "다윈(+9:30)",
 				"ui_city_adelaide": "애들레이드(+9:30/+10:30)",
 				"ui_city_vladivostok": "블라디보스토크(+10)",
+				"ui_city_guam": "괌(+10)",
 				"ui_city_brisbane": "브리스베인(+10)",
 				"ui_city_sydney": "시드니(+10/+11)",
 				"ui_city_lord_howe": "로드 하우(+10:30/+11)",
@@ -794,6 +799,7 @@
 				"ui_city_darwin": "Darwin(+9:30)",
 				"ui_city_adelaide": "Adelaida(+9:30/+10:30)",
 				"ui_city_vladivostok": "Vladivostok(+10)",
+				"ui_city_guam": "Guam(+10)",
 				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_sydney": "Sídney(+10/+11)",
 				"ui_city_lord_howe": "Lord Howe Island(+10:30/+11)",
@@ -927,6 +933,7 @@
 				"ui_city_darwin": "Дарвин(+9:30)",
 				"ui_city_adelaide": "Аделаида(+9:30/+10:30)",
 				"ui_city_vladivostok": "Владивосток(+10)",
+				"ui_city_guam": "Гуам(+10)",
 				"ui_city_brisbane": "Брисбен(+10)",
 				"ui_city_sydney": "Сидней(+10/+11)",
 				"ui_city_lord_howe": "Лорд-Хау(+10:30/+11)",
@@ -1060,6 +1067,7 @@
 				"ui_city_darwin": "Darwin(+9:30)",
 				"ui_city_adelaide": "Adelaide(+9:30/+10:30)",
 				"ui_city_vladivostok": "Vladivostok(+10)",
+				"ui_city_guam": "Guam(+10)",
 				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_sydney": "Sydney(+10/+11)",
 				"ui_city_lord_howe": "Lord Howe Island(+10:30/+11)",
@@ -1193,6 +1201,7 @@
 				"ui_city_darwin": "Darwin(+9:30)",
 				"ui_city_adelaide": "Adelaide(+9:30/+10:30)",
 				"ui_city_vladivostok": "Vladivostok(+10)",
+				"ui_city_guam": "Guam(+10)",
 				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_sydney": "Sydney(+10/+11)",
 				"ui_city_lord_howe": "Lord Howe Island(+10:30/+11)",
@@ -1326,6 +1335,7 @@
 				"ui_city_darwin": "Darwin(+9:30)",
 				"ui_city_adelaide": "Adelaide(+9:30/+10:30)",
 				"ui_city_vladivostok": "Wladiwostok(+10)",
+				"ui_city_guam": "Guam(+10)",
 				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_sydney": "Sydney(+10/+11)",
 				"ui_city_lord_howe": "Lord Howe Island(+10:30/+11)",
@@ -1459,6 +1469,7 @@
 				"ui_city_darwin": "Darwin(+9:30)",
 				"ui_city_adelaide": "Adélaïde(+9:30/+10:30)",
 				"ui_city_vladivostok": "Vladivostok(+10)",
+				"ui_city_guam": "Guam(+10)",
 				"ui_city_brisbane": "Brisbane(+10)",
 				"ui_city_sydney": "Sydney(+10/+11)",
 				"ui_city_lord_howe": "Lord Howe Island(+10:30/+11)",
@@ -1831,6 +1842,10 @@
 					{
 						"label": "ui_city_vladivostok",
 						"value": "vladivostok"
+					},
+					{
+						"label": "ui_city_guam",
+						"value": "guam"
 					},
 					{
 						"label": "ui_city_brisbane",
@@ -2230,6 +2245,10 @@
 						"value": "vladivostok"
 					},
 					{
+						"label": "ui_city_guam",
+						"value": "guam"
+					},
+					{
 						"label": "ui_city_brisbane",
 						"value": "brisbane"
 					},
@@ -2625,6 +2644,10 @@
 					{
 						"label": "ui_city_vladivostok",
 						"value": "vladivostok"
+					},
+					{
+						"label": "ui_city_guam",
+						"value": "guam"
 					},
 					{
 						"label": "ui_city_brisbane",
@@ -3024,6 +3047,10 @@
 						"value": "vladivostok"
 					},
 					{
+						"label": "ui_city_guam",
+						"value": "guam"
+					},
+					{
 						"label": "ui_city_brisbane",
 						"value": "brisbane"
 					},
@@ -3421,6 +3448,10 @@
 						"value": "vladivostok"
 					},
 					{
+						"label": "ui_city_guam",
+						"value": "guam"
+					},
+					{
 						"label": "ui_city_brisbane",
 						"value": "brisbane"
 					},
@@ -3816,6 +3847,10 @@
 					{
 						"label": "ui_city_vladivostok",
 						"value": "vladivostok"
+					},
+					{
+						"label": "ui_city_guam",
+						"value": "guam"
 					},
 					{
 						"label": "ui_city_brisbane",
